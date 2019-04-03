@@ -1,14 +1,11 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text,Swiper, SwiperItem} from '@tarojs/components'
 import { observer, inject } from '@tarojs/mobx'
-import Banner from "./banner.js";
-import Logo from '../../public/images/logo@3x.png';
-import Entrance from "./entrance.js";
-import Presidium from "./presidium.js";
-import Activitys from "./activitys.js";
-import BottomBar from "../../components/bottomBar/index.js";
 
-import './index.less';
+
+import Logo from '../../public/images/logo@3x.png';
+
+import './activitys.less';
 
 
 @inject('defaultStore')
@@ -50,15 +47,17 @@ class Index extends Component {
   }
 
   render () {
-    const { defaultStore: { counter } } = this.props
+    const { defaultStore} = this.props;
+    const activitysList = defaultStore.getActivitysList();
     return (
-      <View className='homePage'>
-        <Image src={Logo} className='logo'/>
-        <Banner />
-        <Entrance />
-        <Presidium />
-        <Activitys />
-        <BottomBar />
+      <View className='activitys'>
+        <View className='title'>全部活动</View>
+        <View className="activitysList">
+          {activitysList.map((item,index)=>{
+            return <View key={index} className='activitysItem'><View className='itemLeft'><View className="name">{item.name}</View><View className="descript">{item.descript}</View><View className="status">{item.status}</View><View className="tags">{item.tags}</View></View><View className="itemRight"><Image src={item.photo} /></View></View>
+          })}
+        </View>
+
       </View>
     )
   }

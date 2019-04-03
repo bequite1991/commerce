@@ -1,24 +1,16 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text,Swiper, SwiperItem} from '@tarojs/components'
 import { observer, inject } from '@tarojs/mobx'
-import Banner from "./banner.js";
-import Logo from '../../public/images/logo@3x.png';
-import Entrance from "./entrance.js";
-import Presidium from "./presidium.js";
-import Activitys from "./activitys.js";
-import BottomBar from "../../components/bottomBar/index.js";
 
-import './index.less';
+
+import Logo from '../../public/images/logo@3x.png';
+
+import './presidium.less';
 
 
 @inject('defaultStore')
 @observer
 class Index extends Component {
-
-  config = {
-    navigationBarTitleText: '新沪商联合会',
-    navigationBarTextStyle: "black",
-  }
 
   componentWillMount () { }
 
@@ -50,15 +42,18 @@ class Index extends Component {
   }
 
   render () {
-    const { defaultStore: { counter } } = this.props
+    const { defaultStore } = this.props
+    const presidiumList = defaultStore.getPresidiumList();
+
     return (
-      <View className='homePage'>
-        <Image src={Logo} className='logo'/>
-        <Banner />
-        <Entrance />
-        <Presidium />
-        <Activitys />
-        <BottomBar />
+      <View className='presidium'>
+        <View className='title'>主席团成员</View>
+        <View className="presidiumList">
+          {presidiumList.map((item,index)=>{
+            return <View key={index} className='presidiumItem'><View className="photo"><Image src={item.photo} /></View><View className="name">{item.name}</View><View className="post">{item.post}</View><View className="company">{item.company}</View></View>
+          })}
+        </View>
+
       </View>
     )
   }

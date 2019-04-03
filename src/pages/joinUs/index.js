@@ -1,14 +1,8 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text,Swiper, SwiperItem} from '@tarojs/components'
 import { observer, inject } from '@tarojs/mobx'
-import Banner from "./banner.js";
-import Logo from '../../public/images/logo@3x.png';
-import Entrance from "./entrance.js";
-import Presidium from "./presidium.js";
-import Activitys from "./activitys.js";
-import BottomBar from "../../components/bottomBar/index.js";
 
-import './index.less';
+import './index.less'
 
 
 @inject('defaultStore')
@@ -16,8 +10,7 @@ import './index.less';
 class Index extends Component {
 
   config = {
-    navigationBarTitleText: '新沪商联合会',
-    navigationBarTextStyle: "black",
+    navigationBarTitleText: '首页'
   }
 
   componentWillMount () { }
@@ -52,13 +45,28 @@ class Index extends Component {
   render () {
     const { defaultStore: { counter } } = this.props
     return (
-      <View className='homePage'>
-        <Image src={Logo} className='logo'/>
-        <Banner />
-        <Entrance />
-        <Presidium />
-        <Activitys />
-        <BottomBar />
+      <View className='index'>
+        <Button onClick={this.increment}>+</Button>
+        <Button onClick={this.decrement}>-</Button>
+        <Button onClick={this.incrementAsync}>Add Async</Button>
+        <Text>{counter}</Text>
+        <Swiper
+          className='test-h'
+          indicatorColor='#999'
+          indicatorActiveColor='#333'
+          circular
+          indicatorDots
+          autoplay>
+          <SwiperItem>
+            <View className='demo-text-1'>1</View>
+          </SwiperItem>
+          <SwiperItem>
+            <View className='demo-text-2'>2</View>
+          </SwiperItem>
+          <SwiperItem>
+            <View className='demo-text-3'>3</View>
+          </SwiperItem>
+        </Swiper>
       </View>
     )
   }

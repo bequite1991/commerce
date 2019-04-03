@@ -2,7 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { Provider } from '@tarojs/mobx'
 import Index from './pages/index'
 
-import counterStore from './store/counter'
+import defaultStore from './store/default'
 
 import './app.less'
 
@@ -13,14 +13,15 @@ import './app.less'
 // }
 
 const store = {
-  counterStore
+  defaultStore
 }
 
 class App extends Component {
 
   config = {
     pages: [
-      'pages/index/index'
+      'pages/index/index',
+      'pages/joinUs/index'
     ],
     window: {
       backgroundTextStyle: 'light',

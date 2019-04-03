@@ -1,14 +1,12 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text,Swiper, SwiperItem} from '@tarojs/components'
 import { observer, inject } from '@tarojs/mobx'
-import Banner from "./banner.js";
-import Logo from '../../public/images/logo@3x.png';
-import Entrance from "./entrance.js";
-import Presidium from "./presidium.js";
-import Activitys from "./activitys.js";
-import BottomBar from "../../components/bottomBar/index.js";
 
-import './index.less';
+
+import Logo from '../../public/images/logo@3x.png';
+
+import './banner.less';
+
 
 
 @inject('defaultStore')
@@ -50,16 +48,20 @@ class Index extends Component {
   }
 
   render () {
-    const { defaultStore: { counter } } = this.props
+    const { defaultStore } = this.props;
+    let swiperItems = null;
+    const bannerLsit = defaultStore.getBannerList();
     return (
-      <View className='homePage'>
-        <Image src={Logo} className='logo'/>
-        <Banner />
-        <Entrance />
-        <Presidium />
-        <Activitys />
-        <BottomBar />
-      </View>
+        <Swiper
+          className='banner'
+          indicatorColor='rgba(232,232,232,1)'
+          indicatorActiveColor='rgba(72,128,255,1)'
+          indicatorDots
+          autoplay>
+          {bannerLsit.map((item,index)=>{
+            return <SwiperItem key={item.name} className='bannerItem'><View><Image src={item.url} /></View></SwiperItem>
+          })}
+        </Swiper>
     )
   }
 }
