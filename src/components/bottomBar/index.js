@@ -10,7 +10,7 @@ import Zuzhi from '../../public/images/tabsIcon/zuzhi@2x.png';
 import Peoples from '../../public/images/tabsIcon/peoples@2x.png';
 import Me from '../../public/images/tabsIcon/me@2x.png';
 
-import './index.less';
+import './index.scss';
 
 
 

@@ -1,6 +1,6 @@
 const config = {
-  projectName: 'myApp',
-  date: '2019-3-14',
+  projectName: 'commerce2',
+  date: '2019-4-4',
   designWidth: 750,
   deviceRatio: {
     '640': 2.34 / 2,

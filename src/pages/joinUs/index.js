@@ -2,7 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text,Swiper, SwiperItem} from '@tarojs/components'
 import { observer, inject } from '@tarojs/mobx'
 
-import './index.less'
+import './index.scss'
 
 
 @inject('defaultStore')

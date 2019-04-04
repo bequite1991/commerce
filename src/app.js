@@ -21,6 +21,7 @@ class App extends Component {
   config = {
     pages: [
       'pages/index/index',
+      'pages/commerceIntroduce/index',
       'pages/joinUs/index'
     ],
     window: {

@@ -1,14 +1,14 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text,Swiper, SwiperItem} from '@tarojs/components'
 import { observer, inject } from '@tarojs/mobx'
-import Banner from "./banner.js";
-import Logo from '../../public/images/logo@3x.png';
-import Entrance from "./entrance.js";
-import Presidium from "./presidium.js";
-import Activitys from "./activitys.js";
-import BottomBar from "../../components/bottomBar/index.js";
 
-import './index.scss';
+import { AtIcon } from 'taro-ui'
+
+
+import Logo from '../../public/images/logo@3x.png';
+
+import './entrance.scss';
+
 
 
 @inject('defaultStore')
@@ -50,15 +50,29 @@ class Index extends Component {
   }
 
   render () {
-    const { defaultStore: { counter } } = this.props
+    const { defaultStore } = this.props;
     return (
-      <View className='homePage'>
-        <Image src={Logo} className='logo'/>
-        <Banner />
-        <Entrance />
-        <Presidium />
-        <Activitys />
-        <BottomBar />
+      <View>
+        <View className='entrance'>
+          <View className='tips'></View>
+          <View><icon type="success" size="50" /></View>
+          <text>商道智慧</text>
+        </View>
+        <View className='entrance'>
+          <View className='tips'></View>
+          <View><icon type="success" size="50" /></View>
+          <text>活动资讯</text>
+        </View>
+        <View className='entrance'>
+          <View className='tips'></View>
+          <View><icon type="success" size="50" /></View>
+          <text>政企直通</text>
+        </View>
+        <View className='entrance'>
+          <View className='tips'></View>
+          <View><icon type="success" size="50" /></View>
+          <text>国际关系</text>
+        </View>
       </View>
     )
   }

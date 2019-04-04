@@ -7,7 +7,7 @@ import { AtIcon } from 'taro-ui'
 
 import Logo from '../../public/images/logo@3x.png';
 
-import './entrance.less';
+import './entrance.scss';
 
 
 
@@ -34,26 +34,17 @@ class Index extends Component {
 
   componentDidHide () { }
 
-  increment = () => {
-    const { defaultStore } = this.props
-    defaultStore.increment()
-  }
-
-  decrement = () => {
-    const { defaultStore } = this.props
-    defaultStore.decrement()
-  }
-
-  incrementAsync = () => {
-    const { defaultStore } = this.props
-    defaultStore.incrementAsync()
+  goPage(){
+    Taro.navigateTo({
+      url: '/pages/joinUs/index'
+    })
   }
 
   render () {
     const { defaultStore } = this.props;
     return (
       <View>
-        <View className='entrance'>
+        <View className='entrance' onClick={this.goPage} key="商道智慧">
           <View className='tips'></View>
           <View><icon type="success" size="50" /></View>
           <text>商道智慧</text>
