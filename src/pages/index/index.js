@@ -8,6 +8,10 @@ import Presidium from "./presidium.js";
 import Activitys from "./activitys.js";
 import BottomBar from "../../components/bottomBar/index.js";
 
+import { AtFab } from 'taro-ui';
+
+import 'taro-ui/dist/style/index.scss'
+
 import './index.scss';
 
 

@@ -1,0 +1,53 @@
+.card{
+	margin-top: 20rpx;
+	background-color: #fff;
+	display: inline-block;
+	width: 100%;
+	.cardHeader{
+		height: 100rpx;
+		border-bottom:2rpx solid rgba(236,236,236,1);
+		border-top:20rpx solid rgba(236,236,236,1);
+		padding: 0 36rpx;
+		.cardIcon{
+			width:12rpx;
+			height:44rpx;
+			background:rgba(0,58,128,1);
+			border-radius:10rpx;
+			display: inline-block;
+			top:10rpx;
+			position:relative;
+			margin-right: 40rpx;
+
+		}
+		.title{
+			font-size:36rpx;
+			font-family:PingFangSC-Medium;
+			font-weight:500;
+			color:rgba(0,0,0,1);
+			line-height:100rpx;
+			display: inline-block;
+
+		}
+		.subTitle{
+			font-size:24rpx;
+			font-family:PingFangSC-Regular;
+			font-weight:400;
+			color:rgba(50,50,50,1);
+			line-height:100rpx;
+			display: inline-block;
+			text-align: right;
+			float:right;
+
+		}
+	}
+	.cardContent{
+		padding: 36rpx;
+		font-size:24rpx;
+		font-family:PingFangSC-Regular;
+		font-weight:400;
+		color:rgba(31,31,31,1);
+		line-height:40rpx;
+		display: inline-block;
+		overflow:auto;
+	}
+}

@@ -36,7 +36,8 @@ class Index extends Component {
 
   goPage(){
     Taro.navigateTo({
-      url: '/pages/joinUs/index'
+      // url: '/pages/joinUs/index'
+      url: '/pages/commerceIntroduce/index'
     })
   }
 

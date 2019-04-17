@@ -32,21 +32,6 @@ class Index extends Component {
 
   componentDidHide () { }
 
-  increment = () => {
-    const { defaultStore } = this.props
-    defaultStore.increment()
-  }
-
-  decrement = () => {
-    const { defaultStore } = this.props
-    defaultStore.decrement()
-  }
-
-  incrementAsync = () => {
-    const { defaultStore } = this.props
-    defaultStore.incrementAsync()
-  }
-
   render () {
     const { defaultStore } = this.props;
     let swiperItems = null;

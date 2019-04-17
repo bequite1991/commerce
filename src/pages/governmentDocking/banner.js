@@ -5,7 +5,8 @@ import { observer, inject } from '@tarojs/mobx'
 
 import Logo from '../../public/images/logo@3x.png';
 
-import './activitys.scss';
+import './banner.scss';
+
 
 
 @inject('defaultStore')
@@ -47,18 +48,21 @@ class Index extends Component {
   }
 
   render () {
-    const { defaultStore} = this.props;
-    const activitysList = defaultStore.getActivitysList();
+    const { defaultStore } = this.props;
+    let swiperItems = null;
+    const bannerLsit = defaultStore.getBannerList();
     return (
-      <View className='activitys'>
-        <View className='title'>全部活动</View>
-        <View className="activitysList">
-          {activitysList.map((item,index)=>{
-            return <View key={index} className='activitysItem'><View className='itemLeft'><View className="name">{item.name}</View><View className="descript">{item.descript}</View><View className="status">{item.status}</View><View className="tags">{item.tags}</View></View><View className="itemRight"><Image src={item.photo} /></View></View>
+        <Swiper
+          className='banner'
+          indicatorColor='rgba(232,232,232,1)'
+          indicatorActiveColor='rgba(72,128,255,1)'
+          indicatorDots = {false}
+          displayMultipleItems = '1'
+          autoplay = {false}>
+          {bannerLsit.map((item,index)=>{
+            return <SwiperItem key={item.name} className='bannerItem'><View><Image src={item.url} /></View></SwiperItem>
           })}
-        </View>
-
-      </View>
+        </Swiper>
     )
   }
 }

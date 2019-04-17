@@ -5,12 +5,18 @@ import { observer, inject } from '@tarojs/mobx'
 
 import Logo from '../../public/images/logo@3x.png';
 
-import './presidium.scss';
+import './banner.scss';
+
 
 
 @inject('defaultStore')
 @observer
 class Index extends Component {
+
+  config = {
+    navigationBarTitleText: '新沪商联合会',
+    navigationBarTextStyle: "black",
+  }
 
   componentWillMount () { }
 
@@ -42,19 +48,21 @@ class Index extends Component {
   }
 
   render () {
-    const { defaultStore } = this.props
-    const presidiumList = defaultStore.getPresidiumList();
-
+    const { defaultStore } = this.props;
+    let swiperItems = null;
+    const bannerLsit = defaultStore.getBannerList();
     return (
-      <View className='presidium'>
-        <View className='title'>主席团成员</View>
-        <View className="presidiumList">
-          {presidiumList.map((item,index)=>{
-            return <View key={index} className='presidiumItem'><View className="photo"><Image src={item.photo} /></View><View className="name">{item.name}</View><View className="post">{item.post}</View><View className="company">{item.company}</View></View>
+        <Swiper
+          className='banner'
+          indicatorColor='rgba(232,232,232,1)'
+          indicatorActiveColor='rgba(72,128,255,1)'
+          indicatorDots = {false}
+          displayMultipleItems = '1'
+          autoplay = {false}>
+          {bannerLsit.map((item,index)=>{
+            return <SwiperItem key={item.name} className='bannerItem'><View><Image src={item.url} /></View></SwiperItem>
           })}
-        </View>
-
-      </View>
+        </Swiper>
     )
   }
 }
