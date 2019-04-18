@@ -1,71 +1,69 @@
-import Taro, { Component } from '@tarojs/taro'
-import { View, Button, Text,Swiper, SwiperItem} from '@tarojs/components'
-import { observer, inject } from '@tarojs/mobx'
-import Banner from "./banner.js";
+import Taro, {Component} from '@tarojs/taro';
+import {View, Button, Text, Swiper, SwiperItem} from '@tarojs/components';
+import {observer, inject} from '@tarojs/mobx';
+import Banner from './banner.js';
 import Logo from '../../public/images/logo@3x.png';
-import Entrance from "./entrance.js";
-import Presidium from "./presidium.js";
-import Activitys from "./activitys.js";
-import BottomBar from "../../components/bottomBar/index.js";
+import Entrance from './entrance.js';
+import Presidium from './presidium.js';
+import Activitys from './activitys.js';
+import BottomBar from '../../components/bottomBar/index.js';
 
-import { AtFab } from 'taro-ui';
+import {AtFab} from 'taro-ui';
 
-import 'taro-ui/dist/style/index.scss'
+import 'taro-ui/dist/style/index.scss';
 
 import './index.scss';
 
-
-@inject('defaultStore')
+@inject ('defaultStore')
 @observer
 class Index extends Component {
-
   config = {
     navigationBarTitleText: '新沪商联合会',
-    navigationBarTextStyle: "black",
-  }
+    navigationBarTextStyle: 'black',
+  };
 
-  componentWillMount () { }
+  componentWillMount () {}
 
   componentWillReact () {
-    console.log('componentWillReact')
+    console.log ('componentWillReact');
   }
 
-  componentDidMount () { }
+  componentDidMount () {}
 
-  componentWillUnmount () { }
+  componentWillUnmount () {}
 
-  componentDidShow () { }
+  componentDidShow () {}
 
-  componentDidHide () { }
+  componentDidHide () {}
 
   increment = () => {
-    const { defaultStore } = this.props
-    defaultStore.increment()
-  }
+    const {defaultStore} = this.props;
+    defaultStore.increment ();
+  };
 
   decrement = () => {
-    const { defaultStore } = this.props
-    defaultStore.decrement()
-  }
+    const {defaultStore} = this.props;
+    defaultStore.decrement ();
+  };
 
   incrementAsync = () => {
-    const { defaultStore } = this.props
-    defaultStore.incrementAsync()
-  }
+    const {defaultStore} = this.props;
+    defaultStore.incrementAsync ();
+  };
 
   render () {
-    const { defaultStore: { counter } } = this.props
+    const {defaultStore: {counter}} = this.props;
     return (
-      <View className='homePage'>
-        <Image src={Logo} className='logo'/>
+      <View className="homePage">
+        <Image src={Logo} className="logo" />
         <Banner />
         <Entrance />
         <Presidium />
         <Activitys />
         <BottomBar />
       </View>
-    )
+    );
   }
 }
 
-export default Index 
+export default Index;

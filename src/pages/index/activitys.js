@@ -1,66 +1,73 @@
-import Taro, { Component } from '@tarojs/taro'
-import { View, Button, Text,Swiper, SwiperItem} from '@tarojs/components'
-import { observer, inject } from '@tarojs/mobx'
-
+import Taro, {Component} from '@tarojs/taro';
+import {View, Button, Text, Swiper, SwiperItem} from '@tarojs/components';
+import {observer, inject} from '@tarojs/mobx';
 
 import Logo from '../../public/images/logo@3x.png';
 
 import './activitys.scss';
 
-
-@inject('defaultStore')
+@inject ('defaultStore')
 @observer
-class Index extends Component {
-
+class Activitys extends Component {
   config = {
     navigationBarTitleText: '新沪商联合会',
-    navigationBarTextStyle: "black",
-  }
+    navigationBarTextStyle: 'black',
+  };
 
-  componentWillMount () { }
+  componentWillMount () {}
 
   componentWillReact () {
-    console.log('componentWillReact')
+    console.log ('componentWillReact');
   }
 
-  componentDidMount () { }
+  componentDidMount () {}
 
-  componentWillUnmount () { }
+  componentWillUnmount () {}
 
-  componentDidShow () { }
+  componentDidShow () {}
 
-  componentDidHide () { }
+  componentDidHide () {}
 
   increment = () => {
-    const { defaultStore } = this.props
-    defaultStore.increment()
-  }
+    const {defaultStore} = this.props;
+    defaultStore.increment ();
+  };
 
   decrement = () => {
-    const { defaultStore } = this.props
-    defaultStore.decrement()
-  }
+    const {defaultStore} = this.props;
+    defaultStore.decrement ();
+  };
 
   incrementAsync = () => {
-    const { defaultStore } = this.props
-    defaultStore.incrementAsync()
-  }
+    const {defaultStore} = this.props;
+    defaultStore.incrementAsync ();
+  };
 
   render () {
-    const { defaultStore} = this.props;
-    const activitysList = defaultStore.getActivitysList();
+    const {defaultStore} = this.props;
+    const activitysList = defaultStore.getActivitysList ();
     return (
-      <View className='activitys'>
-        <View className='title'>全部活动</View>
+      <View className="activitys">
+        <View className="title">全部活动</View>
         <View className="activitysList">
-          {activitysList.map((item,index)=>{
-            return <View key={index} className='activitysItem'><View className='itemLeft'><View className="name">{item.name}</View><View className="descript">{item.descript}</View><View className="status">{item.status}</View><View className="tags">{item.tags}</View></View><View className="itemRight"><Image src={item.photo} /></View></View>
+          {activitysList.map ((item, index) => {
+            return (
+              <View key={index} className="activitysItem">
+                <View className="itemLeft">
+                  <View className="name">{item.name}</View>
+                  <View className="descript">{item.descript}</View>
+                  <View className="status">{item.status}</View>
+                  <View className="tags">{item.tags}</View>
+                </View>
+                <View className="itemRight"><Image src={item.photo} /></View>
+              </View>
+            );
           })}
         </View>
 
       </View>
-    )
+    );
   }
 }
 
-export default Index 
+export default Activitys;
