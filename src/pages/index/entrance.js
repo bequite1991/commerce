@@ -4,9 +4,6 @@ import { observer, inject } from '@tarojs/mobx'
 
 import { AtIcon } from 'taro-ui'
 
-
-import Logo from '../../public/images/logo@3x.png';
-
 import './entrance.scss';
 
 
@@ -34,10 +31,10 @@ class Index extends Component {
 
   componentDidHide () { }
 
-  goPage(){
+  goPage(url){
     Taro.navigateTo({
       // url: '/pages/joinUs/index'
-      url: '/pages/commerceIntroduce/index'
+      url: `/pages/${url}/index`
     })
   }
 
@@ -45,22 +42,22 @@ class Index extends Component {
     const { defaultStore } = this.props;
     return (
       <View>
-        <View className='entrance' onClick={this.goPage} key="商道智慧">
+        <View className='entrance' onClick={this.goPage.bind(this,'commerceIntroduce')} key="商道智慧">
           <View className='tips'></View>
           <View><icon type="success" size="50" /></View>
           <text>商道智慧</text>
         </View>
-        <View className='entrance'>
+        <View className='entrance' onClick={this.goPage.bind(this,'activityInformation')}>
           <View className='tips'></View>
           <View><icon type="success" size="50" /></View>
           <text>活动资讯</text>
         </View>
-        <View className='entrance'>
+        <View className='entrance' onClick={this.goPage.bind(this,'directTrain')}>
           <View className='tips'></View>
           <View><icon type="success" size="50" /></View>
           <text>政企直通</text>
         </View>
-        <View className='entrance'>
+        <View className='entrance' onClick={this.goPage.bind(this,'internationalRelations')}>
           <View className='tips'></View>
           <View><icon type="success" size="50" /></View>
           <text>国际关系</text>

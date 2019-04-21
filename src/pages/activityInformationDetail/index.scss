@@ -1,0 +1,36 @@
+page {
+  background-color: rgba(236,236,236,1);
+} 
+.introdeuce{
+	background-color: rgba(236,236,236,1);
+	padding-bottom: 40rpx;
+	.logo{
+		width:180rpx;
+		height:100rpx;
+		margin:20rpx;
+		display: inline-block;
+	}
+	.apply{
+		margin:auto;
+		margin-top: 60rpx;
+		width: 90%;
+		background:rgba(0,58,128,1)
+	}
+	.brands{
+		white-space:nowrap;
+		width:750rpx;
+		overflow:auto;
+	}
+	.brand{
+		display: inline-block;
+		text-align:center;
+		margin-right: 30rpx;
+		.brandImg{
+			width: 270rpx;
+			height:160rpx;
+		}
+		.subTitle{
+			display: block;
+		}
+	}
+}

@@ -18,9 +18,9 @@ import './index.scss';
 @observer
 class Index extends Component {
 
-  config = {
-    navigationBarTitleText: '新沪商联合会',
-    navigationBarTextStyle: "black",
+  constructor (props) {
+    super (props);
+    this.state = {};
   }
 
   componentWillMount () { }
@@ -37,42 +37,33 @@ class Index extends Component {
 
   componentDidHide () { }
 
-  increment = () => {
-    const { defaultStore } = this.props
-    defaultStore.increment()
-  }
-
-  decrement = () => {
-    const { defaultStore } = this.props
-    defaultStore.decrement()
-  }
-
-  incrementAsync = () => {
-    const { defaultStore } = this.props
-    defaultStore.incrementAsync()
+  goPage(url){
+    Taro.navigateTo({
+      // url: '/pages/joinUs/index'
+      url: `/pages/${url}/index`
+    })
   }
 
   render () {
     const { defaultStore } = this.props;
     return (
       <View className='bottomBar'>
-        <View className='bottomBarItem activeBar'>
+        <View className={this.props.active == 0?'bottomBarItem activeBar':"bottomBarItem activeBar"} onClick={this.goPage.bind(this,'index')}>
           <View className='tips'></View>
           <View className='Home'><Image src={Home} /></View>
-          {/*<View><icon type="success" size="50" /></View>*/}
           <text>首页</text>
         </View>
-        <View className='bottomBarItem'>
+        <View className={this.props.active == 1?'bottomBarItem':"bottomBarItem"} onClick={this.goPage.bind(this,'organization')}>
           <View className='tips'></View>
           <View className='Zuzhi'><Image src={Zuzhi} /></View>
           <text>组织</text>
         </View>
-        <View className='bottomBarItem'>
+        <View className={this.props.active == 2?'bottomBarItem':"bottomBarItem"} onClick={this.goPage.bind(this,'connection')}>
           <View className='tips'></View>
           <View className='Peoples'><Image src={Peoples} /></View>
           <text>人脉</text>
         </View>
-        <View className='bottomBarItem'>
+        <View className={this.props.active == 3?'bottomBarItem':"bottomBarItem"} onClick={this.goPage.bind(this,'me')}>
           <View className='tips'></View>
           <View className='Me'><Image src={Me} /></View>
           <text>我</text>

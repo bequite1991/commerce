@@ -3,8 +3,6 @@ import { View, Button, Text,Swiper, SwiperItem} from '@tarojs/components'
 import { observer, inject } from '@tarojs/mobx'
 
 
-import Logo from '../../public/images/logo@3x.png';
-
 import './banner.scss';
 
 

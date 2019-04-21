@@ -1,0 +1,36 @@
+.wisdom{
+	padding: 40rpx;
+	.header{
+		display: flex;
+		justify-content: space-around;
+		.title{
+			height:66rpx;
+			font-size:48rpx;
+			font-family:PingFangSC-Semibold;
+			font-weight:600;
+			color:rgba(0,0,0,1);
+			line-height:66rpx;
+			letter-spacing:2rpx;
+			-webkit-text-stroke:2rpx rgba(6,6,6,1);
+			text-stroke:2rpx rgba(6,6,6,1);
+			display: inline-block;
+			width: 252rpx;
+		}
+		.line{
+			width:4rpx;
+			height:280rpx;
+			background-color: #D5D5D5;
+		}
+		.subtitle{
+			width:45%;
+			height:266rpx;
+			font-size:24rpx;
+			font-family:PingFangSC-Regular;
+			font-weight:400;
+			color:rgba(0,0,0,1);
+			line-height:40rpx;
+			display: inline-block;
+			height:280rpx;
+		}
+	}
+}

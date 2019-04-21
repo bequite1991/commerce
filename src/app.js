@@ -2,7 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { Provider } from '@tarojs/mobx'
 import Index from './pages/index'
 
-import defaultStore from './store/default'
+import defaultStore from './store/default.js'
 
 import './app.scss'
 
@@ -25,6 +25,18 @@ class App extends Component {
   config = {
     pages: [
       'pages/index/index',
+      'pages/wisdom/index',
+      'pages/activityInformationDetail/index',
+      'pages/connectionSearch/index',
+      'pages/connection/index',
+      'pages/organization/index',
+      'pages/wisdomMemberDetail/index',
+      'pages/internationalRelations/index',
+      'pages/activityInformation/index',
+      'pages/governmentCounsel/index',
+      'pages/governmentDocking/index',
+      'pages/directTrain/index',
+      'pages/directTrainDetail/index',
       'pages/commerceIntroduce/index',
       'pages/joinUs/index'
     ],

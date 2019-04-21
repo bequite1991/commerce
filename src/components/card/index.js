@@ -10,11 +10,6 @@ import './index.scss';
 @observer
 class Index extends Component {
 
-  config = {
-    navigationBarTitleText: '商会介绍',
-    navigationBarTextStyle: "black",
-  }
-
   componentWillMount () { }
 
   componentWillReact () {
@@ -44,7 +39,7 @@ class Index extends Component {
         <View className='cardHeader'>
           <View className='cardIcon'></View>
           <View className='title'>{title}</View>
-          <View onClick={this.goPage} className='subTitle'>{subTitle}</View>
+          <View onClick={this.goPage} className='subTitle'>{subTitle || ""}</View>
         </View>
         <View className='cardContent'>{this.props.children}</View>
       </View>

@@ -10,11 +10,6 @@ import './index.scss';
 @observer
 class Index extends Component {
 
-  config = {
-    navigationBarTitleText: '商会介绍',
-    navigationBarTextStyle: "black",
-  }
-
   constructor (props) {
     super (props);
     this.state = {
@@ -52,7 +47,7 @@ class Index extends Component {
   render () {
     const { tags } = this.props;
     return (
-      <View className='tags'>
+      <View className={this.props.type || "tags"}>
         {tags.map((item,index)=>{
           return <View className="tag" className={active == index?"tag active":"tag default"} key={index} onClick={this.onChange.bind(this,index)}><View className="words">{item}<View className="border"></View></View></View>
         })}

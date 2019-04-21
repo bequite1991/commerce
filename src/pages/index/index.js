@@ -62,7 +62,7 @@ class Index extends Component {
         <Entrance />
         <Presidium />
         <Activitys />
-        <BottomBar />
+        <BottomBar active={0}/>
       </View>
     )
   }
