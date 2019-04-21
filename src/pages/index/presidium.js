@@ -4,24 +4,22 @@ import { observer, inject } from '@tarojs/mobx'
 
 import './presidium.scss';
 
-
-@inject('defaultStore')
+@inject ('defaultStore')
 @observer
-class Index extends Component {
-
-  componentWillMount () { }
+class Presidium extends Component {
+  componentWillMount () {}
 
   componentWillReact () {
-    console.log('componentWillReact')
+    console.log ('componentWillReact');
   }
 
-  componentDidMount () { }
+  componentDidMount () {}
 
-  componentWillUnmount () { }
+  componentWillUnmount () {}
 
-  componentDidShow () { }
+  componentDidShow () {}
 
-  componentDidHide () { }
+  componentDidHide () {}
 
   goPage(url){
     Taro.navigateTo({
@@ -31,8 +29,8 @@ class Index extends Component {
   }
 
   render () {
-    const { defaultStore } = this.props
-    const presidiumList = defaultStore.getPresidiumList();
+    const {defaultStore} = this.props;
+    const presidiumList = defaultStore.getPresidiumList ();
 
     return (
       <View className='presidium'>
@@ -44,8 +42,8 @@ class Index extends Component {
         </View>
 
       </View>
-    )
+    );
   }
 }
 
-export default Index 
+export default Presidium;

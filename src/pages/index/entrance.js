@@ -1,45 +1,36 @@
-import Taro, { Component } from '@tarojs/taro'
-import { View, Button, Text,Swiper, SwiperItem} from '@tarojs/components'
-import { observer, inject } from '@tarojs/mobx'
-
-import { AtIcon } from 'taro-ui'
+import Taro, {Component} from '@tarojs/taro';
+import {View, Button, Text, Swiper, SwiperItem} from '@tarojs/components';
+import {observer, inject} from '@tarojs/mobx';
+import {AtIcon} from 'taro-ui';
 
 import './entrance.scss';
 
-
-
-@inject('defaultStore')
+@inject ('defaultStore')
 @observer
-class Index extends Component {
+class Entrance extends Component {
 
-  config = {
-    navigationBarTitleText: '新沪商联合会',
-    navigationBarTextStyle: "black",
-  }
-
-  componentWillMount () { }
+  componentWillMount () {}
 
   componentWillReact () {
-    console.log('componentWillReact')
+    console.log ('componentWillReact');
   }
 
-  componentDidMount () { }
+  componentDidMount () {}
 
-  componentWillUnmount () { }
+  componentWillUnmount () {}
 
-  componentDidShow () { }
+  componentDidShow () {}
 
-  componentDidHide () { }
+  componentDidHide () {}
 
   goPage(url){
     Taro.navigateTo({
       // url: '/pages/joinUs/index'
       url: `/pages/${url}/index`
-    })
-  }
+  })
 
   render () {
-    const { defaultStore } = this.props;
+    const {defaultStore} = this.props;
     return (
       <View>
         <View className='entrance' onClick={this.goPage.bind(this,'commerceIntroduce')} key="商道智慧">
@@ -63,8 +54,8 @@ class Index extends Component {
           <text>国际关系</text>
         </View>
       </View>
-    )
+    );
   }
 }
 
-export default Index 
+export default Index;

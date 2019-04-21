@@ -2,31 +2,26 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text,Swiper, SwiperItem} from '@tarojs/components'
 import { observer, inject } from '@tarojs/mobx'
 
+
 import './activitys.scss';
 
-
-@inject('defaultStore')
+@inject ('defaultStore')
 @observer
-class Index extends Component {
+class Activitys extends Component {
 
-  config = {
-    navigationBarTitleText: '新沪商联合会',
-    navigationBarTextStyle: "black",
-  }
-
-  componentWillMount () { }
+  componentWillMount () {}
 
   componentWillReact () {
-    console.log('componentWillReact')
+    console.log ('componentWillReact');
   }
 
-  componentDidMount () { }
+  componentDidMount () {}
 
-  componentWillUnmount () { }
+  componentWillUnmount () {}
 
-  componentDidShow () { }
+  componentDidShow () {}
 
-  componentDidHide () { }
+  componentDidHide () {}
 
   goPage(url){
     Taro.navigateTo({
@@ -36,8 +31,8 @@ class Index extends Component {
   }
 
   render () {
-    const { defaultStore} = this.props;
-    const activitysList = defaultStore.getActivitysList();
+    const {defaultStore} = this.props;
+    const activitysList = defaultStore.getActivitysList ();
     return (
       <View className='activitys'>
         <View className='title' onClick={this.goPage.bind(this,'activityInformation')}>全部活动</View>
@@ -46,10 +41,9 @@ class Index extends Component {
             return <View key={index} className='activitysItem' onClick={this.goPage.bind(this,'activityInformationDetail')}><View className='itemLeft'><View className="name">{item.name}</View><View className="descript">{item.descript}</View><View className="status">{item.status}</View><View className="tags">{item.tags}</View></View><View className="itemRight"><Image src={item.photo} /></View></View>
           })}
         </View>
-
       </View>
-    )
+    );
   }
 }
 
-export default Index 
+export default Activitys;
