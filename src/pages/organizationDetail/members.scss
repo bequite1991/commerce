@@ -1,0 +1,55 @@
+.members{
+	background-color: rgba(236,236,236,1);
+	.group{
+		margin-bottom: 20rpx;
+		.groupName{
+			padding: 30rpx;
+			background-color: #ffffff;
+		}
+		.member{
+			background-color: #ffffff;
+			display: flex;
+			border-bottom:1px solid rgba(235,235,235,1);
+			padding: 30rpx;
+			position: relative;
+			.memberPhoto{
+				margin:0 30rpx;
+				image{
+					width: 100rpx;
+					height: 100rpx;
+					border-radius: 50%;
+				}
+			}
+			.memberName{
+				font-size:28rpx;
+				font-family:PingFangSC-Medium;
+				font-weight:500;
+				color:rgba(0,0,0,1);
+				line-height:40rpx;
+				letter-spacing:2rpx;
+				margin-bottom:14rpx;
+			}
+			.memberSubtitle{
+				font-size:24rpx;
+				font-family:PingFangSC-Regular;
+				font-weight:400;
+				color:rgba(153,153,153,1);
+				line-height:34rpx;
+			}
+			.memberPosition{
+				width:119rpx;
+				height:40rpx;
+				background:rgba(0,58,128,1);
+				border-radius:8rpx;
+				font-size:24rpx;
+				font-family:PingFangSC-Regular;
+				font-weight:400;
+				color:rgba(255,255,255,1);
+				line-height:40rpx;
+				text-align: center;
+				position: absolute;
+				right: 30rpx;
+			}
+		}
+	}
+}

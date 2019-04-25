@@ -49,25 +49,21 @@ class Index extends Component {
     const { defaultStore} = this.props;
     const activitysList = defaultStore.getConnectionMemberList();
     return (
-      <View style='height:65vh'>
-        <AtIndexes
-          list={activitysList}
-          onClick={this.onClick.bind(this)}
-        > 
-        </AtIndexes>
-        <AtFloatLayout key="0" isOpened={this.state.isOpened} title={this.state.currentItem.name} onClose={this.handleClose.bind(this)}>
-          <View className="connectionMemberBase">
+      <View>
+        {activitysList.map((item,index)=>{
+          return (<View className="connectionMemberBase" key={index}>
+            <View className="border"></View>
             <View className="photo">
-              <Image src={this.state.currentItem.photo} />
+              <Image src={item.photo} />
             </View>
             <View className="info">
-              <View className="name">{this.state.currentItem.name}</View>
-              <View className="position">{this.state.currentItem.position}</View>
-              <View className="company">公司名称：{this.state.currentItem.company}</View>
-              <View className="phone">联系方式：{this.state.currentItem.phone}</View>
+              <View className="name">{item.name}</View>
+              <View className="position">{item.position}</View>
+              <View className="company">{item.company}</View>
+              <View className="phone">联系电话：{item.phone}</View>
             </View>
-          </View>
-        </AtFloatLayout>
+          </View>)
+        })}
       </View>
     )
   }

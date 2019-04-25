@@ -36,23 +36,7 @@ class Index extends Component {
 
   componentDidHide () {}
 
-  increment = () => {
-    const {defaultStore} = this.props;
-    defaultStore.increment ();
-  };
-
-  decrement = () => {
-    const {defaultStore} = this.props;
-    defaultStore.decrement ();
-  };
-
-  incrementAsync = () => {
-    const {defaultStore} = this.props;
-    defaultStore.incrementAsync ();
-  };
-
   render () {
-    const {defaultStore: {counter}} = this.props;
     return (
       <View className="homePage">
         <Image src={Logo} className="logo" />

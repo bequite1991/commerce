@@ -1,0 +1,32 @@
+page {
+	background-color: rgba(236,236,236,1);
+} 
+.register{	
+	.info{
+		background-color: #fff;
+		padding: 80rpx;
+		text-align: center;
+		border-top:2rpx solid rgba(244,244,244,1);
+		.icon{
+			margin:auto;
+			font-size: 120rpx;
+			color: rgba(151,151,151,0.6);
+		}
+		.words{
+			font-size:28rpx;
+			font-family:PingFangSC-Regular;
+			font-weight:400;
+			color:rgba(153,153,153,1);
+			line-height:40rpx;
+			letter-spacing:2rpx;
+			margin-top: 20rpx;
+		}
+	}
+	.submit{
+		margin:auto;
+		width:80%;
+		background:rgba(0,58,128,1);
+		border-radius:8rpx;
+		margin-top: 100rpx;
+	}
+}

@@ -1,8 +1,22 @@
 .connectionMemberBase{
 	background-color: #fff;
 	display: flex;
-	padding: 40rpx;
+	height:240rpx;
+	background:rgba(255,255,255,1);
+	box-shadow:0rpx 0rpx 12rpx -4rpx rgba(0,0,0,0.23);
+	border-radius:8rpx;
+	margin:20rpx;
+	position: relative;
+	overflow:hidden;
+	.border{
+		width:20rpx;
+		height:240rpx;
+		background:rgba(0,58,128,1);
+		border-radius:8rpx 0rpx 0rpx 8rpx;
+		margin-right: 30rpx;
+	}
 	.photo{
+		padding: 40rpx 0;
 		width:190rpx;
 		height:190rpx;
 		border-radius: 50%;
@@ -14,6 +28,7 @@
 		}
 	}
 	.info{
+		padding: 40rpx 0;
 		font-size:24rpx;
 		font-family:PingFangSC-Regular;
 		font-weight:400;
@@ -28,9 +43,43 @@
 			color:rgba(0,0,0,1);
 			line-height:44rpx;
 			display: inline-block;
+			margin-right: 30rpx;
 		}
 		.position{
 			display: inline-block;
 		}
+	}
+	.tagTriangle{
+		position: absolute;
+		right: 0;
+		top:0;
+		width:0;
+	    height:0;
+	    border-width:60rpx 0 60rpx 60rpx;
+	    border-style:solid;
+	    border-color:transparent transparent transparent rgba(0,58,128,1);/*透明 透明 透明 灰*/
+	    transform:rotate(-45deg);
+		-ms-transform:rotate(-45deg); 	/* IE 9 */
+		-moz-transform:rotate(-45deg); 	/* Firefox */
+		-webkit-transform:rotate(-45deg); /* Safari 和 Chrome */
+		-o-transform:rotate(-45deg); 	/* Opera */
+		margin-top:-40rpx;
+		margin-right:-8rpx;
+	}
+	.tagText{
+		position: absolute;
+		right: 6rpx;
+		top:10rpx;
+		font-size:24rpx;
+		font-family:PingFangSC-Regular;
+		font-weight:400;
+		color:rgba(255,255,255,1);
+		line-height:34rpx;
+		text-align: center;
+		transform:rotate(45deg);
+		-ms-transform:rotate(45deg); 	/* IE 9 */
+		-moz-transform:rotate(45deg); 	/* Firefox */
+		-webkit-transform:rotate(45deg); /* Safari 和 Chrome */
+		-o-transform:rotate(45deg); 	/* Opera */
 	}
 }

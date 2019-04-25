@@ -27,7 +27,8 @@ class Entrance extends Component {
     Taro.navigateTo({
       // url: '/pages/joinUs/index'
       url: `/pages/${url}/index`
-  })
+    })
+  }
 
   render () {
     const {defaultStore} = this.props;
@@ -58,4 +59,4 @@ class Entrance extends Component {
   }
 }
 
-export default Index;
+export default Entrance;

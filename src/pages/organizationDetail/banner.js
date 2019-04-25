@@ -5,12 +5,20 @@ import { observer, inject } from '@tarojs/mobx'
 
 import Logo from '../../public/images/logo@3x.png';
 
-import './commerce.scss';
+import './banner.scss';
+
 
 
 @inject('defaultStore')
 @observer
 class Index extends Component {
+
+  constructor (props) {
+    super (props);
+    this.state = {
+      current: 0
+    };
+  }
 
   componentWillMount () { }
 
@@ -27,16 +35,15 @@ class Index extends Component {
   componentDidHide () { }
 
   render () {
-    const { defaultStore} = this.props;
-    const activitysList = defaultStore.getCommerceList();
+    const { header } = this.props;
     return (
-      <View className='commerce'>
-        <View className="activitysList">
-          {activitysList.map((item,index)=>{
-            return <View key={index} className='activitysItem'><View className="itemLeft"><Image src={item.photo} /></View><View className='itemRight'><View className="name">{item.name}</View><View className="descript">{item.descript}</View></View></View>
-          })}
+      <View className="header">
+        <View className="banner">
+          <Image src={header.banner}  />
         </View>
-
+        <View className="logo"><Image src={header.logo} /></View>
+        <View className="title">{header.title}</View>
+        <View className="subtitle">{header.subtitle}</View>
       </View>
     )
   }

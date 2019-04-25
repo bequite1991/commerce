@@ -1,8 +1,20 @@
 .connectionMemberBase{
 	background-color: #fff;
 	display: flex;
-	padding: 40rpx;
+	height:240rpx;
+	background:rgba(255,255,255,1);
+	box-shadow:0rpx 0rpx 12rpx -4rpx rgba(0,0,0,0.23);
+	border-radius:8rpx;
+	margin:20rpx;
+	.border{
+		width:20rpx;
+		height:240rpx;
+		background:rgba(0,58,128,1);
+		border-radius:8rpx 0rpx 0rpx 8rpx;
+		margin-right: 30rpx;
+	}
 	.photo{
+		padding: 40rpx 0;
 		width:190rpx;
 		height:190rpx;
 		border-radius: 50%;
@@ -14,6 +26,7 @@
 		}
 	}
 	.info{
+		padding: 40rpx 0;
 		font-size:24rpx;
 		font-family:PingFangSC-Regular;
 		font-weight:400;
@@ -28,6 +41,7 @@
 			color:rgba(0,0,0,1);
 			line-height:44rpx;
 			display: inline-block;
+			margin-right: 30rpx;
 		}
 		.position{
 			display: inline-block;

@@ -1,0 +1,27 @@
+page {
+  background-color: rgba(236,236,236,1);
+} 
+.customList{
+	.at-list__item{
+		padding:24rpx;
+		padding-top: 0;
+	}
+	.item-extra__icon{
+		margin-top: 50rpx;
+	}
+	.item-content__info-title{
+		font-size:24rpx;
+		font-family:PingFangSC-Regular;
+		font-weight:400;
+		color:rgba(56,56,56,1);
+		line-height:34rpx;
+		margin:30rpx 0;
+	}
+	.item-content__info-note{
+		font-size:36rpx;
+		font-family:PingFangSC-Regular;
+		font-weight:400;
+		color:rgba(56,56,56,1);
+		line-height:50rpx;
+	}
+}

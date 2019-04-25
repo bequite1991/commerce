@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text,Swiper, SwiperItem} from '@tarojs/components'
 import { observer, inject } from '@tarojs/mobx'
-import Commerce from "./commerce.js";
+import List from "./list.js";
 import Consulate from "./consulate.js";
 import BottomBar from "../../components/bottomBar/index.js";
 
@@ -17,7 +17,7 @@ import './index.scss';
 class Index extends Component {
 
   config = {
-    navigationBarTitleText: '国际关系',
+    navigationBarTitleText: '组织',
     navigationBarTextStyle: "black",
   }
 
@@ -53,10 +53,17 @@ class Index extends Component {
     })
   }
 
+  goPage(url){
+    Taro.navigateTo({
+      // url: '/pages/joinUs/index'
+      url: `/pages/${url}/index`
+    })
+  }
+
 
   render () {
     const { defaultStore: { counter } } = this.props
-    const tabList = [{ title: '驻沪领事馆' }, { title: '国际商会' }];
+    const tabList = [{ title: '郊游' }, { title: '高尔夫' }, { title: '健身' }, { title: '品茶' }, { title: '公益' }];
     return (
       <View className='internationalRelations'>
         <AtSearchBar
@@ -67,12 +74,24 @@ class Index extends Component {
         />
         <AtTabs className="tabs" current={this.state.current} tabList={tabList} onClick={this.handleClick.bind(this)}>
           <AtTabsPane current={this.state.current} index={0} >
-            <View style='background-color: #ffffff;' ><Consulate /></View>
+            <View style='background-color: #ffffff;' ><List /></View>
           </AtTabsPane>
           <AtTabsPane current={this.state.current} index={1}>
-            <View style='background-color: #ffffff;'><Commerce /></View>
+            <View style='background-color: #ffffff;'><List /></View>
+          </AtTabsPane>
+          <AtTabsPane current={this.state.current} index={2}>
+            <View style='background-color: #ffffff;'><List /></View>
+          </AtTabsPane>
+          <AtTabsPane current={this.state.current} index={3}>
+            <View style='background-color: #ffffff;'><List /></View>
+          </AtTabsPane>
+          <AtTabsPane current={this.state.current} index={4}>
+            <View style='background-color: #ffffff;'><List /></View>
           </AtTabsPane>
         </AtTabs>
+        <AtFab onClick={this.goPage.bind(this,'organizationRegister')}>
+          <Text className='at-fab__icon at-icon at-icon-add'></Text>
+        </AtFab>
         <BottomBar active={2} />
       </View>
     )
