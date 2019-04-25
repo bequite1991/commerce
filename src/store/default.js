@@ -1,4 +1,5 @@
-import { observable } from 'mobx'
+import { observable } from 'mobx';
+import request from './utils/request';
 
 const defaultStore = observable({
   //首页 banner
