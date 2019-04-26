@@ -53,9 +53,11 @@
 		font-weight:400;
 		color:rgba(72,128,255,1);
 		line-height:40rpx;
+		min-height: 40rpx;
 	}
 	.company{
 		max-width: 95%;
+		min-height: 52rpx;
 		font-size:20rpx;
 		font-family:PingFangSC-Regular;
 		font-weight:400;

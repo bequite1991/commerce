@@ -5,8 +5,13 @@ const API_HOST = "http://118.25.103.49:8000";
 
 
 const defaultStore = observable({
-  activitysList:[],
-  activitysListStatus:"loading",
+  //首页主席团
+  home_presidiumList:[],
+  //首页 活动列表
+  home_activitysList:[],
+  home_activitysListStatus:"loading",
+  home_activitysListPage:1,
+  home_activitysListPageSize:10,
   //首页 banner
   getBannerList() {
     const bannerList = [{name:"banner0",url:"https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180"},{name:"banner1",url:"https://img14.360buyimg.com/babel/s700x360_jfs/t1/4099/12/2578/101668/5b971b4bE65ae279d/89dd1764797acfd9.jpg!q90!cc_350x180"},{name:"banner2",url:"https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180"},{name:"banner3",url:"https://img14.360buyimg.com/babel/s700x360_jfs/t1/4099/12/2578/101668/5b971b4bE65ae279d/89dd1764797acfd9.jpg!q90!cc_350x180"}];
@@ -14,19 +19,42 @@ const defaultStore = observable({
   },
   //首页 主席团成员
   getPresidiumList() {
-    const presidiumList = [{post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"}];
-    return presidiumList;
+    const t = this;
+    // const presidiumList = [{post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"}];
+
+    Taro.request({
+      url: `${API_HOST}/config/commerce_presidium`,
+      data: {
+        commerce_job:""
+      },
+      header: {
+        'content-type': 'application/json'
+      }
+    }).then((res) => {
+      const data = res.data.data.data_list;
+      if(data.list.length){
+        data.list.forEach((item,key)=>{
+            item.post = item.job_title;
+            item.company = item.company_name;
+            item.name = item.user_name;
+            item.photo = item.picture;
+            if(key == data.list.length -1){
+              t.home_presidiumList = data.list;
+            }
+        });
+      }
+    });
   },
   //首页活动列表
   getActivitysList (params){
     const t = this;
     // this.activitysList = [{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护,贫困患儿",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png",tags:"环境保护"}];
-    t.activitysListStatus = "loading";
+    t.home_activitysListStatus = "loading";
     Taro.request({
       url: `${API_HOST}/config/commerce_hot_activitys`,
       data: {
-        page:params.page,
-        pageSize:params.pageSize
+        page:1,
+        pageSize:4
       },
       header: {
         'content-type': 'application/json'
@@ -39,15 +67,16 @@ const defaultStore = observable({
             item.tags = item.tag;
             item.name = item.title;
             item.photo = item.picture;
+            item.status = item.num + "人参与";
             if(key == data.currentRecords.length -1){
-              t.activitysList = t.activitysList.concat(data.currentRecords);
+              t.home_activitysList = t.home_activitysList.concat(data.currentRecords);
             }
         });
-        t.activitysListStatus = "more";
+        t.home_activitysListStatus = "more";
       }else{
-        t.activitysListStatus = "noMore";
+        t.home_activitysListStatus = "noMore";
       }
-
+      t.home_activitysListPage++;
     });
     // return t.activitysList;
   },

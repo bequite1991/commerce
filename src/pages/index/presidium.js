@@ -13,7 +13,10 @@ class Presidium extends Component {
     console.log ('componentWillReact');
   }
 
-  componentDidMount () {}
+  componentDidMount () {
+    const {defaultStore} = this.props;
+    defaultStore.getPresidiumList();
+  }
 
   componentWillUnmount () {}
 
@@ -29,14 +32,13 @@ class Presidium extends Component {
   }
 
   render () {
-    const {defaultStore} = this.props;
-    const presidiumList = defaultStore.getPresidiumList ();
-
+    const {defaultStore:{home_presidiumList}} = this.props;
+    const list = home_presidiumList.$mobx.values;
     return (
       <View className='presidium'>
         <View className='title' onClick={this.goPage.bind(this,'wisdom')}>主席团成员</View>
         <View className="presidiumList">
-          {presidiumList.map((item,index)=>{
+          {list.map((item,index)=>{
             return <View key={index} className='presidiumItem' onClick={this.goPage.bind(this,'wisdomMemberDetail')}><View className="photo"><Image src={item.photo} /></View><View className="name">{item.name}</View><View className="post">{item.post}</View><View className="company">{item.company}</View></View>
           })}
         </View>
