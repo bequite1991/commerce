@@ -1,7 +1,12 @@
 import { observable } from 'mobx';
-import request from './utils/request';
+import Taro from '@tarojs/taro'
+const API_HOST = "http://118.25.103.49:8000";
+
+
 
 const defaultStore = observable({
+  activitysList:[],
+  activitysListStatus:"loading",
   //首页 banner
   getBannerList() {
     const bannerList = [{name:"banner0",url:"https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180"},{name:"banner1",url:"https://img14.360buyimg.com/babel/s700x360_jfs/t1/4099/12/2578/101668/5b971b4bE65ae279d/89dd1764797acfd9.jpg!q90!cc_350x180"},{name:"banner2",url:"https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180"},{name:"banner3",url:"https://img14.360buyimg.com/babel/s700x360_jfs/t1/4099/12/2578/101668/5b971b4bE65ae279d/89dd1764797acfd9.jpg!q90!cc_350x180"}];
@@ -13,10 +18,66 @@ const defaultStore = observable({
     return presidiumList;
   },
   //首页活动列表
-  getActivitysList() {
-    const presidiumList = [{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护,贫困患儿",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png",tags:"环境保护"}];
+  getActivitysList (params){
+    const t = this;
+    // this.activitysList = [{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护,贫困患儿",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png",tags:"环境保护"}];
+    t.activitysListStatus = "loading";
+    Taro.request({
+      url: `${API_HOST}/config/commerce_hot_activitys`,
+      data: {
+        page:params.page,
+        pageSize:params.pageSize
+      },
+      header: {
+        'content-type': 'application/json'
+      }
+    }).then((res) => {
+      const data = res.data.data.data;
+      if(data.currentRecords.length){
+        data.currentRecords.forEach((item,key)=>{
+            item.descript = item.description;
+            item.tags = item.tag;
+            item.name = item.title;
+            item.photo = item.picture;
+            if(key == data.currentRecords.length -1){
+              t.activitysList = t.activitysList.concat(data.currentRecords);
+            }
+        });
+        t.activitysListStatus = "more";
+      }else{
+        t.activitysListStatus = "noMore";
+      }
+
+    });
+    // return t.activitysList;
+  },
+  //活动模块  活动列表
+  getActivityInformList (){
+    let presidiumList = [{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护,贫困患儿",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png",tags:"环境保护"}];
+    Taro.request({
+      url: `${API_HOST}/config/commerce_hot_activitys`,
+      data: {
+        page:1,
+        pageSize:10
+      },
+      header: {
+        'content-type': 'application/json'
+      }
+    }).then((res) => {
+      const data = res.data.data.data;
+      data.currentRecords.forEach((item,key)=>{
+          item.descript = item.description;
+          item.tags = item.tag;
+          item.name = item.title;
+          item.photo = item.picture;
+          if(key == data.currentRecords.length -1){
+            presidiumList = data.currentRecords;
+          }
+      });
+    });
     return presidiumList;
   },
+
   //商会介绍
   getIntroduce(){
     const introduce = {

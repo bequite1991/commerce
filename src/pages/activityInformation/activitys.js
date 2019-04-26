@@ -40,7 +40,7 @@ class Index extends Component {
 
   render () {
     const { defaultStore} = this.props;
-    const activitysList = defaultStore.getActivitysList();
+    const activitysList = defaultStore.getActivityInformList();
     return (
       <View className='activitys'>
         <View className='title'>全部活动</View>
