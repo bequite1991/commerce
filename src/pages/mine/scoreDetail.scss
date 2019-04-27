@@ -1,24 +1,4 @@
-.myScore{
-	.header{
-		height: 360rpx;
-		border-bottom:2rpx solid rgba(236,236,236,1);
-		text-align: center;
-		padding-top: 100rpx;
-		.score{
-			font-size:72px;
-			font-family:PingFangSC-Medium;
-			font-weight:500;
-			color:rgba(0,0,0,1);
-			line-height:100rpx;
-		}
-		.subtitle{
-			font-size:28rpx;
-			font-family:PingFangSC-Regular;
-			font-weight:400;
-			color:rgba(153,153,153,1);
-			line-height:40rpx;
-		}
-	}
+.myScoreDetail{
 	.content{
 		padding: 40rpx;
 		.title{
@@ -31,11 +11,10 @@
 		}
 		.list{
 			background:rgba(255,255,255,1);
-			box-shadow:0rpx 0rpx 12rpx -4rpx rgba(0,0,0,0.34);
 			.item{
 				display: flex;
 				justify-content: space-between;
-				border:2rpx solid rgba(236,236,236,1);
+				border-bottom:2rpx solid rgba(236,236,236,1);
 				padding: 30rpx;
 			}
 			.name,.time,.value{

@@ -23,6 +23,16 @@ const defaultStore = observable({
   activity_messageDetail:{},
   //活动模块 活动详情 申请加入确认
   activity_appliedConfirm:{},
+  //我模块 近期活动
+  mine_recentActivitys:{},
+  //我模块 我的积分
+  mine_myScore:{},
+  //我模块 我的积分详情
+  mine_myScoreDetail:{},
+  //我模块 设置 隐私设置
+  mine_settingPrivacy:{},
+  //我模块 设置 用户信息
+  mine_userInfo:{},
   //首页 banner
   getBannerList() {
     const bannerList = [{name:"banner0",url:"https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180"},{name:"banner1",url:"https://img14.360buyimg.com/babel/s700x360_jfs/t1/4099/12/2578/101668/5b971b4bE65ae279d/89dd1764797acfd9.jpg!q90!cc_350x180"},{name:"banner2",url:"https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180"},{name:"banner3",url:"https://img14.360buyimg.com/babel/s700x360_jfs/t1/4099/12/2578/101668/5b971b4bE65ae279d/89dd1764797acfd9.jpg!q90!cc_350x180"}];
@@ -394,6 +404,38 @@ const defaultStore = observable({
   getMessageData(){
      const presidiumList = [{subtitle:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护",time:"20:12",title:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{subtitle:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护,贫困患儿",time:"20:12",title:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{subtitle:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护",time:"20:12",title:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{subtitle:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",time:"20:12",title:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png",tags:"环境保护"}];
     return presidiumList;
-  }
+  },
+  //我 近期活动列表
+  getMyRecentActivitys(){
+     this.mine_recentActivitys = [{status:"待进行",subtitle:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",organization:"环境保护",time:"2019-04-01",title:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{status:"已进行",subtitle:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",organization:"环境保护",time:"2019-04-02",title:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{status:"待进行",subtitle:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",organization:"环境保护",time:"2019-04-04",title:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{status:"已进行",subtitle:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",time:"2019-04-09",title:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png",organization:"环境保护"}];
+  },
+  //我 我的积分
+  getMyScore(){
+     this.mine_myScore = {
+      score:2000,
+      list:[{name:"客服充值",time:"04-13 16:24",value:"+20000"},{name:"客服充值",time:"04-15 16:24",value:"-1000"}]
+     }
+  },
+  //我 我的积分详情
+  getMyScoreDetail(){
+     this.mine_myScoreDetail = [{name:"客服充值",time:"04-13 16:24",value:"+20000"},{name:"客服充值",time:"04-15 16:24",value:"-1000"},{name:"客服充值",time:"04-15 16:24",value:"-1000"},{name:"客服充值",time:"04-15 16:24",value:"-1000"},{name:"客服充值",time:"04-15 16:24",value:"-1000"},{name:"客服充值",time:"04-15 16:24",value:"-1000"},{name:"客服充值",time:"04-15 16:24",value:"-1000"},{name:"客服充值",time:"04-15 16:24",value:"-1000"},{name:"客服充值",time:"04-15 16:24",value:"-1000"}]
+  }, 
+  //我 设置 设置隐私
+  getSettingPrivacy(){
+     this.mine_settingPrivacy = {
+        phone:true,
+        abstract:true,
+        honor:false,
+        companyAbstract:true,
+        companyInfo:false
+     }
+  },
+  //我 设置 设置隐私
+  getSettingPhone(){
+     this.mine_userInfo = {
+        phone:13988888888
+     }
+  },
+
 })
 export default defaultStore

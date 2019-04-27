@@ -22,6 +22,15 @@ class App extends Component {
 
   config = {
     pages: [
+      'pages/mine/messageReply',
+      'pages/mine/messageComment',
+      'pages/mine/settingPhoneChange',
+      'pages/mine/settingPhoneChangeMsg',
+      'pages/mine/settingPhone',
+      'pages/mine/settingPrivacy',
+      'pages/mine/setting',
+      'pages/mine/scoreDetail',
+      'pages/mine/score',
       'pages/mine/myActivitys',
       'pages/index/index',
       'pages/activityInformationDetail/appliedFail',
@@ -38,8 +47,7 @@ class App extends Component {
       'pages/mine/enterpriseData',
       'pages/mine/index',
       'pages/mine/activitys',
-      'pages/mine/score',
-      'pages/mine/setting',
+
       'pages/wisdomMemberDetail/index',
       'pages/organizationRegister/index',
       'pages/organizationRegister/submitSuccess',

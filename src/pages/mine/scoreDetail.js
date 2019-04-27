@@ -5,7 +5,7 @@ import Card from "../../components/card/index.js";
 import { AtList, AtListItem,AtButton } from 'taro-ui';
 import Tags from "../../components/tags/index.js";
 
-import './score.scss';
+import './scoreDetail.scss';
 
 
 @inject('defaultStore')
@@ -13,7 +13,7 @@ import './score.scss';
 class Index extends Component {
 
   config = {
-    navigationBarTitleText: '我的积分',
+    navigationBarTitleText: '收支明细',
     navigationBarTextStyle: "black",
   }
 
@@ -24,7 +24,7 @@ class Index extends Component {
 
   componentWillMount () {
     const { defaultStore } = this.props;
-    defaultStore.getMyScore();
+    defaultStore.getMyScoreDetail();
   }
 
   componentWillReact () {
@@ -53,19 +53,12 @@ class Index extends Component {
   }
 
   render () {
-    const { defaultStore:{mine_myScore} } = this.props;
-    const list  = mine_myScore.list?mine_myScore.list.$mobx.values:[];
+    const { defaultStore:{mine_myScoreDetail} } = this.props;
+    const list  = mine_myScoreDetail.$mobx.values;
 
     return (
-      <View className='myScore'>
-        <View className="header">
-          <View className="score">
-            {mine_myScore.score}
-          </View>
-          <View className="subtitle">账户余额积分</View>
-        </View>
+      <View className='myScoreDetail'>
         <View className="content">
-          <View className="title">积分账单</View>
           <View className="list">
             {list.map((item,index)=>{
               return <View key={index} className='item'>
@@ -76,14 +69,7 @@ class Index extends Component {
                 <View className="value">{item.value}</View>
               </View>
             })}
-            <View key={index} className='item' onClick={this.goPage.bind(this,'scoreDetail')}>
-                <View className="info">
-                  <View className="name">查看更多账单信息</View>
-                </View>
-                <View className="value"><View className='at-icon at-icon-chevron-right'></View></View>
-              </View>
           </View>
-          <AtButton className="apply" type='primary' onClick={this.submit}>联系客服充值积分</AtButton>
         </View>
       </View>
     )
