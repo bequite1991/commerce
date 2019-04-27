@@ -23,6 +23,10 @@ const defaultStore = observable({
   activity_messageDetail:{},
   //活动模块 活动详情 申请加入确认
   activity_appliedConfirm:{},
+  //领事馆列表数据
+  internation_consulate:[],
+  // 国际商会列表数据
+  internation_commerce:[],
   //首页 banner
   getBannerList() {
     const bannerList = [{name:"banner0",url:"https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180"},{name:"banner1",url:"https://img14.360buyimg.com/babel/s700x360_jfs/t1/4099/12/2578/101668/5b971b4bE65ae279d/89dd1764797acfd9.jpg!q90!cc_350x180"},{name:"banner2",url:"https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180"},{name:"banner3",url:"https://img14.360buyimg.com/babel/s700x360_jfs/t1/4099/12/2578/101668/5b971b4bE65ae279d/89dd1764797acfd9.jpg!q90!cc_350x180"}];
@@ -133,7 +137,7 @@ const defaultStore = observable({
   getMessageList() {
     const t = this;
     t.activity_messageList = [{time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"}];
-    // const presidiumList = 
+    // const presidiumList =
 
     // Taro.request({
     //   url: `${API_HOST}/config/commerce_presidium`,
@@ -162,7 +166,7 @@ const defaultStore = observable({
   getAppliedList() {
     const t = this;
     t.activity_appliedList = [{time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"}];
-    // const presidiumList = 
+    // const presidiumList =
 
     // Taro.request({
     //   url: `${API_HOST}/config/commerce_presidium`,
@@ -198,7 +202,7 @@ const defaultStore = observable({
       name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png",
       replys:[{to:"王思聪",time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{to:"王思聪",time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{to:"王思聪",time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{to:"王思聪",time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"}]
     };
-    // const presidiumList = 
+    // const presidiumList =
 
     // Taro.request({
     //   url: `${API_HOST}/config/commerce_presidium`,
@@ -238,7 +242,7 @@ const defaultStore = observable({
       comment:[],
       detailPhotos:"https://img.zcool.cn/community/01f49a5c9b403aa801208f8b35c9e4.jpg@1280w_1l_2o_100sh.jpg"
     };
-    // const presidiumList = 
+    // const presidiumList =
 
     // Taro.request({
     //   url: `${API_HOST}/config/commerce_presidium`,
@@ -285,13 +289,27 @@ const defaultStore = observable({
   },
   //领馆列表
   getConsulateList(){
-    const datas = [{descript:"上海市浙江商会原名浙江省驻沪企业协会，1986年3月5日经上海市民政局注册登记批准成为具有法人资格的社会团体组织，接受···",tags:"环境保护",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"上海市浙江商会原名浙江省驻沪企业协会，1986年3月5日经上海市民政局注册登记批准成为具有法人资格的社会团体组织，接受···",tags:"环境保护,贫困患儿",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"上海市浙江商会原名浙江省驻沪企业协会，1986年3月5日经上海市民政局注册登记批准成为具有法人资格的社会团体组织，接受···",tags:"环境保护",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"上海市浙江商会原名浙江省驻沪企业协会，1986年3月5日经上海市民政局注册登记批准成为具有法人资格的社会团体组织，接受···",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png",tags:"环境保护"}];;
-    return datas;
+    const t=this;
+    request('/config/commerce_global_list', {
+      data:{
+        type: 'consulate',// global
+      }
+    }).then((res) => {
+      const list = res.data.data.data_list;
+      t.internation_consulate = list.list;
+    });
   },
   //商户列表
   getCommerceList(){
-    const datas = [{descript:"上海市浙江商会原名浙江省驻沪企业协会，1986年3月5日经上海市民政局注册登记批准成为具有法人资格的社会团体组织，接受···",tags:"环境保护",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"上海市浙江商会原名浙江省驻沪企业协会，1986年3月5日经上海市民政局注册登记批准成为具有法人资格的社会团体组织，接受···",tags:"环境保护,贫困患儿",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"上海市浙江商会原名浙江省驻沪企业协会，1986年3月5日经上海市民政局注册登记批准成为具有法人资格的社会团体组织，接受···",tags:"环境保护",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"上海市浙江商会原名浙江省驻沪企业协会，1986年3月5日经上海市民政局注册登记批准成为具有法人资格的社会团体组织，接受···",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png",tags:"环境保护"}];
-    return datas;
+    const t=this;
+    request('/config/commerce_global_list', {
+      data:{
+        type: 'global',// global
+      }
+    }).then((res) => {
+      const list = res.data.data.data_list;
+      t.internation_commerce = list.list;
+    });
   },
   //智慧商道 会员列表
   getWisdomMembers(){
