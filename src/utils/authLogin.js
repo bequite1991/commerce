@@ -34,7 +34,7 @@ const getUserInfo = (code, callback, error) => {
     success (res) {
       // 全局存储用户信息
       // store.commit('storeUpdateWxUser', res.userInfo)
-      wx.setStorageSync("_TY_userinfo", res.userInfo);
+      // wx.setStorageSync("_TY_userinfo", res.userInfo);
       console.log(res.userInfo);
       postLogin(code, res.iv, res.encryptedData, res.userInfo, callback)
     },
@@ -46,7 +46,7 @@ const getUserInfo = (code, callback, error) => {
       // 使用token管理登录态的，清楚存储全局的token
       // 使用cookie管理登录态的，可以清楚全局登录状态管理的变量
       // store.commit('storeUpdateToken', '')
-      wx.setStorageSync("_TY_userinfo", '');
+      // wx.setStorageSync("_TY_userinfo", '');
       // 获取不到用户信息，说明用户没有授权或者取消授权。弹窗提示一键登录，后续会讲
       // showLoginModal()
       error && error();//打开登录授权页
@@ -76,6 +76,7 @@ const postLogin = (code, iv, encryptedData, userinfo, callback) => {
       const _openId = data.data.openId;
       wx._TY_opendid = _openId;//设置全局变量
       const u = data.data.data;
+      wx.setStorageSync("_TY_U", u);// 用户信息存储在缓存中
       // TODO 判断openId是否在数据库中，或者直接后台判断返回用户信息
       let sessionId = data.data.si;
       if(sessionId){

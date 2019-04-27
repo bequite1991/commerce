@@ -2,8 +2,18 @@ import { observable } from 'mobx';
 import Taro from '@tarojs/taro';
 import request from "../utils/request.js";
 
-
-
+const Job = {
+  honor_chairman: '名誉会长',
+  chairman: '会长',
+  shift_chairman: '轮值主席',
+  standing_vice_chairman: '常务副会长',
+  vice_chairman: '副会长',
+  director: '理事',
+  member: '会员',
+  secretariat: '秘书处',
+  user: '注册用户',
+  expert: '专家委员会'
+}
 
 const defaultStore = observable({
   //首页主席团
@@ -27,6 +37,13 @@ const defaultStore = observable({
   internation_consulate:[],
   // 国际商会列表数据
   internation_commerce:[],
+  //主席团成员
+  wisdom_honoraryPresident: [],
+  wisdom_president: [],
+  wisdom_rotatingChairman: [],
+  wisdom_committeeExperts: [],
+  // 个人信息
+  userinfo: {},
   //首页 banner
   getBannerList() {
     const bannerList = [{name:"banner0",url:"https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180"},{name:"banner1",url:"https://img14.360buyimg.com/babel/s700x360_jfs/t1/4099/12/2578/101668/5b971b4bE65ae279d/89dd1764797acfd9.jpg!q90!cc_350x180"},{name:"banner2",url:"https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180"},{name:"banner3",url:"https://img14.360buyimg.com/babel/s700x360_jfs/t1/4099/12/2578/101668/5b971b4bE65ae279d/89dd1764797acfd9.jpg!q90!cc_350x180"}];
@@ -313,34 +330,72 @@ const defaultStore = observable({
   },
   //智慧商道 会员列表
   getWisdomMembers(){
-    const datas = {
-      honoraryPresident:[{photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"名誉会长",name:"马云",descript:"阿里巴巴集团董事局主席 阿里巴巴集团董事局主席"},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"名誉会长",name:"马云",descript:"阿里巴巴集团董事局主席 阿里巴巴集团董事局主席"}],
-      president:[{photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"名誉会长",name:"马云",descript:"阿里巴巴集团董事局主席 阿里巴巴集团董事局主席"},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"名誉会长",name:"马云",descript:"阿里巴巴集团董事局主席 阿里巴巴集团董事局主席"}],
-      rotatingChairman:[{photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"名誉会长",name:"马云",descript:"阿里巴巴集团董事局主席 阿里巴巴集团董事局主席"},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"名誉会长",name:"马云",descript:"阿里巴巴集团董事局主席 阿里巴巴集团董事局主席"},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"名誉会长",name:"马云",descript:"阿里巴巴集团董事局主席 阿里巴巴集团董事局主席"},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"名誉会长",name:"马云",descript:"阿里巴巴集团董事局主席 阿里巴巴集团董事局主席"}],
-      committeeExperts:[{photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"名誉会长",name:"马云",descript:"阿里巴巴集团董事局主席 阿里巴巴集团董事局主席"},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"名誉会长",name:"马云",descript:"阿里巴巴集团董事局主席 阿里巴巴集团董事局主席"},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"名誉会长",name:"马云",descript:"阿里巴巴集团董事局主席 阿里巴巴集团董事局主席"},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"名誉会长",name:"马云",descript:"阿里巴巴集团董事局主席 阿里巴巴集团董事局主席"},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"名誉会长",name:"马云",descript:"阿里巴巴集团董事局主席 阿里巴巴集团董事局主席"},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"名誉会长",name:"马云",descript:"阿里巴巴集团董事局主席 阿里巴巴集团董事局主席"}]
-    };
-    return datas;
+    const t=this;
+    request('/config/commerce_master_list',{
+      data:{
+        commerce_job: 'honor_chairman,chairman,shift_chairman'
+      }
+    }).then(res => {
+      const list = res.data.data.data_list;
+      const expertList = res.data.data.expert_list;
+      const honoraryPresident =[],
+        president =[],
+        rotatingChairman = [];
+      if(list && list.list.length>0){
+        list.list.forEach(item => {
+          if(item.commerce_job === 'honor_chairman'){
+            honoraryPresident.push(item);
+          }else if(item.commerce_job === 'chairman'){
+            president.push(item);
+          }else if(item.commerce_job === 'shift_chairman'){
+            rotatingChairman.push(item);
+          }
+        });
+      }
+      t.wisdom_honoraryPresident = honoraryPresident;
+      t.wisdom_president = president;
+      t.wisdom_rotatingChairman = rotatingChairman;
+      t.wisdom_committeeExperts = expertList ? expertList.list : [];
+    });
   },
   //智慧商道 会员信息
-  getMemberDetail(){
-    const datas = {
-      photo:"https://taro-ui.aotu.io/img/logo-taro.png",
-      name:"杨辉",
-      position:"常务副会长",
-      company:"唯众传媒 vivid media",
-      phone:"13888888888",
-      abstract:"北师大艺术与传媒学院博士，资深媒体人， TV2.0新思维理念倡导者。 历任湖南卫视节目中心副主任、CNBC中国区项目经理。2006年创建唯众传媒,先后创办《开讲啦》、《波士堂》、《我是先生》《老妈驾到》、《你正常吗》、《暴走法条君》等50余档电视和网络节目，出品节目获得超过70项重大奖项。热心公益，现任雷励中国的理事长和上海公益事业发展基金会创始理事。",
-      honor:[{title:"2015年度全国三八红旗手",color:"#5683C9"},{title:"影响中国传媒领军人物",color:"#5683C9"},{title:"2015中国商业最具创意人物100",color:"#5683C9"},{title:"两次入选“中国商界女性精英价值榜",color:"#5683C9"},{title:"2013-2014年度上海市三八红旗手标兵",color:"#5683C9"}],
-      companyAbstract:"唯众传媒是中国领先的原创优质视频生产全媒体整合运营商。 成立于2006年的唯众传媒是一家致力于原创追求，以提供优质视频内容为核心竞争力的全媒体整合运营商，是中国传媒界原创节目数量最多，专注于优质视频产品策划与制作的民营传媒机构。公司拥有国内一流的策划力量、导演团队和运营班底，以视频节目创意、策划、制作、经营，大型活动策划、执行，新媒体业务为核心业务。坚持以提供原创、精品、输出正向价值观为核心理念，以打造大文化、大财经、大生活、大综艺四大产品矩阵为发展战略。 ",
-      companyInfo:{
-        website:"http://www.v2006.tv/",
-        name:"上海唯众传媒股份有限公司",
-        address:"上海市徐汇区中山西路1788弄58号（200235）",
-        phone:"+86(0)21 5169 7588",
-        email:"vividmedia@v2006.tv"
+  getMemberDetail(id){
+    const t = this;
+    t.userinfo ={};
+    request('/config/commerce_get_userinfo_by_id',{
+      data: {
+        id: id
       }
-    };
-    return datas;
+    }).then(res => {
+      const { data, company, honor_list } = res.data.data;
+      const result = {
+        photo: data.photo || '',
+        name: data.name || '',
+        position: Job[data.commerce_job] || '',
+        company: company.name || '',
+        phone: data.telphone || '',
+        abstract: data.introduce || '',
+        companyAbstract: company.introduce || '',
+        companyInfo:{
+          website: company.website || '',
+          name: company.name || '',
+          address: company.address || '',
+          phone: company.phone || '',
+          email: company.email || ''
+        },
+        honor:[]
+      };
+      if(honor_list && honor_list.list && honor_list.list.length>0){
+        result.honor = honor_list.list.map(item => {
+          return {
+            title: item.title || '',
+            color:"#5683C9"
+          }
+        });
+      }
+      console.log('result:',result);
+      t.userinfo = result;
+    });
   },
   //人脉 会员列表
   getConnectionMemberList(){
