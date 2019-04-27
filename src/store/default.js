@@ -21,6 +21,8 @@ const defaultStore = observable({
   activity_appliedList:[],
   //活动模块 活动详情 留言详情
   activity_messageDetail:{},
+  //活动模块 活动详情 申请加入确认
+  activity_appliedConfirm:{},
   //首页 banner
   getBannerList() {
     const bannerList = [{name:"banner0",url:"https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180"},{name:"banner1",url:"https://img14.360buyimg.com/babel/s700x360_jfs/t1/4099/12/2578/101668/5b971b4bE65ae279d/89dd1764797acfd9.jpg!q90!cc_350x180"},{name:"banner2",url:"https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180"},{name:"banner3",url:"https://img14.360buyimg.com/babel/s700x360_jfs/t1/4099/12/2578/101668/5b971b4bE65ae279d/89dd1764797acfd9.jpg!q90!cc_350x180"}];
@@ -194,7 +196,47 @@ const defaultStore = observable({
       post:"会长",
       company:"中国石油华化工集团",
       name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png",
-      replys:[{time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"}]
+      replys:[{to:"王思聪",time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{to:"王思聪",time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{to:"王思聪",time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{to:"王思聪",time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"}]
+    };
+    // const presidiumList = 
+
+    // Taro.request({
+    //   url: `${API_HOST}/config/commerce_presidium`,
+    //   data: {
+    //     commerce_job:""
+    //   },
+    //   header: {
+    //     'content-type': 'application/json'
+    //   }
+    // }).then((res) => {
+    //   const data = res.data.data.data_list;
+    //   if(data.list.length){
+    //     data.list.forEach((item,key)=>{
+    //         item.post = item.job_title;
+    //         item.company = item.company_name;
+    //         item.name = item.user_name;
+    //         item.photo = item.picture;
+    //         if(key == data.list.length -1){
+    //           t.home_presidiumList = data.list;
+    //         }
+    //     });
+    //   }
+    // });
+  },
+    //活动详情 申请加入 确认
+  getAppliedConfirm() {
+    const t = this;
+    t.activity_appliedConfirm = {
+      photo:"https://taro-ui.aotu.io/img/logo-taro.png",
+      name:"玩转地球天河汇123健康俱乐部",
+      time:"2019-04-15 13:00",
+      address:"北京市朝阳区高碑店乡高碑店村一区33号",
+      rate:"1000积分",
+      origin:"王铁柱",
+      phone:"13888888888",
+      status:"10人",
+      comment:[],
+      detailPhotos:"https://img.zcool.cn/community/01f49a5c9b403aa801208f8b35c9e4.jpg@1280w_1l_2o_100sh.jpg"
     };
     // const presidiumList = 
 

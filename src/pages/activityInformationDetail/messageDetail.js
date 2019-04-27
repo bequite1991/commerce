@@ -1,9 +1,10 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text,Swiper, SwiperItem} from '@tarojs/components'
-import { observer, inject } from '@tarojs/mobx'
+import { observer, inject, } from '@tarojs/mobx'
 import Banner from "./banner.js";
 import Card from "../../components/card/index.js";
-import { AtButton } from 'taro-ui'
+import ReplyInput from "../../components/replyInput/index.js";
+import { AtButton, AtSearchBar } from 'taro-ui'
 
 import './messageDetail.scss';
 
@@ -40,6 +41,8 @@ class Index extends Component {
       url: '/pages/joinUs/index'
     });
   }
+  onActionClick(){
+  }
 
   render () {
     const { messages} = this.props;
@@ -65,8 +68,8 @@ class Index extends Component {
           </View>
         </View>
         <View className="replys">
-          <View className=""title>
-            <View className="icon"></View>
+          <View className="title">
+            <View className='at-icon at-icon-message icon'></View>
             <View className="words">全部回复</View>
           </View>
           {replys.map((item,index)=>{
@@ -80,12 +83,19 @@ class Index extends Component {
                 <View className="post">{item.company} {" "} {item.post}</View>
               </View>
             </View>
-            <View className="words">{item.words}</View>
+            <View className="words">回复{" "}<Text className="to">{item.to}</Text>{"："}{item.words}</View>
             <View className="time">
               <View className="date">{item.time}</View>
             </View>
           </View>)
           })}
+        </View>
+        <View className="replayInput">
+          <AtSearchBar
+            placeholder="说点什么呗~"
+            actionName='提交'
+            onActionClick={this.onActionClick.bind(this)}
+          />
         </View>
       </View>
     )

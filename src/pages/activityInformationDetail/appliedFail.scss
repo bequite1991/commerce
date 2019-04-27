@@ -1,0 +1,51 @@
+.appliedFail{
+	.logo{
+		width:180rpx;
+		height:180rpx;
+		background:rgba(254,96,99,1);
+		font-size: 60rpx;
+		color:#fff;
+		font-weight: 800;
+		margin:148rpx auto 26rpx auto;
+		text-align: center;
+		line-height: 180rpx;
+	}
+	.title{
+		text-align: center;
+		font-size:40rpx;
+		font-family:PingFangSC-Regular;
+		font-weight:400;
+		color:rgba(28,28,28,1);
+		line-height:56rpx;
+		margin-bottom: 26rpx;
+	}
+	.subtitle{
+		font-size:28rpx;
+		font-family:PingFangSC-Regular;
+		font-weight:400;
+		color:rgba(117,117,117,1);
+		line-height:34rpx;
+		letter-spacing:2rpx;
+		margin: 0 114rpx;
+		margin-bottom: 314rpx;
+	}
+	.service{
+		margin:auto;
+		margin-top: 60rpx;
+		width: 90%;
+		background::rgba(254,96,99,1);
+		border-radius:8rpx;
+		color: #fff;
+	}
+	.apply{
+		color: #fff;
+		margin:auto;
+		margin-top: 60rpx;
+		width: 90%;
+		background:rgba(58,168,119,1);
+		border-radius:8rpx;
+	}
+	.at-button--primary{
+		border: none;
+	}
+}

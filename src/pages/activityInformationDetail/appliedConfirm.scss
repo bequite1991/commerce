@@ -1,0 +1,60 @@
+page {
+  background-color: rgba(236,236,236,1);
+} 
+.appliedConfirm{
+	.title{
+		font-size:32rpx;
+		font-family:PingFangSC-Medium;
+		font-weight:500;
+		color:rgba(25,25,25,1);
+		line-height:44rpx;
+		padding: 40rpx;
+		background-color: #fff;
+	}
+	.form{
+		background-color: #fff;
+		margin-top:20rpx;
+		padding:0 40rpx;
+		.formItem{
+			padding:40rpx 0;
+			border-bottom:2rpx solid rgba(234,234,234,1);
+			.value,.label,.text{
+				font-size:28rpx;
+				font-family:PingFangSC-Regular;
+				font-weight:400;
+				line-height:40rpx;
+			}
+			.label{
+				display: inline-block;
+				color:rgba(175,174,179,1);
+				width:140rpx;
+			}
+			.value{
+				display: inline-block;
+				color:rgba(43,43,43,1);
+			}
+			.button{
+				display: inline-block;
+				border-left:1px solid rgba(220,220,220,1);
+				float:right;
+				padding: 0 32rpx;
+			}
+			.icon,.text{
+				display: inline-block;
+				margin-right: 6rpx;
+			}
+			.text{
+				color:rgba(182,182,182,1);
+			}
+			.main{
+				color: #357FD7;
+			}
+		}
+	}
+	.apply{
+		margin:auto;
+		margin-top: 60rpx;
+		width: 90%;
+		background:rgba(0,58,128,1)
+	}
+}

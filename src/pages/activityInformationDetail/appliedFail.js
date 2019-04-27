@@ -1,0 +1,59 @@
+import Taro, { Component } from '@tarojs/taro'
+import { View, Button, Text,Swiper, SwiperItem} from '@tarojs/components'
+import { observer, inject } from '@tarojs/mobx'
+import Banner from "./banner.js";
+import Card from "../../components/card/index.js";
+import { AtButton } from 'taro-ui'
+
+import './appliedFail.scss';
+
+
+@inject('defaultStore')
+@observer
+class Index extends Component {
+
+  config = {
+    navigationBarTitleText: "报名失败",
+    navigationBarTextStyle: "black",
+  }
+
+  componentWillMount () { }
+
+  componentWillReact () {
+    console.log('componentWillReact')
+  }
+
+  componentDidMount () { 
+  }
+
+  componentWillUnmount () { }
+
+  componentDidShow () { }
+
+  componentDidHide () { }
+
+  goPage(){
+    Taro.navigateTo({
+      // url: '/pages/joinUs/index'
+      url: '/pages/joinUs/index'
+    });
+  }
+
+  render () {
+    const { messages} = this.props;
+    const { defaultStore:{activity_appliedConfirm}} = this.props;
+    return (
+        <View className="appliedFail">
+          <View className="logo">
+            <View className="at-icon at-icon-check"></View>
+          </View>
+          <View className="title">报名失败</View>
+          <View className="subtitle">很抱歉，由于您的积分不足无法成功报 名，请点击下方联系客服充值积分。 </View>
+          <AtButton className="service" type='primary' onClick={this.goPage}>联系客服充值积分</AtButton>
+          <AtButton className="apply" type='primary' onClick={this.goPage}>返回活动详情</AtButton>
+        </View>
+    )
+  }
+}
+
+export default Index 
