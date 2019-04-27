@@ -8,49 +8,111 @@ page {
 	.calendar{
 		background-color: #fff;
 	}
-	.memberBase{
-		background-color: #fff;
-		display: flex;
-		padding: 40rpx;
-		.photo{
-			width:190rpx;
-			height:190rpx;
-			border-radius: 50%;
-			overflow:hidden;
-			margin-right: 70rpx;
-			image{
-				width: 100%;
-				height: 100%;
-			}
+	.titleTop{
+		font-size:36rpx;
+		font-family:PingFangSC-Medium;
+		font-weight:500;
+		color:rgba(0,0,0,1);
+		line-height:50rpx;
+		padding:40rpx 30rpx;
+	}
+	.activitys{
+		padding: 30rpx;
+		margin-top: 20rpx;
+		background:rgba(255,255,255,1);
+		.activitysItem{
+			background:rgba(255,255,255,1);
+			box-shadow:0rpx 0rpx 12rpx -4rpx rgba(0,0,0,0.23);
+			border-radius:8rpx;
+			padding: 30rpx;
+			margin-bottom: 40rpx;
+			position: relative;
 		}
-		.info{
+		.title{
+			font-size:32rpx;
+			font-family:PingFangSC-Regular;
+			font-weight:400;
+			color:rgba(58,58,58,1);
+			line-height:44rpx;
+		}
+		.subtitle{
 			font-size:24rpx;
 			font-family:PingFangSC-Regular;
 			font-weight:400;
-			color:rgba(0,0,0,1);
-			line-height:64rpx;
-			.name{
-				width:120rpx;
-				height:44rpx;
-				font-size:32rpx;
-				font-family:PingFangSC-Medium;
-				font-weight:500;
-				color:rgba(0,0,0,1);
-				line-height:44rpx;
-				display: inline-block;
-			}
-			.position{
-				display: inline-block;
+			color:rgba(153,153,153,1);
+			line-height:34rpx;
+			max-width: 360rpx;
+		}
+		.time{
+			font-size:24rpx;
+			font-family:PingFangSC-Regular;
+			font-weight:400;
+			color:rgba(37,37,37,1);
+			line-height:34rpx;
+		}
+		.organization{
+			font-size:24rpx;
+			font-family:PingFangSC-Regular;
+			font-weight:400;
+			color:rgba(37,37,37,1);
+			line-height:34rpx;
+			margin: 10rpx 0;
+		}
+		.itemLeft,.itemRight{
+			display: inline-block;
+		}
+		.itemLeft{
+			margin-right: 30rpx;
+			image{
+				width:200rpx;
+				height:200rpx;
 			}
 		}
-	}
-	.companyInfo{
-		font-family:PingFangSC-Regular;
-		font-weight:400;
-		color:rgba(0,0,0,1);
-		line-height:64rpx;
-	}
-	.list{
-		margin-top: 20rpx;
+		.itemRight{
+			
+		}
+		.status1{
+			.tagTriangle{
+				border-color:transparent transparent transparent rgba(0,58,128,1);/*透明 透明 透明 灰*/
+			}
+		}
+		.status2{
+			.tagTriangle{
+				border-color:transparent transparent transparent rgba(193,193,193,1);/*透明 透明 透明 灰*/
+			}
+		}
+		.tagTriangle{
+			position: absolute;
+			right: 0;
+			top:0;
+			width:0;
+		    height:0;
+		    border-width:80rpx 0 80rpx 80rpx;
+		    border-style:solid;
+		    border-color:transparent transparent transparent rgba(0,58,128,1);/*透明 透明 透明 灰*/
+		    transform:rotate(-45deg);
+			-ms-transform:rotate(-45deg); 	/* IE 9 */
+			-moz-transform:rotate(-45deg); 	/* Firefox */
+			-webkit-transform:rotate(-45deg); /* Safari 和 Chrome */
+			-o-transform:rotate(-45deg); 	/* Opera */
+			margin-top:-50rpx;
+			margin-right:-10rpx;
+		}
+		.tagText{
+			position: absolute;
+			right: 6rpx;
+			top:22rpx;
+			font-size:24rpx;
+			font-family:PingFangSC-Regular;
+			font-weight:400;
+			color:rgba(255,255,255,1);
+			line-height:34rpx;
+			text-align: center;
+			transform:rotate(45deg);
+			-ms-transform:rotate(45deg); 	/* IE 9 */
+			-moz-transform:rotate(45deg); 	/* Firefox */
+			-webkit-transform:rotate(45deg); /* Safari 和 Chrome */
+			-o-transform:rotate(45deg); 	/* Opera */
+		}
 	}
 }

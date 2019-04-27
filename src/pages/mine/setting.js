@@ -19,16 +19,7 @@ class Index extends Component {
 
   constructor (props) {
     super (props);
-    this.state = {
-      formData: {
-        birthday:"1950-01-01"
-      },
-      sexOpen:false,
-      selectorChecked:"男性",
-      isChange:0,
-      position:"会员",
-      positionsArr:["名誉会长","会长","轮值主席","常务副会长","副会长","理事","会员"]
-    };
+    this.state = {};
   }
 
   componentWillMount () { }
@@ -77,55 +68,17 @@ class Index extends Component {
     const introduce = defaultStore.getMineDetail();
 
     return (
-      <View className='memberDetail'>
-        <View className="memberBase">
-          <View className="photo">
-            <Image src={introduce.photo} />
-          </View>
-          <View className="info">
-            <View className="name">{introduce.name}</View>
-            <View className="position">{introduce.position}</View>
-            <View className="company">公司名称：{introduce.company}</View>
-            <View className="phone">联系方式：{introduce.phone}</View>
-          </View>
-        </View>
-        <AtList className="list">
+      <View className='setting'>
+        <AtList>
           <AtListItem
-            title='企业资料'
+            title='隐私'
             arrow='right'
-            thumb='https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png'
-            onClick={this.goPage.bind(this,"enterpriseData")}
-
+            onClick={this.goPage.bind(this,'settingPrivacy')}
           />
           <AtListItem
-            title='我的助理'
+            title='更改手机号码'
             arrow='right'
-            thumb='http://img10.360buyimg.com/jdphoto/s72x72_jfs/t5872/209/5240187906/2872/8fa98cd/595c3b2aN4155b931.png'
-          />
-          <AtListItem
-            title='我的消息'
-            arrow='right'
-            thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
-          />
-          <AtListItem
-            title='我的积分'
-            arrow='right'
-            thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
-          />
-          <AtListItem
-            title='我的活动'
-            arrow='right'
-            thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
-          />
-          <AtListItem
-            title='联系我们'
-            arrow='right'
-            thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
-          />
-          <AtListItem
-            title='设置'
-            arrow='right'
-            thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
+            onClick={this.goPage.bind(this,'settingPhone')}
           />
         </AtList>
       </View>

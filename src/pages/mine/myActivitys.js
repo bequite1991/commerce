@@ -5,12 +5,17 @@ import Card from "../../components/card/index.js";
 import { AtList, AtListItem, AtCalendar  } from 'taro-ui';
 import Tags from "../../components/tags/index.js";
 
-import './index.scss';
+import './myActivitys.scss';
 
 
 @inject('defaultStore')
 @observer
 class Index extends Component {
+
+  config = {
+    navigationBarTitleText: '我的活动',
+    navigationBarTextStyle: "black",
+  }
 
   constructor (props) {
     super (props);
@@ -18,7 +23,11 @@ class Index extends Component {
     };
   }
 
-  componentWillMount () { }
+  componentWillMount () {
+    const { defaultStore } = this.props;
+    let {formData,sexOpen,positionsArr} = this.state;
+    const introduce = defaultStore.getMyRecentActivitys();
+  }
 
   componentWillReact () {
     console.log('componentWillReact')
@@ -40,59 +49,22 @@ class Index extends Component {
   }
 
   render () {
-    const { defaultStore } = this.props;
-    let {formData,sexOpen,positionsArr} = this.state;
-    const introduce = defaultStore.getMineDetail();
+    const { defaultStore:{mine_recentActivitys} } = this.props;
+    const list = mine_recentActivitys.$mobx.values;
 
     return (
       <View className='myActivitys'>
         <View className="calendar">
-          <AtCalendar marks={ [ { value: '2018/11/11' } ] } />
+          <AtCalendar marks={ [ { value: '2019/4/29' } ] } />
         </View>
-        <AtList className="list">
-          <AtListItem
-            title='企业资料'
-            arrow='right'
-            thumb='https://img12.360buyimg.com/jdphoto/s72x72_jfs/t6160/14/2008729947/2754/7d512a86/595c3aeeNa89ddf71.png'
-            onClick={this.goPage.bind(this,"enterpriseData")}
-          />
-          <AtListItem
-            title='头像'
-            note='描述信息'
-            extraText='详细信息详细信息详细信息详细信息'
-            arrow='right'
-            thumb='http://img10.360buyimg.com/jdphoto/s72x72_jfs/t5872/209/5240187906/2872/8fa98cd/595c3b2aN4155b931.png'
-          />
-          <AtListItem
-            title='姓名'
-            note='王铁柱'
-            extraText='详细信息详细信息详细信息详细信息'
-            arrow='right'
-            thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
-          />
-          <AtListItem
-            title='我的积分'
-            note='描述信息'
-            extraText='详细信息详细信息详细信息详细信息'
-            arrow='right'
-            thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
-          />
-          <AtListItem
-            title='我的活动'
-            arrow='right'
-            thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
-          />
-          <AtListItem
-            title='联系我们'
-            arrow='right'
-            thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
-          />
-          <AtListItem
-            title='设置'
-            arrow='right'
-            thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
-          />
-        </AtList>
+        <View className="activitys">
+          <View className="titleTop">近期活动</View>
+          <View className="activitysList">
+            {list.map((item,index)=>{
+              return <View key={index} className='activitysItem' onClick={this.goPage.bind(this,'activityInformationDetail')}><View className="itemLeft"><Image src={item.photo} /></View><View className='itemRight'><View className="title">{item.title}</View><View className="subtitle">{item.subtitle}</View><View className="organization">{item.organization}</View><View className="time">时间：{item.time}</View></View><View className={item.status == "待进行"?"status1":"status2"}><View className="tagTriangle"></View><View className="tagText">{item.status}</View></View></View>
+            })}
+          </View>
+        </View>
       </View>
     )
   }

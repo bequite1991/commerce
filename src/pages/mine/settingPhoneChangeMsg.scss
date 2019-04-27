@@ -1,0 +1,26 @@
+page {
+  background-color: rgba(236,236,236,1);
+} 
+.settingPhone{
+	.submit{
+		width: 80%;
+		margin:auto;
+		background:#003A80;
+		margin-top:240rpx;
+	}
+	.displayNo{
+		display: none;
+	}
+	.info{
+		font-size:28rpx;
+		font-family:PingFangSC-Regular;
+		font-weight:400;
+		color:rgba(149,149,149,1);
+		line-height:40rpx;
+		text-align: center;
+	}
+	.phone{
+		color: #003A80;
+		display: inline-block;
+	}
+}
