@@ -1,7 +1,7 @@
 import { observable } from 'mobx';
-import Taro from '@tarojs/taro'
-const API_HOST = "http://118.25.103.49:8000";
-import message from "./default.js"
+import Taro from '@tarojs/taro';
+import request from "../utils/request.js";
+
 
 
 
@@ -31,8 +31,7 @@ const defaultStore = observable({
     const t = this;
     // const presidiumList = [{post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"}];
 
-    Taro.request({
-      url: `${API_HOST}/config/commerce_presidium`,
+    request("/config/commerce_presidium",{
       data: {
         commerce_job:""
       },
@@ -59,8 +58,7 @@ const defaultStore = observable({
     const t = this;
     // this.activitysList = [{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护,贫困患儿",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png",tags:"环境保护"}];
     t.home_activitysListStatus = "loading";
-    Taro.request({
-      url: `${API_HOST}/config/commerce_hot_activitys`,
+    request("/config/commerce_hot_activitys",{
       data: {
         page:1,
         pageSize:4
@@ -92,8 +90,7 @@ const defaultStore = observable({
   //活动模块  活动列表
   getActivityInformList (){
     let presidiumList = [{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护,贫困患儿",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png",tags:"环境保护"}];
-    Taro.request({
-      url: `${API_HOST}/config/commerce_hot_activitys`,
+    request("/config/commerce_hot_activitys",{
       data: {
         page:1,
         pageSize:10
