@@ -6,8 +6,6 @@ import Logo from '../../public/images/logo@3x.png';
 
 import request from '../../utils/request';
 
-import 'taro-ui/dist/style/index.scss';
-
 import './index.scss';
 
 @inject ('defaultStore')

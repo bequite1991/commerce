@@ -7,8 +7,6 @@ import BottomBar from "../../components/bottomBar/index.js";
 
 import { AtFab,AtSearchBar } from 'taro-ui';
 
-import 'taro-ui/dist/style/index.scss'
-
 import './index.scss';
 
 

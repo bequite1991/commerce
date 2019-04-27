@@ -4,8 +4,6 @@ import { observer, inject } from '@tarojs/mobx'
 
 import { AtButton,AtList, AtListItem} from 'taro-ui';
 
-import 'taro-ui/dist/style/index.scss'
-
 import './contact.scss';
 
 

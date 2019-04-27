@@ -12,8 +12,6 @@ import login from '../../utils/authLogin';
 
 // import {AtFab} from 'taro-ui';
 
-import 'taro-ui/dist/style/index.scss';
-
 import './index.scss';
 
 @inject ('defaultStore')
