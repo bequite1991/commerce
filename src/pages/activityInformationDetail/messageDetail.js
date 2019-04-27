@@ -5,7 +5,7 @@ import Banner from "./banner.js";
 import Card from "../../components/card/index.js";
 import { AtButton } from 'taro-ui'
 
-import './message.scss';
+import './messageDetail.scss';
 
 
 @inject('defaultStore')
@@ -13,7 +13,7 @@ import './message.scss';
 class Index extends Component {
 
   config = {
-    navigationBarTitleText: '留言',
+    navigationBarTitleText: '留言详情',
     navigationBarTextStyle: "black",
   }
 
@@ -25,7 +25,7 @@ class Index extends Component {
 
   componentDidMount () { 
     const { defaultStore} = this.props;
-    defaultStore.getMessageList();
+    defaultStore.getMessageDetail();
   }
 
   componentWillUnmount () { }
@@ -43,12 +43,34 @@ class Index extends Component {
 
   render () {
     const { messages} = this.props;
-    const { defaultStore:{activity_messageList}} = this.props;
-    const list = activity_messageList.$mobx.values;
+    const { defaultStore:{activity_messageDetail}} = this.props;
+    const replys = activity_messageDetail.replys?activity_messageDetail.replys.$mobx.values:[];
     return (
-        <View className="messageList">
-          {list.map((item,index)=>{
-            return (<View className="message" key={index}>
+      <View className="replyList">
+        <View className="detailInfo">
+          <View className="reply" key={index}>
+            <View className="userInfo">
+              <View className="photo">
+                <Image src={activity_messageDetail.photo} />
+              </View>
+              <View className="info">
+                <View className="name">{activity_messageDetail.name}</View>
+                <View className="post">{activity_messageDetail.company} {" "} {activity_messageDetail.post}</View>
+              </View>
+            </View>
+            <View className="words">{activity_messageDetail.words}</View>
+            <View className="time">
+              <View className="date">{activity_messageDetail.time}</View>
+            </View>
+          </View>
+        </View>
+        <View className="replys">
+          <View className=""title>
+            <View className="icon"></View>
+            <View className="words">全部回复</View>
+          </View>
+          {replys.map((item,index)=>{
+            return (<View className="reply" key={index}>
             <View className="userInfo">
               <View className="photo">
                 <Image src={item.photo} />
@@ -61,14 +83,11 @@ class Index extends Component {
             <View className="words">{item.words}</View>
             <View className="time">
               <View className="date">{item.time}</View>
-              <View className="button">
-                <View className='at-icon at-icon-message icon'></View>
-                <View className="text">回复</View>
-              </View>
             </View>
           </View>)
           })}
         </View>
+      </View>
     )
   }
 }

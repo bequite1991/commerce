@@ -82,4 +82,74 @@ page {
 			}
 		}
 	}
+	.messageList{
+		padding: 20rpx;
+		.message{
+			border-bottom:2rpx solid rgba(234,234,234,1);
+			padding: 36rpx 0;
+			.userInfo{
+				display: flex;
+				margin-bottom: 30rpx;
+				.photo{
+					margin-right:30rpx;
+					image{
+						width: 100rpx;
+						height: 100rpx;
+						border-radius: 50%;
+					}
+				}
+				.name{
+					font-size:28rpx;
+					font-family:PingFangSC-Medium;
+					font-weight:500;
+					color:rgba(0,0,0,1);
+					line-height:40rpx;
+					margin-bottom: 14rpx;
+				}
+				.post{
+					font-size:24rpx;
+					font-family:PingFangSC-Regular;
+					font-weight:400;
+					color:rgba(153,153,153,1);
+					line-height:34rpx;
+				}	
+			}
+			.words{
+				font-size:28rpx;
+				font-family:PingFangSC-Regular;
+				font-weight:400;
+				color:rgba(0,0,0,1);
+				line-height:40rpx;
+				margin-bottom:20rpx;
+			}
+			.time{
+				display: flex;
+				justify-content: space-between;
+			}
+			.date{
+				font-size:24rpx;
+				font-family:PingFangSC-Regular;
+				font-weight:400;
+				color:rgba(153,153,153,1);
+				line-height:34rpx;
+			}
+			.button{
+				display: flex;
+				font-size:24rpx;
+				font-family:PingFangSC-Regular;
+				font-weight:400;
+				color:rgba(153,153,153,1);
+				line-height:34rpx;
+				.icon{
+					line-height:40rpx;
+					margin-right: 4rpx;
+					font-size: 28rpx;
+				}
+			}
+		}
+	}
+	.detailPhotos{
+		display: blcok;
+		height: 100vh;
+	}
 }
