@@ -31,7 +31,8 @@ class Index extends Component {
   }
 
   componentWillMount () {
-
+    console.log(this.$router.params)
+    this._r = this.$router.params._r || '';
   }
 
   componentWillReact () {
@@ -103,24 +104,75 @@ class Index extends Component {
 
   // 提交
   handleCommit() {
-
     const { formData } = this.state;
-    // 发送短信
-    request('/config/commerce_update_telphone',{
-      method: 'POST',
-      data: {
-        telphone: formData.telphone,
-        vc_code: formData.vc,
-      }
-    }).then((res) => {
-      const data = res.data;
-      if(data.ok){
-        // 绑定成功 跳转到首页
-        Taro.navigateTo({
-          url: `/pages/index/index`
-        })
-      }
-    })
+    if(this._r){
+      request('/config/commerce_check_binded_wx', {
+        method: 'GET',
+        data: {
+          telphone: formData.telphone
+        }
+      }).then((res) => {
+        const data = res.data;
+        if(data.ok){
+          const cacheUser = wx.getStorageSync("_TY_CurrentInfo");
+          if(data.data.data && data.data.data.id){
+            // 有 这个人只是没有绑定微信
+            request('/config/commerce_bind_phone_init_session',{
+              method: 'GET',
+              data: {
+                id: data.data.data.id,
+                weixin_id: cacheUser.weixin_id,
+              }
+            }).then((res) => {
+              const data = res.data;
+              if(data.ok){
+                //初始化session后，跳转到手机授权页面
+                Taro.navigateTo({
+                  url: `/pages/index/index`
+                })
+              }
+            })
+          }else{
+            // 注册 手机验证码一起
+            request('/config/commerce_register_user',{
+              method: 'POST',
+              data: {
+                name: cacheUser.name,
+                photo: cacheUser.photo,
+                gender: cacheUser.gender,
+                weixin_id: cacheUser.weixin_id,
+                telphone: formData.telphone,
+                vc_code: formData.vc,
+              }
+            }).then((res) => {
+              const data = res.data;
+              if(data.ok){
+                Taro.navigateTo({
+                  url: `/pages/index/index`
+                })
+              }
+            })
+          }
+        }
+      });
+    }else{
+      // 发送短信
+      request('/config/commerce_update_telphone',{
+        method: 'POST',
+        data: {
+          telphone: formData.telphone,
+          vc_code: formData.vc,
+        }
+      }).then((res) => {
+        const data = res.data;
+        if(data.ok){
+          // 绑定成功 跳转到首页
+          Taro.navigateTo({
+            url: `/pages/index/index`
+          })
+        }
+      })
+    }
   }
 
   render () {

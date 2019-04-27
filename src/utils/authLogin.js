@@ -9,7 +9,6 @@ const showToast = (content = '登录失败，请稍后再试') => {
   })
 }
 
-
 const login = (callback, error) => {
   wx.showLoading()
   wx.login({
@@ -75,6 +74,7 @@ const postLogin = (code, iv, encryptedData, userinfo, callback) => {
       // 使用cookie管理登录态的，可以存任意变量当做已登录状态
       // store.commit('storeUpdateToken', res.data.token)
       const _openId = data.data.openId;
+      wx._TY_opendid = _openId;//设置全局变量
       const u = data.data.data;
       // TODO 判断openId是否在数据库中，或者直接后台判断返回用户信息
       let sessionId = data.data.si;
@@ -105,24 +105,18 @@ const initSession = (openId, u, userinfo, callback) => {
     })
   }else if(!u || !u.id){
     // 没有用户记录 新增一条后 跳转到绑定手机页面
-    // 发送短信
-    request('/config/commerce_register_user',{
-      method: 'POST',
-      data: {
-        name: userinfo.nickName,
-        photo: userinfo.avatarUrl,
-        gender: userinfo.gender,
-        weixin_id: openId,
-      }
-    }).then((res) => {
-      const data = res.data;
-      if(data.ok){
-        //有用户记录，跳转到手机授权页面
-        Taro.navigateTo({
-          url: `/pages/bindPhone/index`
-        })
-      }
-    })
+    wx.setStorageSync("_TY_CurrentInfo", {
+      name: userinfo.nickName,
+      photo: userinfo.avatarUrl,
+      gender: userinfo.gender,
+      weixin_id: openId,
+    });
+    Taro.navigateTo({
+      url: `/pages/bindPhone/index?_r=true`
+    });
+
+
+
   }else{
     //初始化session
     request('/config/commerce_init_session',{
