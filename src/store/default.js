@@ -2,8 +2,18 @@ import { observable } from 'mobx';
 import Taro from '@tarojs/taro';
 import request from "../utils/request.js";
 
-
-
+const Job = {
+  honor_chairman: '名誉会长',
+  chairman: '会长',
+  shift_chairman: '轮值主席',
+  standing_vice_chairman: '常务副会长',
+  vice_chairman: '副会长',
+  director: '理事',
+  member: '会员',
+  secretariat: '秘书处',
+  user: '注册用户',
+  expert: '专家委员会'
+}
 
 const defaultStore = observable({
   //首页主席团
@@ -33,6 +43,27 @@ const defaultStore = observable({
   mine_settingPrivacy:{},
   //我模块 设置 用户信息
   mine_userInfo:{},
+  //领事馆列表数据
+  internation_consulate:[],
+  // 国际商会列表数据
+  internation_commerce:[],
+  //主席团成员
+  wisdom_honoraryPresident: [],
+  wisdom_president: [],
+  wisdom_rotatingChairman: [],
+  wisdom_committeeExperts: [],
+  // 个人信息
+  userinfo: {},
+  // 人脉会员列表
+  memberPage: [],
+  memberPageStatus: "loading",
+  memberPagePage: 1,
+  memberPagePageSize: 10,
+  // 人脉 专家委员会
+  faccPage: [],
+  faccPageStatus: "loading",
+  faccPagePage: 1,
+  faccPagePageSize: 10,
   //首页 banner
   getBannerList() {
     const bannerList = [{name:"banner0",url:"https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180"},{name:"banner1",url:"https://img14.360buyimg.com/babel/s700x360_jfs/t1/4099/12/2578/101668/5b971b4bE65ae279d/89dd1764797acfd9.jpg!q90!cc_350x180"},{name:"banner2",url:"https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180"},{name:"banner3",url:"https://img14.360buyimg.com/babel/s700x360_jfs/t1/4099/12/2578/101668/5b971b4bE65ae279d/89dd1764797acfd9.jpg!q90!cc_350x180"}];
@@ -143,7 +174,7 @@ const defaultStore = observable({
   getMessageList() {
     const t = this;
     t.activity_messageList = [{time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"}];
-    // const presidiumList = 
+    // const presidiumList =
 
     // Taro.request({
     //   url: `${API_HOST}/config/commerce_presidium`,
@@ -172,7 +203,7 @@ const defaultStore = observable({
   getAppliedList() {
     const t = this;
     t.activity_appliedList = [{time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"}];
-    // const presidiumList = 
+    // const presidiumList =
 
     // Taro.request({
     //   url: `${API_HOST}/config/commerce_presidium`,
@@ -208,7 +239,7 @@ const defaultStore = observable({
       name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png",
       replys:[{to:"王思聪",time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{to:"王思聪",time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{to:"王思聪",time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{to:"王思聪",time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"}]
     };
-    // const presidiumList = 
+    // const presidiumList =
 
     // Taro.request({
     //   url: `${API_HOST}/config/commerce_presidium`,
@@ -248,7 +279,7 @@ const defaultStore = observable({
       comment:[],
       detailPhotos:"https://img.zcool.cn/community/01f49a5c9b403aa801208f8b35c9e4.jpg@1280w_1l_2o_100sh.jpg"
     };
-    // const presidiumList = 
+    // const presidiumList =
 
     // Taro.request({
     //   url: `${API_HOST}/config/commerce_presidium`,
@@ -295,54 +326,165 @@ const defaultStore = observable({
   },
   //领馆列表
   getConsulateList(){
-    const datas = [{descript:"上海市浙江商会原名浙江省驻沪企业协会，1986年3月5日经上海市民政局注册登记批准成为具有法人资格的社会团体组织，接受···",tags:"环境保护",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"上海市浙江商会原名浙江省驻沪企业协会，1986年3月5日经上海市民政局注册登记批准成为具有法人资格的社会团体组织，接受···",tags:"环境保护,贫困患儿",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"上海市浙江商会原名浙江省驻沪企业协会，1986年3月5日经上海市民政局注册登记批准成为具有法人资格的社会团体组织，接受···",tags:"环境保护",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"上海市浙江商会原名浙江省驻沪企业协会，1986年3月5日经上海市民政局注册登记批准成为具有法人资格的社会团体组织，接受···",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png",tags:"环境保护"}];;
-    return datas;
+    const t=this;
+    request('/config/commerce_global_list', {
+      data:{
+        type: 'consulate',// global
+      }
+    }).then((res) => {
+      const list = res.data.data.data_list;
+      t.internation_consulate = list.list;
+    });
   },
   //商户列表
   getCommerceList(){
-    const datas = [{descript:"上海市浙江商会原名浙江省驻沪企业协会，1986年3月5日经上海市民政局注册登记批准成为具有法人资格的社会团体组织，接受···",tags:"环境保护",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"上海市浙江商会原名浙江省驻沪企业协会，1986年3月5日经上海市民政局注册登记批准成为具有法人资格的社会团体组织，接受···",tags:"环境保护,贫困患儿",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"上海市浙江商会原名浙江省驻沪企业协会，1986年3月5日经上海市民政局注册登记批准成为具有法人资格的社会团体组织，接受···",tags:"环境保护",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"上海市浙江商会原名浙江省驻沪企业协会，1986年3月5日经上海市民政局注册登记批准成为具有法人资格的社会团体组织，接受···",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png",tags:"环境保护"}];
-    return datas;
+    const t=this;
+    request('/config/commerce_global_list', {
+      data:{
+        type: 'global',// global
+      }
+    }).then((res) => {
+      const list = res.data.data.data_list;
+      t.internation_commerce = list.list;
+    });
   },
   //智慧商道 会员列表
   getWisdomMembers(){
-    const datas = {
-      honoraryPresident:[{photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"名誉会长",name:"马云",descript:"阿里巴巴集团董事局主席 阿里巴巴集团董事局主席"},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"名誉会长",name:"马云",descript:"阿里巴巴集团董事局主席 阿里巴巴集团董事局主席"}],
-      president:[{photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"名誉会长",name:"马云",descript:"阿里巴巴集团董事局主席 阿里巴巴集团董事局主席"},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"名誉会长",name:"马云",descript:"阿里巴巴集团董事局主席 阿里巴巴集团董事局主席"}],
-      rotatingChairman:[{photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"名誉会长",name:"马云",descript:"阿里巴巴集团董事局主席 阿里巴巴集团董事局主席"},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"名誉会长",name:"马云",descript:"阿里巴巴集团董事局主席 阿里巴巴集团董事局主席"},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"名誉会长",name:"马云",descript:"阿里巴巴集团董事局主席 阿里巴巴集团董事局主席"},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"名誉会长",name:"马云",descript:"阿里巴巴集团董事局主席 阿里巴巴集团董事局主席"}],
-      committeeExperts:[{photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"名誉会长",name:"马云",descript:"阿里巴巴集团董事局主席 阿里巴巴集团董事局主席"},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"名誉会长",name:"马云",descript:"阿里巴巴集团董事局主席 阿里巴巴集团董事局主席"},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"名誉会长",name:"马云",descript:"阿里巴巴集团董事局主席 阿里巴巴集团董事局主席"},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"名誉会长",name:"马云",descript:"阿里巴巴集团董事局主席 阿里巴巴集团董事局主席"},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"名誉会长",name:"马云",descript:"阿里巴巴集团董事局主席 阿里巴巴集团董事局主席"},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"名誉会长",name:"马云",descript:"阿里巴巴集团董事局主席 阿里巴巴集团董事局主席"}]
-    };
-    return datas;
+    const t=this;
+    request('/config/commerce_master_list',{
+      data:{
+        commerce_job: 'honor_chairman,chairman,shift_chairman'
+      }
+    }).then(res => {
+      const list = res.data.data.data_list;
+      const expertList = res.data.data.expert_list;
+      const honoraryPresident =[],
+        president =[],
+        rotatingChairman = [];
+      if(list && list.list.length>0){
+        list.list.forEach(item => {
+          if(item.commerce_job === 'honor_chairman'){
+            honoraryPresident.push(item);
+          }else if(item.commerce_job === 'chairman'){
+            president.push(item);
+          }else if(item.commerce_job === 'shift_chairman'){
+            rotatingChairman.push(item);
+          }
+        });
+      }
+      t.wisdom_honoraryPresident = honoraryPresident;
+      t.wisdom_president = president;
+      t.wisdom_rotatingChairman = rotatingChairman;
+      t.wisdom_committeeExperts = expertList ? expertList.list : [];
+    });
   },
   //智慧商道 会员信息
-  getMemberDetail(){
-    const datas = {
-      photo:"https://taro-ui.aotu.io/img/logo-taro.png",
-      name:"杨辉",
-      position:"常务副会长",
-      company:"唯众传媒 vivid media",
-      phone:"13888888888",
-      abstract:"北师大艺术与传媒学院博士，资深媒体人， TV2.0新思维理念倡导者。 历任湖南卫视节目中心副主任、CNBC中国区项目经理。2006年创建唯众传媒,先后创办《开讲啦》、《波士堂》、《我是先生》《老妈驾到》、《你正常吗》、《暴走法条君》等50余档电视和网络节目，出品节目获得超过70项重大奖项。热心公益，现任雷励中国的理事长和上海公益事业发展基金会创始理事。",
-      honor:[{title:"2015年度全国三八红旗手",color:"#5683C9"},{title:"影响中国传媒领军人物",color:"#5683C9"},{title:"2015中国商业最具创意人物100",color:"#5683C9"},{title:"两次入选“中国商界女性精英价值榜",color:"#5683C9"},{title:"2013-2014年度上海市三八红旗手标兵",color:"#5683C9"}],
-      companyAbstract:"唯众传媒是中国领先的原创优质视频生产全媒体整合运营商。 成立于2006年的唯众传媒是一家致力于原创追求，以提供优质视频内容为核心竞争力的全媒体整合运营商，是中国传媒界原创节目数量最多，专注于优质视频产品策划与制作的民营传媒机构。公司拥有国内一流的策划力量、导演团队和运营班底，以视频节目创意、策划、制作、经营，大型活动策划、执行，新媒体业务为核心业务。坚持以提供原创、精品、输出正向价值观为核心理念，以打造大文化、大财经、大生活、大综艺四大产品矩阵为发展战略。 ",
-      companyInfo:{
-        website:"http://www.v2006.tv/",
-        name:"上海唯众传媒股份有限公司",
-        address:"上海市徐汇区中山西路1788弄58号（200235）",
-        phone:"+86(0)21 5169 7588",
-        email:"vividmedia@v2006.tv"
+  getMemberDetail(id){
+    const t = this;
+    t.userinfo ={};
+    request('/config/commerce_get_userinfo_by_id',{
+      data: {
+        id: id
       }
-    };
-    return datas;
+    }).then(res => {
+      const { data, company, honor_list } = res.data.data;
+      const result = {
+        photo: data.photo || '',
+        name: data.name || '',
+        position: Job[data.commerce_job] || '',
+        company: company.name || '',
+        phone: data.telphone || '',
+        abstract: data.introduce || '',
+        companyAbstract: company.introduce || '',
+        companyInfo:{
+          website: company.website || '',
+          name: company.name || '',
+          address: company.address || '',
+          phone: company.phone || '',
+          email: company.email || ''
+        },
+        honor:[]
+      };
+      if(honor_list && honor_list.list && honor_list.list.length>0){
+        result.honor = honor_list.list.map(item => {
+          return {
+            title: item.title || '',
+            color:"#5683C9"
+          }
+        });
+      }
+      console.log('result:',result);
+      t.userinfo = result;
+    });
   },
   //人脉 会员列表
-  getConnectionMemberList(){
-    const list  = [{phone:"13922221223",position:"副会长",company:"上海某某某公司·董事长",name:"某某某1",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",company:"上海某某某公司·董事长",name:"某某某2",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",company:"上海某某某公司·董事长",name:"某某某3",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",company:"上海某某某公司·董事长",name:"某某某4",photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"副会长"},{phone:"13922221223",position:"副会长",company:"上海某某某公司·董事长",name:"某某某5",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",company:"上海某某某公司·董事长",name:"某某某6",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",company:"上海某某某公司·董事长",name:"某某某7",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",company:"上海某某某公司·董事长",name:"某某某8",photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"副会长"},{phone:"13922221223",position:"副会长",company:"上海某某某公司·董事长",name:"某某某5",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",company:"上海某某某公司·董事长",name:"某某某6",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",company:"上海某某某公司·董事长",name:"某某某7",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",company:"上海某某某公司·董事长",name:"某某某8",photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"副会长"},{phone:"13922221223",position:"副会长",company:"上海某某某公司·董事长",name:"某某某5",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",company:"上海某某某公司·董事长",name:"某某某6",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",company:"上海某某某公司·董事长",name:"某某某7",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",company:"上海某某某公司·董事长",name:"某某某8",photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"副会长"},{phone:"13922221223",position:"副会长",company:"上海某某某公司·董事长",name:"某某某5",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",company:"上海某某某公司·董事长",name:"某某某6",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",company:"上海某某某公司·董事长",name:"某某某7",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",company:"上海某某某公司·董事长",name:"某某某8",photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"副会长"}]
-    return list;
+  getConnectionMemberList(init, keywords){
+    const t=this;
+    t.memberPageStatus = 'loading';
+    if(init){
+      t.memberPage = [];
+    }
+    // memberPage
+    request('/config/commerce_member_page',{
+      data:{
+        page: (init ? 1 : t.memberPagePage),
+        pageSize: t.memberPagePageSize,
+        keywords: keywords
+      }
+    }).then(res => {
+      const data = res.data.data.data;
+      if(data.currentRecords.length){
+        t.memberPage = t.memberPage.concat(data.currentRecords.map( item => {
+          return {
+            id: item.id || '',
+            phone: item.telphone || '',
+            position: Job[item.commerce_job] || '',
+            company: `${item.company_name}·${item.job_title}`,
+            name: item.name || '',
+            photo: item.photo || ''
+          }
+        }));
+        t.memberPageStatus = "more";
+      }else{
+        t.memberPageStatus = "noMore";
+      }
+      t.memberPagePage++;
+    });
   },
   //人脉 专家委员会列表
-  getConnectionFaccList(){
-    const list  = [{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某1",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某2",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某3",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",company:"上海某某某公司·董事长",name:"某某某4",photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"副会长",tag:"医疗"},{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某5",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某6",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某7",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",company:"上海某某某公司·董事长",name:"某某某8",photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"副会长",tag:"医疗"},{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某5",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某6",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某7",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",company:"上海某某某公司·董事长",name:"某某某8",photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"副会长",tag:"医疗"},{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某5",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某6",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某7",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",company:"上海某某某公司·董事长",name:"某某某8",photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"副会长",tag:"医疗"},{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某5",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某6",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某7",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",company:"上海某某某公司·董事长",name:"某某某8",photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"副会长",tag:"医疗"}]
-    return list;
+  getConnectionFaccList(init, keywords){
+    const t=this;
+    t.faccPageStatus = 'loading';
+    if(init){
+      t.faccPage = [];
+    }
+    request('/config/commerce_expert_page',{
+      data:{
+        page: (init ? 1 : t.faccPagePage),
+        pageSize: t.faccPagePageSize,
+        keywords: keywords
+      }
+    }).then(res => {
+      const data = res.data.data.data;
+      if(data.currentRecords.length){
+        t.faccPage = t.faccPage.concat(data.currentRecords.map( item => {
+          return {
+            id: item.id || '',
+            phone: item.telphone || '',
+            position: Job[item.commerce_job] || '',
+            tag: item.industry || '',
+            company: `${item.company_name}·${item.job_title}`,
+            name: item.name || '',
+            photo: item.photo || ''
+          }
+        }));
+        t.faccPageStatus = "more";
+      }else{
+        t.faccPageStatus = "noMore";
+      }
+      t.faccPagePage++;
+    });
+
   },
   //组织列表
   getOrganizationList(type){

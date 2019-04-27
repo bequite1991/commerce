@@ -9,10 +9,15 @@ import './consulate.scss';
 @observer
 class Index extends Component {
 
-  componentWillMount () { }
+  componentWillMount () {
+    console.log('componentWillReact')
+
+    const {defaultStore} = this.props;
+    defaultStore.getConsulateList();
+  }
 
   componentWillReact () {
-    console.log('componentWillReact')
+
   }
 
   componentDidMount () { }
@@ -25,12 +30,21 @@ class Index extends Component {
 
   render () {
     const { defaultStore} = this.props;
-    const activitysList = defaultStore.getConsulateList();
+    const consulateList = defaultStore['internation_consulate'].$mobx.values;
+    console.log('consulateList:',consulateList);
     return (
       <View className='consulate'>
         <View className="activitysList">
-          {activitysList.map((item,index)=>{
-            return <View key={index} className='activitysItem'><View className="itemLeft"><Image src={item.photo} /></View><View className='itemRight'><View className="name">{item.name}</View><View className="descript">{item.descript}</View></View></View>
+          {consulateList.map((item,index)=>{
+            return <View key={index} className='activitysItem'>
+              <View className="itemLeft">
+                <Image src={item.logo} />
+              </View>
+              <View className='itemRight'>
+                <View className="name">{item.title}</View>
+                <View className="descript">{item.description}</View>
+              </View>
+            </View>
           })}
         </View>
 
@@ -39,4 +53,4 @@ class Index extends Component {
   }
 }
 
-export default Index 
+export default Index

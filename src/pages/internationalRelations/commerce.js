@@ -12,7 +12,10 @@ import './commerce.scss';
 @observer
 class Index extends Component {
 
-  componentWillMount () { }
+  componentWillMount () {
+    const {defaultStore} = this.props;
+    defaultStore.getCommerceList();
+  }
 
   componentWillReact () {
     console.log('componentWillReact')
@@ -28,12 +31,18 @@ class Index extends Component {
 
   render () {
     const { defaultStore} = this.props;
-    const activitysList = defaultStore.getCommerceList();
+    const list = defaultStore['internation_commerce'].$mobx.values;
     return (
       <View className='commerce'>
         <View className="activitysList">
-          {activitysList.map((item,index)=>{
-            return <View key={index} className='activitysItem'><View className="itemLeft"><Image src={item.photo} /></View><View className='itemRight'><View className="name">{item.name}</View><View className="descript">{item.descript}</View></View></View>
+          {list.map((item,index)=>{
+            return <View key={index} className='activitysItem'>
+              <View className="itemLeft"><Image src={item.logo} /></View>
+              <View className='itemRight'>
+                <View className="name">{item.title}</View>
+                <View className="descript">{item.description}</View>
+              </View>
+            </View>
           })}
         </View>
 
@@ -42,4 +51,4 @@ class Index extends Component {
   }
 }
 
-export default Index 
+export default Index

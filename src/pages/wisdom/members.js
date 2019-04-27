@@ -5,6 +5,12 @@ import { observer, inject } from '@tarojs/mobx'
 
 import './members.scss';
 
+const Job = {
+  honor_chairman: '名誉会长',
+  chairman: '会长',
+  shift_chairman: '轮值主席',
+  expert: '专家委员会'
+}
 
 @inject('defaultStore')
 @observer
@@ -19,7 +25,10 @@ class Memebers extends Component {
     };
   }
 
-  componentWillMount () { }
+  componentWillMount () {
+    const {defaultStore} = this.props;
+    defaultStore.getWisdomMembers();
+  }
 
   componentWillReact () {
     console.log('componentWillReact')
@@ -53,16 +62,18 @@ class Memebers extends Component {
     });
   }
 
-  goPage(url){
+  goPage(id){
     Taro.navigateTo({
-      // url: '/pages/joinUs/index'
-      url: `/pages/${url}/index`
+      url: `/pages/wisdomMemberDetail/index?id=${id}`
     })
   }
 
   render () {
     const { defaultStore} = this.props;
-    const wisdomMembers = defaultStore.getWisdomMembers();
+    const honoraryPresident = defaultStore['wisdom_honoraryPresident'].$mobx.values;
+    const president = defaultStore['wisdom_president'].$mobx.values;
+    const rotatingChairman = defaultStore['wisdom_rotatingChairman'].$mobx.values;
+    const committeeExperts = defaultStore['wisdom_committeeExperts'].$mobx.values;
 
     return (
       <View className='wisdomMembersList'>
@@ -75,36 +86,50 @@ class Memebers extends Component {
         <scroll-view  scroll-into-view={this.state.toView}  scrollY={this.state.scroll}   scrollWithAnimation={this.state.scroll} className="scr">
           <View className="title" id="honoraryPresident">名誉会长</View>
           <View className="wisdomMembers">
-            {wisdomMembers["honoraryPresident"].map((item,index)=>{
-              return <View key={index} className='member' onClick={this.goPage.bind(this,'wisdomMemberDetail')}><View className="photo"><Image src={item.photo} /></View><View className="position">{item.position}</View><View className="name">{item.name}</View><View className="descript">{item.descript}</View></View>
+            {honoraryPresident.map((item,index)=>{
+              return <View key={index} className='member' onClick={()=>{this.goPage(item.id)}}>
+                <View className="photo"><Image src={item.photo} /></View>
+                <View className="position">{Job[item.commerce_job]}</View>
+                <View className="name">{item.name}</View>
+                <View className="descript">{item.company_name||''}<Text className="p10">{item.job_title||''}</Text></View>
+              </View>
             })}
           </View>
           <View className="title" id="president">会长</View>
           <View className="wisdomMembers">
-            {wisdomMembers["president"].map((item,index)=>{
-              return <View key={index} className='member' onClick={this.goPage.bind(this,'wisdomMemberDetail')}><View className="photo"><Image src={item.photo} /></View><View className="position">{item.position}</View><View className="name">{item.name}</View><View className="descript">{item.descript}</View></View>
+            {president.map((item,index)=>{
+              return <View key={index} className='member' onClick={()=>this.goPage(item.id)}>
+                <View className="photo"><Image src={item.photo} /></View><View className="position">{Job[item.commerce_job]}</View>
+                <View className="name">{item.name}</View><View className="descript">{item.company_name||''}<Text className="p10">{item.job_title||''}</Text></View>
+              </View>
             })}
           </View>
           <View className="title" id="rotatingChairman">轮值主席</View>
           <View className="wisdomMembers">
-            {wisdomMembers["rotatingChairman"].map((item,index)=>{
-              return <View key={index} className='member' onClick={this.goPage.bind(this,'wisdomMemberDetail')}><View className="photo"><Image src={item.photo} /></View><View className="position">{item.position}</View><View className="name">{item.name}</View><View className="descript">{item.descript}</View></View>
+            {rotatingChairman.map((item,index)=>{
+              return <View key={index} className='member' onClick={()=>this.goPage(item.id)}>
+                <View className="photo"><Image src={item.photo} /></View><View className="position">{Job[item.commerce_job]}</View>
+                <View className="name">{item.name}</View><View className="descript">{item.company_name||''}<Text className="p10">{item.job_title||''}</Text></View>
+              </View>
             })}
           </View>
           <View className="title" id="committeeExperts">专家委员会</View>
           <View className="wisdomMembers">
-            {wisdomMembers["committeeExperts"].map((item,index)=>{
-              return <View key={index} className='member' onClick={this.goPage.bind(this,'wisdomMemberDetail')}><View className="photo"><Image src={item.photo} /></View><View className="position">{item.position}</View><View className="name">{item.name}</View><View className="descript">{item.descript}</View></View>
+            {committeeExperts.map((item,index)=>{
+              return <View key={index} className='member' onClick={()=>this.goPage(item.id)}>
+                <View className="photo"><Image src={item.photo} /></View><View className="position">{Job['expert']}</View>
+                <View className="name">{item.name}</View><View className="descript">{item.company_name||''} <Text className="p10">{item.job_title||''}</Text></View>
+              </View>
             })}
           </View>
         </scroll-view>
-        <AtLoadMore
-          onClick={this.handleClick.bind(this)}
-          status={this.state.status}
-        />
+        {/*<AtLoadMore*/}
+          {/*onClick={this.handleClick.bind(this)}*/}
+          {/*status={this.state.status}*/}
+        {/*/>*/}
       </View>
     )
   }
 }
 
-export default Memebers 
+export default Memebers

@@ -24,17 +24,28 @@ class Entrance extends Component {
   componentDidHide () {}
 
   goPage(url){
+    this.checkUserType();
     Taro.navigateTo({
       // url: '/pages/joinUs/index'
       url: `/pages/${url}/index`
     })
   }
 
+  checkUserType() {
+    const userinfo = wx.getStorageSync("_TY_U");// 用户信息
+    if(userinfo && userinfo['commerce_job'] && userinfo['commerce_job'] === 'user'){
+      //如果是注册用户，需要跳转到加入会员页面
+      Taro.navigateTo({
+        url: '/pages/commerceIntroduce/index'
+      });
+    }
+  }
+
   render () {
     const {defaultStore} = this.props;
     return (
       <View>
-        <View className='entrance' onClick={this.goPage.bind(this,'commerceIntroduce')} key="商道智慧">
+        <View className='entrance' onClick={this.goPage.bind(this,'wisdom')} key="商道智慧">
           <View className='tips'></View>
           <View><icon type="success" size="50" /></View>
           <text>商道智慧</text>

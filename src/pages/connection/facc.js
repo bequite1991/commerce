@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text,Swiper, SwiperItem} from '@tarojs/components'
 import { observer, inject } from '@tarojs/mobx'
-import { AtIndexes,AtFloatLayout  } from 'taro-ui'
+import { AtIndexes,AtFloatLayout, AtLoadMore  } from 'taro-ui'
 
 import './facc.scss';
 
@@ -18,7 +18,10 @@ class Index extends Component {
     };
   }
 
-  componentWillMount () { }
+  componentWillMount () {
+    const { defaultStore} = this.props;
+    defaultStore.getConnectionFaccList(true, this.props.keywords || '');
+  }
 
   componentWillReact () {
     console.log('componentWillReact')
@@ -34,7 +37,6 @@ class Index extends Component {
 
   onClick (item) {
     console.log(item)
-    debugger
     this.setState({
       currentItem:item,
       isOpened1:true
@@ -46,32 +48,52 @@ class Index extends Component {
     })
   }
 
+  handleClick() {
+    const { defaultStore} = this.props;
+    defaultStore.getConnectionFaccList(false, '');
+  }
+
+  refresh() {
+    const { defaultStore} = this.props;
+    defaultStore.getConnectionFaccList(true, this.props.keywords || '');
+  }
+
+
   render () {
     const { defaultStore} = this.props;
-    const activitysList = defaultStore.getConnectionFaccList();
+    const faccPage = defaultStore.faccPage.$mobx.values;
+    const faccPageStatus = defaultStore.faccPageStatus;
+
     return (
       <View>
-        {activitysList.map((item,index)=>{
-          return (<View className="connectionMemberBase" key={index}>
-            <View className="border"></View>
-            <View className="photo">
-              <Image src={item.photo} />
-            </View>
-            <View className="info">
-              <View className="name">{item.name}</View>
-              <View className="position">{item.position}</View>
-              <View className="company">{item.company}</View>
-              <View className="phone">联系电话：{item.phone}</View>
-            </View>
+        <scroll-view scrollY={true}   scrollWithAnimation={true}>
+          {faccPage.map((item,index)=>{
+            return (<View className="connectionMemberBase" key={index}>
+              <View className="border"></View>
+              <View className="photo">
+                <Image src={item.photo} />
+              </View>
+              <View className="info">
+                <View className="name">{item.name}</View>
+                <View className="position">{item.position}</View>
+                <View className="company">{item.company}</View>
+                <View className="phone">联系电话：{item.phone}</View>
+              </View>
 
-            <View className="tagTriangle"></View>
-            <View className="tagText">{item.tag}</View>
+              <View className="tagTriangle"></View>
+              <View className="tagText">{item.tag}</View>
 
-          </View>)
-        })}
+            </View>)
+          })}
+        </scroll-view>
+        <AtLoadMore
+          className="mb42"
+          onClick={this.handleClick.bind(this)}
+          status={faccPageStatus}
+        />
       </View>
     )
   }
 }
 
-export default Index 
+export default Index

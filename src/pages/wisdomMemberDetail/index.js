@@ -31,7 +31,11 @@ class Index extends Component {
     };
   }
 
-  componentWillMount () { }
+  componentWillMount () {
+    const id = this.$router.params.id;
+    const { defaultStore } = this.props;
+    defaultStore.getMemberDetail(id);
+  }
 
   componentWillReact () {
     console.log('componentWillReact')
@@ -73,8 +77,9 @@ class Index extends Component {
 
   render () {
     const { defaultStore } = this.props;
-    let {formData,sexOpen,positionsArr} = this.state;
-    const introduce = defaultStore.getMemberDetail();
+    // let {formData,sexOpen,positionsArr} = this.state;
+    const introduce = defaultStore.userinfo;
+    console.log('introduce:',introduce);
 
     return (
       <View className='memberDetail'>
@@ -89,12 +94,12 @@ class Index extends Component {
             <View className="phone">联系方式：{introduce.phone}</View>
           </View>
         </View>
-        
+
         <Card title="个人简介">
             {introduce.abstract}
         </Card>
         <Card title="个人荣誉">
-            <AtTimeline 
+            <AtTimeline
               items={introduce.honor}
             >
             </AtTimeline>
@@ -116,4 +121,4 @@ class Index extends Component {
   }
 }
 
-export default Index 
+export default Index

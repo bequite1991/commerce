@@ -23,7 +23,9 @@ class Index extends Component {
     };
   }
 
-  componentWillMount () { }
+  componentWillMount () {
+
+  }
 
   componentWillReact () {
     console.log('componentWillReact')
@@ -60,4 +62,4 @@ class Index extends Component {
   }
 }
 
-export default Index 
+export default Index
