@@ -24,11 +24,11 @@ class App extends Component {
 
   config = {
     pages: [
+      'pages/index/index',
       'pages/activityInformationDetail/appliedFail',
       'pages/activityInformationDetail/appliedSuccess',
       'pages/activityInformationDetail/appliedConfirm',
       'pages/activityInformationDetail/messageDetail',
-      'pages/index/index',
       'pages/activityInformationDetail/applied',
       'pages/activityInformationDetail/index',
       'pages/activityInformationDetail/message',
