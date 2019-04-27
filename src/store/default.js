@@ -44,6 +44,16 @@ const defaultStore = observable({
   wisdom_committeeExperts: [],
   // 个人信息
   userinfo: {},
+  // 人脉会员列表
+  memberPage: [],
+  memberPageStatus: "loading",
+  memberPagePage: 1,
+  memberPagePageSize: 10,
+  // 人脉 专家委员会
+  faccPage: [],
+  faccPageStatus: "loading",
+  faccPagePage: 1,
+  faccPagePageSize: 10,
   //首页 banner
   getBannerList() {
     const bannerList = [{name:"banner0",url:"https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180"},{name:"banner1",url:"https://img14.360buyimg.com/babel/s700x360_jfs/t1/4099/12/2578/101668/5b971b4bE65ae279d/89dd1764797acfd9.jpg!q90!cc_350x180"},{name:"banner2",url:"https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180"},{name:"banner3",url:"https://img14.360buyimg.com/babel/s700x360_jfs/t1/4099/12/2578/101668/5b971b4bE65ae279d/89dd1764797acfd9.jpg!q90!cc_350x180"}];
@@ -398,14 +408,73 @@ const defaultStore = observable({
     });
   },
   //人脉 会员列表
-  getConnectionMemberList(){
-    const list  = [{phone:"13922221223",position:"副会长",company:"上海某某某公司·董事长",name:"某某某1",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",company:"上海某某某公司·董事长",name:"某某某2",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",company:"上海某某某公司·董事长",name:"某某某3",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",company:"上海某某某公司·董事长",name:"某某某4",photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"副会长"},{phone:"13922221223",position:"副会长",company:"上海某某某公司·董事长",name:"某某某5",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",company:"上海某某某公司·董事长",name:"某某某6",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",company:"上海某某某公司·董事长",name:"某某某7",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",company:"上海某某某公司·董事长",name:"某某某8",photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"副会长"},{phone:"13922221223",position:"副会长",company:"上海某某某公司·董事长",name:"某某某5",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",company:"上海某某某公司·董事长",name:"某某某6",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",company:"上海某某某公司·董事长",name:"某某某7",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",company:"上海某某某公司·董事长",name:"某某某8",photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"副会长"},{phone:"13922221223",position:"副会长",company:"上海某某某公司·董事长",name:"某某某5",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",company:"上海某某某公司·董事长",name:"某某某6",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",company:"上海某某某公司·董事长",name:"某某某7",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",company:"上海某某某公司·董事长",name:"某某某8",photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"副会长"},{phone:"13922221223",position:"副会长",company:"上海某某某公司·董事长",name:"某某某5",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",company:"上海某某某公司·董事长",name:"某某某6",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",company:"上海某某某公司·董事长",name:"某某某7",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",company:"上海某某某公司·董事长",name:"某某某8",photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"副会长"}]
-    return list;
+  getConnectionMemberList(init, keywords){
+    const t=this;
+    t.memberPageStatus = 'loading';
+    if(init){
+      t.memberPage = [];
+    }
+    // memberPage
+    request('/config/commerce_member_page',{
+      data:{
+        page: (init ? 1 : t.memberPagePage),
+        pageSize: t.memberPagePageSize,
+        keywords: keywords
+      }
+    }).then(res => {
+      const data = res.data.data.data;
+      if(data.currentRecords.length){
+        t.memberPage = t.memberPage.concat(data.currentRecords.map( item => {
+          return {
+            id: item.id || '',
+            phone: item.telphone || '',
+            position: Job[item.commerce_job] || '',
+            company: `${item.company_name}·${item.job_title}`,
+            name: item.name || '',
+            photo: item.photo || ''
+          }
+        }));
+        t.memberPageStatus = "more";
+      }else{
+        t.memberPageStatus = "noMore";
+      }
+      t.memberPagePage++;
+    });
   },
   //人脉 专家委员会列表
-  getConnectionFaccList(){
-    const list  = [{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某1",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某2",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某3",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",company:"上海某某某公司·董事长",name:"某某某4",photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"副会长",tag:"医疗"},{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某5",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某6",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某7",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",company:"上海某某某公司·董事长",name:"某某某8",photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"副会长",tag:"医疗"},{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某5",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某6",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某7",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",company:"上海某某某公司·董事长",name:"某某某8",photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"副会长",tag:"医疗"},{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某5",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某6",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某7",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",company:"上海某某某公司·董事长",name:"某某某8",photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"副会长",tag:"医疗"},{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某5",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某6",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某7",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",company:"上海某某某公司·董事长",name:"某某某8",photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"副会长",tag:"医疗"}]
-    return list;
+  getConnectionFaccList(init, keywords){
+    const t=this;
+    t.faccPageStatus = 'loading';
+    if(init){
+      t.faccPage = [];
+    }
+    request('/config/commerce_expert_page',{
+      data:{
+        page: (init ? 1 : t.faccPagePage),
+        pageSize: t.faccPagePageSize,
+        keywords: keywords
+      }
+    }).then(res => {
+      const data = res.data.data.data;
+      if(data.currentRecords.length){
+        t.faccPage = t.faccPage.concat(data.currentRecords.map( item => {
+          return {
+            id: item.id || '',
+            phone: item.telphone || '',
+            position: Job[item.commerce_job] || '',
+            tag: item.industry || '',
+            company: `${item.company_name}·${item.job_title}`,
+            name: item.name || '',
+            photo: item.photo || ''
+          }
+        }));
+        t.faccPageStatus = "more";
+      }else{
+        t.faccPageStatus = "noMore";
+      }
+      t.faccPagePage++;
+    });
+
   },
   //组织列表
   getOrganizationList(type){

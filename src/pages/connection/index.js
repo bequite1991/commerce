@@ -23,7 +23,7 @@ class Index extends Component {
     super (props);
     this.state = {
       searchKey:"",
-      current: 0
+      current: 0,
     };
   }
 
@@ -41,8 +41,19 @@ class Index extends Component {
 
   componentDidHide () { }
 
-  search(keys){
-
+  search(e){
+    const query = Taro.createSelectorQuery().select('#member');
+    // 刷新页面
+    if(this.state.current === 0){
+      query._selectorQuery._defaultComponent.$component.$$refs[0].target.refresh();
+    }else{
+      query._selectorQuery._defaultComponent.$component.$$refs[1].target.refresh();
+    }
+  }
+  onChange(val) {
+    this.setState({
+      searchKey: val
+    })
   }
 
   handleClick (value) {
@@ -50,7 +61,6 @@ class Index extends Component {
       current: value
     })
   }
-
 
   render () {
     const { defaultStore: { counter } } = this.props
@@ -61,14 +71,15 @@ class Index extends Component {
           className="search"
           placeholder="搜索组织、俱乐部"
           value={this.state.searchKey}
+          onChange={this.onChange.bind(this)}
           onActionClick={this.search.bind(this)}
         />
         <AtTabs className="tabs" current={this.state.current} tabList={tabList} onClick={this.handleClick.bind(this)}>
           <AtTabsPane current={this.state.current} index={0} >
-            <Member />
+            <Member ref="member" id="member" keywords={this.state.searchKey}/>
           </AtTabsPane>
           <AtTabsPane current={this.state.current} index={1}>
-            <Facc />
+            <Facc ref="facc" keywords={this.state.searchKey}/>
           </AtTabsPane>
         </AtTabs>
         <BottomBar active={1}/>
@@ -77,4 +88,4 @@ class Index extends Component {
   }
 }
 
-export default Index 
+export default Index
