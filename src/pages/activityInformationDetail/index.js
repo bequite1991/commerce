@@ -23,7 +23,10 @@ class Index extends Component {
     console.log('componentWillReact')
   }
 
-  componentDidMount () { }
+  componentDidMount () { 
+    const { defaultStore} = this.props;
+    defaultStore.getActivityDetail();
+  }
 
   componentWillUnmount () { }
 
@@ -39,8 +42,7 @@ class Index extends Component {
   }
 
   render () {
-    const { defaultStore } = this.props;
-    const activityDetail = defaultStore.getActivityDetail();
+    const { defaultStore:{activityDetail} } = this.props;
 
     const datas = {
       photo:"https://taro-ui.aotu.io/img/logo-taro.png",
@@ -58,13 +60,46 @@ class Index extends Component {
 
 
     return (
-      <View className='introdeuce'>
+      <View className='activityDetail'>
         <Banner />
         <View className="title">{activityDetail.name}</View>
-        <Card title="商会介绍" subTitle="更多" href="pages/joinUs/index">
-            
+        <View className="form">
+          <View className="formItem">
+            <View className="label">时间</View>
+            <View className="value">{activityDetail.time}</View>
+          </View>
+          <View className="formItem">
+            <View className="label">地址</View>
+            <View className="value">{activityDetail.address}</View>
+          </View>
+          <View className="formItem">
+            <View className="label">积分</View>
+            <View className="value">{activityDetail.rate}</View>
+          </View>
+          <View className="formItem">
+            <View className="label">发起人</View>
+            <View className="value main">{activityDetail.origin}</View>
+          </View>
+          <View className="formItem">
+            <View className="label">联系方式</View>
+            <View className="value main">{activityDetail.phone}</View>
+          </View>
+          <View className="formItem">
+            <View className="label">已报名</View>
+            <View className="value">{activityDetail.status}</View>
+            <View className="button"><View className='at-icon at-icon-eye icon'></View><View className="text">查看</View></View>
+          </View>
+        </View>
+        <Card title="留言" subTitle="查看全部" href="pages/joinUs/index">
+          <View className="messageList">
+            <View className="formItem">
+              <View className="label">已报名</View>
+              <View className="value">{activityDetail.status}</View>
+              <View className="button"><View className='at-icon at-icon-eye icon'></View><View className="text">查看</View></View>
+            </View>
+          </View>
         </Card>
-        <Card title="合作伙伴" subTitle="全部" href="pages/joinUs/index">
+        <Card title="活动详情" href="pages/joinUs/index">
 
         </Card>
         

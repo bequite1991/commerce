@@ -55,9 +55,8 @@ class Index extends Component {
   }
 
   submit(){
-    Taro.navigateTo({
-      // url: '/pages/joinUs/index'
-      url: `/pages/organizationRegister/submitSuccess`
+    wx.makePhoneCall({
+      phoneNumber: "021-32013610"
     })
   }
 
@@ -73,7 +72,7 @@ class Index extends Component {
 
           <View className="item"><View className="at-icon at-icon-message icon"></View><View className="text">微信公众号：xhslhhfw</View></View>
         </View>
-        <AtButton onClick={this.submit.bind(this)} className="submit" type='primary' size='normal'>按钮文案</AtButton>
+        <AtButton onClick={this.submit.bind(this)} className="submit" type='primary' size='normal'>联系客服</AtButton>
       </View>
     )
   }

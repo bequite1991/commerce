@@ -12,6 +12,8 @@ const defaultStore = observable({
   home_activitysListStatus:"loading",
   home_activitysListPage:1,
   home_activitysListPageSize:10,
+  //活动模块 活动详情
+  activityDetail:[],
   //首页 banner
   getBannerList() {
     const bannerList = [{name:"banner0",url:"https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180"},{name:"banner1",url:"https://img14.360buyimg.com/babel/s700x360_jfs/t1/4099/12/2578/101668/5b971b4bE65ae279d/89dd1764797acfd9.jpg!q90!cc_350x180"},{name:"banner2",url:"https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180"},{name:"banner3",url:"https://img14.360buyimg.com/babel/s700x360_jfs/t1/4099/12/2578/101668/5b971b4bE65ae279d/89dd1764797acfd9.jpg!q90!cc_350x180"}];
@@ -106,7 +108,21 @@ const defaultStore = observable({
     });
     return presidiumList;
   },
-
+  //首页活动、活动模块 活动详情
+  getActivityDetail(){
+    this.activityDetail = {
+      photo:"https://taro-ui.aotu.io/img/logo-taro.png",
+      name:"玩转地球天河汇123健康俱乐部",
+      time:"2019-04-15 13:00",
+      address:"北京市朝阳区高碑店乡高碑店村一区33号",
+      rate:"1000积分",
+      origin:"王铁柱",
+      phone:"13888888888",
+      status:"10人",
+      comment:[],
+      detailPhotos:"https://taro-ui.aotu.io/img/logo-taro.png"
+    };
+  },
   //商会介绍
   getIntroduce(){
     const introduce = {
@@ -177,22 +193,6 @@ const defaultStore = observable({
   getConnectionFaccList(){
     const list  = [{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某1",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某2",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某3",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",company:"上海某某某公司·董事长",name:"某某某4",photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"副会长",tag:"医疗"},{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某5",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某6",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某7",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",company:"上海某某某公司·董事长",name:"某某某8",photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"副会长",tag:"医疗"},{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某5",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某6",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某7",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",company:"上海某某某公司·董事长",name:"某某某8",photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"副会长",tag:"医疗"},{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某5",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某6",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某7",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",company:"上海某某某公司·董事长",name:"某某某8",photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"副会长",tag:"医疗"},{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某5",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某6",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",position:"副会长",tag:"医疗",company:"上海某某某公司·董事长",name:"某某某7",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{phone:"13922221223",company:"上海某某某公司·董事长",name:"某某某8",photo:"https://taro-ui.aotu.io/img/logo-taro.png",position:"副会长",tag:"医疗"}]
     return list;
-  },
-  //活动详情
-  getActivityDetail(){
-    const datas = {
-      photo:"https://taro-ui.aotu.io/img/logo-taro.png",
-      name:"玩转地球天河汇123健康俱乐部",
-      time:"2019-04-15 13:00",
-      address:"北京市朝阳区高碑店乡高碑店村一区33号",
-      rate:"1000积分",
-      origin:"王铁柱",
-      phone:"13888888888",
-      status:"10人",
-      comment:[],
-      detailPhotos:"https://taro-ui.aotu.io/img/logo-taro.png"
-    };
-    return datas;
   },
   //组织列表
   getOrganizationList(type){

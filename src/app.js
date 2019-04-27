@@ -25,6 +25,7 @@ class App extends Component {
   config = {
     pages: [
       'pages/index/index',
+      'pages/activityInformationDetail/index',
       'pages/mine/contact',
       'pages/mine/message',
       'pages/mine/assistant',
@@ -41,7 +42,6 @@ class App extends Component {
       'pages/organizationDetail/index',
       'pages/connection/index',
       'pages/wisdom/index',
-      'pages/activityInformationDetail/index',
       'pages/connectionSearch/index',
       'pages/internationalRelations/index',
       'pages/activityInformation/index',
