@@ -10,6 +10,14 @@ import { AtFab,AtSearchBar,AtTabs, AtTabsPane } from 'taro-ui';
 import './index.scss';
 
 
+/**
+ * 郊游：outing
+ * 高尔夫：golf
+ * 健身：body_building
+ * 品茶：tea
+ * 公益：commonweal
+ */
+
 @inject('defaultStore')
 @observer
 class Index extends Component {
@@ -72,19 +80,19 @@ class Index extends Component {
         />
         <AtTabs className="tabs" current={this.state.current} tabList={tabList} onClick={this.handleClick.bind(this)}>
           <AtTabsPane current={this.state.current} index={0} >
-            <View style='background-color: #ffffff;' ><List /></View>
+            <View style='background-color: #ffffff;' ><List type="outing"/></View>
           </AtTabsPane>
           <AtTabsPane current={this.state.current} index={1}>
-            <View style='background-color: #ffffff;'><List /></View>
+            <View style='background-color: #ffffff;'><List type="golf"/></View>
           </AtTabsPane>
           <AtTabsPane current={this.state.current} index={2}>
-            <View style='background-color: #ffffff;'><List /></View>
+            <View style='background-color: #ffffff;'><List type="body_building"/></View>
           </AtTabsPane>
           <AtTabsPane current={this.state.current} index={3}>
-            <View style='background-color: #ffffff;'><List /></View>
+            <View style='background-color: #ffffff;'><List type="tea"/></View>
           </AtTabsPane>
           <AtTabsPane current={this.state.current} index={4}>
-            <View style='background-color: #ffffff;'><List /></View>
+            <View style='background-color: #ffffff;'><List type="commonweal"/></View>
           </AtTabsPane>
         </AtTabs>
         <AtFab onClick={this.goPage.bind(this,'organizationRegister')}>
@@ -96,4 +104,4 @@ class Index extends Component {
   }
 }
 
-export default Index 
+export default Index
