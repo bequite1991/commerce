@@ -56,7 +56,8 @@ class App extends Component {
       'pages/directTrain/index',
       'pages/directTrainDetail/index',
       'pages/commerceIntroduce/index',
-      'pages/joinUs/index'
+      'pages/joinUs/index',
+      'pages/bindPhone/index',
     ],
     window: {
       backgroundTextStyle: 'light',
