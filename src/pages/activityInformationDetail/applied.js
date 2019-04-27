@@ -5,7 +5,7 @@ import Banner from "./banner.js";
 import Card from "../../components/card/index.js";
 import { AtButton } from 'taro-ui'
 
-import './message.scss';
+import './applied.scss';
 
 
 @inject('defaultStore')
@@ -13,7 +13,7 @@ import './message.scss';
 class Index extends Component {
 
   config = {
-    navigationBarTitleText: '留言',
+    navigationBarTitleText: "已报名",
     navigationBarTextStyle: "black",
   }
 
@@ -25,7 +25,7 @@ class Index extends Component {
 
   componentDidMount () { 
     const { defaultStore} = this.props;
-    defaultStore.getMessageList();
+    defaultStore.getAppliedList();
   }
 
   componentWillUnmount () { }
@@ -43,10 +43,10 @@ class Index extends Component {
 
   render () {
     const { messages} = this.props;
-    const { defaultStore:{activity_messageList}} = this.props;
-    const list = activity_messageList.$mobx.values;
+    const { defaultStore:{activity_appliedList}} = this.props;
+    const list = activity_appliedList.$mobx.values;
     return (
-        <View className="messageList">
+        <View className="appliedList">
           {list.map((item,index)=>{
             return (<View className="message" key={index}>
             <View className="userInfo">
@@ -56,14 +56,6 @@ class Index extends Component {
               <View className="info">
                 <View className="name">{item.name}</View>
                 <View className="post">{item.company} {" "} {item.post}</View>
-              </View>
-            </View>
-            <View className="words">{item.words}</View>
-            <View className="time">
-              <View className="date">{item.time}</View>
-              <View className="button">
-                <View className='at-icon at-icon-message icon'></View>
-                <View className="text">回复</View>
               </View>
             </View>
           </View>)

@@ -26,6 +26,7 @@ class Index extends Component {
   componentDidMount () { 
     const { defaultStore} = this.props;
     defaultStore.getActivityDetail();
+    defaultStore.getMessageList();
   }
 
   componentWillUnmount () { }
@@ -42,7 +43,8 @@ class Index extends Component {
   }
 
   render () {
-    const { defaultStore:{activityDetail} } = this.props;
+    const { defaultStore:{activityDetail,activity_messageList} } = this.props;
+    const list = activity_messageList.$mobx.values;
 
     const datas = {
       photo:"https://taro-ui.aotu.io/img/logo-taro.png",
@@ -54,7 +56,7 @@ class Index extends Component {
       phone:"13888888888",
       status:"10人",
       comment:[],
-      detailPhotos:"https://taro-ui.aotu.io/img/logo-taro.png"
+      detailPhotos:"https://img.zcool.cn/community/01f49a5c9b403aa801208f8b35c9e4.jpg@1280w_1l_2o_100sh.jpg"
     };
 
 
@@ -92,18 +94,26 @@ class Index extends Component {
         </View>
         <Card title="留言" subTitle="查看全部" href="pages/joinUs/index">
           <View className="messageList">
-            <View className="formItem">
-              <View className="label">已报名</View>
-              <View className="value">{activityDetail.status}</View>
-              <View className="button"><View className='at-icon at-icon-eye icon'></View><View className="text">查看</View></View>
-            </View>
+            {list.map((item,index)=>{
+              return (<View className="message" key={index}>
+              <View className="userInfo">
+                <View className="photo">
+                  <Image src={item.photo} />
+                </View>
+                <View className="info">
+                  <View className="name">{item.name}</View>
+                  <View className="post">{item.company} {" "} {item.post}</View>
+                </View>
+              </View>
+              <View className="words">{item.words}</View>
+            </View>)
+            })}
           </View>
         </Card>
         <Card title="活动详情" href="pages/joinUs/index">
-
+          <Image className="detailPhotos" src={activityDetail.detailPhotos} />
+          <AtButton className="apply" type='primary' onClick={this.goPage}>确认报名</AtButton>
         </Card>
-        
-        <AtButton className="apply" type='primary' onClick={this.goPage}>申请</AtButton>
       </View>
     )
   }

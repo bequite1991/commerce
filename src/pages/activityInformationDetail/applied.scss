@@ -1,0 +1,32 @@
+.appliedList{
+	.message{
+		border-bottom:2rpx solid rgba(234,234,234,1);
+		padding: 30rpx;
+		.userInfo{
+			display: flex;
+			.photo{
+				margin-right:30rpx;
+				image{
+					width: 100rpx;
+					height: 100rpx;
+					border-radius: 50%;
+				}
+			}
+			.name{
+				font-size:28rpx;
+				font-family:PingFangSC-Medium;
+				font-weight:500;
+				color:rgba(0,0,0,1);
+				line-height:40rpx;
+				margin-bottom: 14rpx;
+			}
+			.post{
+				font-size:24rpx;
+				font-family:PingFangSC-Regular;
+				font-weight:400;
+				color:rgba(153,153,153,1);
+				line-height:34rpx;
+			}	
+		}
+	}
+}

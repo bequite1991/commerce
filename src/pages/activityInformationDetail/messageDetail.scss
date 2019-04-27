@@ -1,6 +1,13 @@
-.messageList{
-	padding: 40rpx;
-	.message{
+page {
+  background-color: rgba(236,236,236,1);
+} 
+.replyList{
+	.replys{
+		border-top:20rpx solid rgba(234,234,234,1);
+		background-color: #fff;
+		padding: 40rpx;
+	}
+	.reply{
 		border-bottom:2rpx solid rgba(234,234,234,1);
 		padding: 36rpx 0;
 		.userInfo{
@@ -62,5 +69,9 @@
 				font-size: 28rpx;
 			}
 		}
+	}
+	.detailInfo{
+		background-color: #fff;
+		padding: 40rpx;
 	}
 }

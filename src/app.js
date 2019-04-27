@@ -25,7 +25,10 @@ class App extends Component {
   config = {
     pages: [
       'pages/index/index',
+      'pages/activityInformationDetail/messageDetail',
+      'pages/activityInformationDetail/applied',
       'pages/activityInformationDetail/index',
+      'pages/activityInformationDetail/message',
       'pages/mine/contact',
       'pages/mine/message',
       'pages/mine/assistant',
