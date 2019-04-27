@@ -59,6 +59,12 @@ class Index extends Component {
     defaultStore.getConnectionMemberList(false, this.props.keywords || '');
   }
 
+  goPage(id){
+    Taro.navigateTo({
+      url: `/pages/wisdomMemberDetail/index?id=${id}`
+    })
+  }
+
   render () {
     const { defaultStore} = this.props;
     const memberPage = defaultStore.memberPage.$mobx.values;
@@ -68,7 +74,7 @@ class Index extends Component {
       <View>
         <scroll-view scrollY={true}   scrollWithAnimation={true}>
           {memberPage.map((item,index)=>{
-            return (<View className="connectionMemberBase" key={index}>
+            return (<View className="connectionMemberBase" key={index} onClick={()=>this.goPage(item.id)}>
               <View className="border"></View>
               <View className="photo">
                 <Image src={item.photo} />
