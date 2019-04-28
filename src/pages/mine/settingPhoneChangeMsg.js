@@ -57,9 +57,7 @@ class Index extends Component {
     const t = this;
     const pages = getCurrentPages();
     const nowPage = pages[pages.length - 1];
-    debugger
     const phone = nowPage.options.phone;
-    debugger
     t.interval = setInterval(()=>{
       if(t.state.sec != 0){
         t.setState({

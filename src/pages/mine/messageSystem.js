@@ -5,7 +5,7 @@ import Card from "../../components/card/index.js";
 import { AtList, AtListItem, AtSearchBar  } from 'taro-ui';
 import Tags from "../../components/tags/index.js";
 
-import './messageComment.scss';
+import './messageSystem.scss';
 
 
 @inject('defaultStore')
@@ -13,7 +13,7 @@ import './messageComment.scss';
 class Index extends Component {
 
   config = {
-    navigationBarTitleText: '收到的留言',
+    navigationBarTitleText: '系统消息',
     navigationBarTextStyle: "black",
   }
 
@@ -32,7 +32,7 @@ class Index extends Component {
 
   componentDidMount () {
     const { defaultStore } = this.props;
-    const messageData = defaultStore.getMessageComment();
+    const messageData = defaultStore.getMessageSystem();
   }
 
   componentWillUnmount () { }
@@ -58,37 +58,23 @@ class Index extends Component {
   }
 
   render () {
-    const { defaultStore:{mine_messageComment} } = this.props;
-    const list = mine_messageComment.$mobx.values;
+    const { defaultStore:{mine_messageSystem} } = this.props;
+    const list = mine_messageSystem.$mobx.values;
     return (
-      <View className="messageComment">
-        <View className="commentList">
+      <View className="messageSystem">
+        <View className="messageList">
           {list.map((item,index)=>{
-            return <View key={index} className='comment'>
-              <View className="userInfo">
+            return <View key={index} className='message'>
+              <View className="time">{item.time}</View>
+              <View className="messageInfo">
                 <View className="photo"><Image src={item.photo} /></View>
-                <View className="info">
+                <View className="words">
                   <View className="title">{item.title}</View>
-                  <View className="time">{item.time}</View>
+                  <View className="subtitle">{item.subtitle}</View>
                 </View>
-              </View>
-              <View className="as" onClick={this.taggleInput.bind(this,true)}>回复</View>
-              <View className="content">{item.content}</View>
-              <View className="project">
-                <Image src={item.projectPhoto} />
-                <Text>{item.projectTitle}</Text>
               </View>
             </View>
           })}
-        </View>
-        <View className={this.state.showInput?"replayInput":"displayNone"}>
-          <AtSearchBar
-            placeholder="说点什么呗~"
-            actionName='提交'
-            focus={true}
-            onBlur={this.taggleInput.bind(this,false)}
-            onActionClick={this.onActionClick.bind(this)}
-          />
         </View>
       </View>
     )

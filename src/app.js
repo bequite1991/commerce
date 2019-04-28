@@ -23,11 +23,12 @@ class App extends Component {
   config = {
     pages: [
       'pages/index/index',
+      'pages/mine/messageSystem',
+      'pages/mine/messageComment',
+      'pages/mine/messageReply',
       'pages/activityInformation/index',
       'pages/directTrain/index',
       'pages/directTrainDetail/index',
-      'pages/mine/messageReply',
-      'pages/mine/messageComment',
       'pages/mine/settingPhoneChange',
       'pages/mine/settingPhoneChangeMsg',
       'pages/mine/settingPhone',

@@ -48,6 +48,12 @@ const defaultStore = observable({
   mine_settingPrivacy:{},
   //我模块 设置 用户信息
   mine_userInfo:{},
+  //我模块 收到的回复
+  mine_messageReply:[],
+  //我模块 收到的留言
+  mine_messageComment:[],
+  //我模块 系统消息
+  mine_messageSystem:[],
   //领事馆列表数据
   internation_consulate:[],
   // 国际商会列表数据
@@ -682,6 +688,56 @@ const defaultStore = observable({
      this.mine_userInfo = {
         phone:13988888888
      }
+  },
+  //我 收到的回复列表
+  getMessageReply(){
+     this.mine_messageReply = [{
+        photo:"https://taro-ui.aotu.io/img/logo-taro.png",
+        title:"某某某 回复了你的评论",
+        time:"2019-04-09 14:30",
+        content:"怎样怎样怎样",
+        history:"我的评论：什么什么什么什么"
+     },{
+        photo:"https://taro-ui.aotu.io/img/logo-taro.png",
+        title:"某某某 回复了你的评论",
+        time:"2019-04-09 14:30",
+        content:"怎样怎样怎样",
+        history:"我的评论：什么什么什么什么"
+     }]
+  },
+  //我 收到的留言
+  getMessageComment(){
+     this.mine_messageComment = [{
+        photo:"https://taro-ui.aotu.io/img/logo-taro.png",
+        title:"某某某 回复了你的评论",
+        time:"2019-04-09 14:30",
+        content:"怎样怎样怎样",
+        history:"我的评论：什么什么什么什么",
+        projectPhoto:"https://taro-ui.aotu.io/img/logo-taro.png",
+        projectTitle:"某某某项目"
+     },{
+        photo:"https://taro-ui.aotu.io/img/logo-taro.png",
+        title:"某某某 回复了你的评论",
+        time:"2019-04-09 14:30",
+        content:"怎样怎样怎样",
+        history:"我的评论：什么什么什么什么",
+        projectPhoto:"https://taro-ui.aotu.io/img/logo-taro.png",
+        projectTitle:"某某某项目"
+     }]
+  },
+  //我 系统消息
+  getMessageSystem(){
+     this.mine_messageSystem = [{
+        photo:"https://taro-ui.aotu.io/img/logo-taro.png",
+        title:"河姆渡CEO华建刚中国智能建筑节行业大会",
+        subtitle:"为期2天的第三届（2018）中国智能建筑节在西安绿地笔克会 展中心圆满落幕。",
+        time:"2019-04-09 14:30",
+     },{
+        photo:"https://taro-ui.aotu.io/img/logo-taro.png",
+        title:"河姆渡CEO华建刚中国智能建筑节行业大会",
+        subtitle:"为期2天的第三届（2018）中国智能建筑节在西安绿地笔克会 展中心圆满落幕。",
+        time:"2019-04-09 14:30"
+     }]
   },
 
 })
