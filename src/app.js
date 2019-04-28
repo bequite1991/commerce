@@ -23,6 +23,9 @@ class App extends Component {
   config = {
     pages: [
       'pages/index/index',
+      'pages/activityInformation/index',
+      'pages/directTrain/index',
+      'pages/directTrainDetail/index',
       'pages/mine/messageReply',
       'pages/mine/messageComment',
       'pages/mine/settingPhoneChange',
@@ -47,7 +50,6 @@ class App extends Component {
       'pages/mine/enterpriseData',
       'pages/mine/index',
       'pages/mine/activitys',
-
       'pages/wisdomMemberDetail/index',
       'pages/organizationRegister/index',
       'pages/organizationRegister/submitSuccess',
@@ -57,11 +59,10 @@ class App extends Component {
       'pages/wisdom/index',
       'pages/connectionSearch/index',
       'pages/internationalRelations/index',
-      'pages/activityInformation/index',
+      
       'pages/governmentCounsel/index',
       'pages/governmentDocking/index',
-      'pages/directTrain/index',
-      'pages/directTrainDetail/index',
+      
       'pages/commerceIntroduce/index',
       'pages/joinUs/index',
       'pages/bindPhone/index',

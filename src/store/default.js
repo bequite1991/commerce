@@ -23,6 +23,11 @@ const defaultStore = observable({
   home_activitysListStatus:"loading",
   home_activitysListPage:1,
   home_activitysListPageSize:10,
+  //活动模块 活动列表
+  activity_activityInformList:[],
+  activity_activitysListStatus:"loading",
+  activity_activitysListPage:1,
+  activity_activitysListPageSize:10,
   //活动模块 活动详情
   activityDetail:[],
   //活动模块 活动详情 留言列表
@@ -66,6 +71,14 @@ const defaultStore = observable({
   faccPagePageSize: 10,
   // 组织列表
   org_type_list: {},
+  //政企直通车列表
+  directTrain:[],
+  directTrainPage:1,
+  directTrainPageSize:10,
+  directTrainStatus:"more",
+  //政企直通车详情
+  directTrainDetail:[],
+
   //首页 banner
   getBannerList() {
     const bannerList = [{name:"banner0",url:"https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180"},{name:"banner1",url:"https://img14.360buyimg.com/babel/s700x360_jfs/t1/4099/12/2578/101668/5b971b4bE65ae279d/89dd1764797acfd9.jpg!q90!cc_350x180"},{name:"banner2",url:"https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180"},{name:"banner3",url:"https://img14.360buyimg.com/babel/s700x360_jfs/t1/4099/12/2578/101668/5b971b4bE65ae279d/89dd1764797acfd9.jpg!q90!cc_350x180"}];
@@ -134,43 +147,69 @@ const defaultStore = observable({
   },
   //活动模块  活动列表
   getActivityInformList (){
-    let presidiumList = [{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护,贫困患儿",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png",tags:"环境保护"}];
+    const t =  this;
+    // let presidiumList = [{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护,贫困患儿",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png",tags:"环境保护"}];
+    t.activity_activitysListStatus = "loading";
     request("/config/commerce_hot_activitys",{
       data: {
-        page:1,
-        pageSize:10
+        page:t.activity_activitysListPage,
+        pageSize:t.activity_activitysListPageSize
       },
       header: {
         'content-type': 'application/json'
       }
     }).then((res) => {
       const data = res.data.data.data;
-      data.currentRecords.forEach((item,key)=>{
-          item.descript = item.description;
-          item.tags = item.tag;
-          item.name = item.title;
-          item.photo = item.picture;
-          if(key == data.currentRecords.length -1){
-            presidiumList = data.currentRecords;
-          }
-      });
+      if(data.currentRecords.length){
+        data.currentRecords.forEach((item,key)=>{
+            item.descript = item.description;
+            item.tags = item.tag;
+            item.name = item.title;
+            item.photo = item.picture;
+            item.status = item.num + "人参与";
+            if(key == data.currentRecords.length -1){
+              t.activity_activityInformList = t.activity_activityInformList.concat(data.currentRecords);
+            }
+        });
+        t.activity_activitysListPage ++ ;
+        t.activity_activitysListStatus = "more";
+      }else{
+        t.activity_activitysListStatus = "noMore";
+      }
     });
-    return presidiumList;
   },
   //首页活动、活动模块 活动详情
   getActivityDetail(){
-    this.activityDetail = {
-      photo:"https://taro-ui.aotu.io/img/logo-taro.png",
-      name:"玩转地球天河汇123健康俱乐部",
-      time:"2019-04-15 13:00",
-      address:"北京市朝阳区高碑店乡高碑店村一区33号",
-      rate:"1000积分",
-      origin:"王铁柱",
-      phone:"13888888888",
-      status:"10人",
-      comment:[],
-      detailPhotos:"https://img.zcool.cn/community/01f49a5c9b403aa801208f8b35c9e4.jpg@1280w_1l_2o_100sh.jpg"
-    };
+    // this.activityDetail = {
+    //   photo:"https://taro-ui.aotu.io/img/logo-taro.png",
+    //   title:"玩转地球天河汇123健康俱乐部",
+    //   time:"2019-04-15 13:00",
+    //   address:"北京市朝阳区高碑店乡高碑店村一区33号",
+    //   rate:"1000积分",
+    //   origin:"王铁柱",
+    //   phone:"13888888888",
+    //   status:"10人",
+    //   comment:[],
+    //   detailPhotos:"https://img.zcool.cn/community/01f49a5c9b403aa801208f8b35c9e4.jpg@1280w_1l_2o_100sh.jpg"
+    // };
+    const t =  this;
+    const pages = getCurrentPages();
+    request("/config/commerce_activity_detail_app",{
+      data: {
+        id:pages[pages.length - 1].options.id
+      },
+      header: {
+        'content-type': 'application/json'
+      }
+    }).then((res) => {
+      const data = res.data.data.data;
+      data.photo = data.picture;
+      data.time = data.start_time;
+      data.status = data.amount + "人";
+      data.detailPhotos = data.content;
+      t.activityDetail = data;
+    });
+
   },
   //活动详情  留言
   getMessageList() {
@@ -318,8 +357,35 @@ const defaultStore = observable({
   },
   //政企直通车
   getPortalData(){
-    const datas = [{title:"上海市",src:"http://img2.imgtn.bdimg.com/it/u=1326920324,644760078&fm=200&gp=0.jpg",href:"www.baidu.com"},{title:"上海市",src:"http://img2.imgtn.bdimg.com/it/u=1326920324,644760078&fm=200&gp=0.jpg",href:"www.baidu.com"},{title:"上海市",src:"http://img2.imgtn.bdimg.com/it/u=1326920324,644760078&fm=200&gp=0.jpg",href:"www.baidu.com"},{title:"上海市",src:"http://img2.imgtn.bdimg.com/it/u=1326920324,644760078&fm=200&gp=0.jpg",href:"www.baidu.com"},{title:"上海市",src:"http://img2.imgtn.bdimg.com/it/u=1326920324,644760078&fm=200&gp=0.jpg",href:"www.baidu.com"},{title:"上海市",src:"http://img2.imgtn.bdimg.com/it/u=1326920324,644760078&fm=200&gp=0.jpg",href:"www.baidu.com"}];
-    return datas;
+    const t = this;
+    this.directTrain = [{title:"上海市",src:"http://img2.imgtn.bdimg.com/it/u=1326920324,644760078&fm=200&gp=0.jpg",href:"www.baidu.com"},{title:"上海市",src:"http://img2.imgtn.bdimg.com/it/u=1326920324,644760078&fm=200&gp=0.jpg",href:"www.baidu.com"},{title:"上海市",src:"http://img2.imgtn.bdimg.com/it/u=1326920324,644760078&fm=200&gp=0.jpg",href:"www.baidu.com"},{title:"上海市",src:"http://img2.imgtn.bdimg.com/it/u=1326920324,644760078&fm=200&gp=0.jpg",href:"www.baidu.com"},{title:"上海市",src:"http://img2.imgtn.bdimg.com/it/u=1326920324,644760078&fm=200&gp=0.jpg",href:"www.baidu.com"},{title:"上海市",src:"http://img2.imgtn.bdimg.com/it/u=1326920324,644760078&fm=200&gp=0.jpg",href:"www.baidu.com"}];
+    t.directTrainStatus = "loading";
+    request("/config/ccommerce_government",{
+      data: {
+        page:t.directTrainPage,
+        pageSize:t.directTrainPageSize
+      },
+      header: {
+        'content-type': 'application/json'
+      }
+    }).then((res) => {
+      const data = res.data.data.data_list;
+      if(data.list.length){
+        data.list.forEach((item,key)=>{
+            item.post = item.job_title;
+            item.company = item.company_name;
+            item.name = item.user_name;
+            item.photo = item.picture;
+            if(key == data.list.length -1){
+              t.directTrain = data.list;
+            }
+        });
+        t.directTrainPage++;
+        t.directTrainStatus='more';
+      }else{
+        t.directTrainStatus = "noMore";
+      }
+    });
   },
   //政府对接
   getDockingPortalData(){
