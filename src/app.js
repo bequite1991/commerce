@@ -23,6 +23,10 @@ class App extends Component {
   config = {
     pages: [
       'pages/index/index',
+      'pages/largeProjects/index',
+      'pages/registerCompany/index',
+      'pages/mine/personalDetails',
+      'pages/mine/editor',
       'pages/mine/messageSystem',
       'pages/mine/messageComment',
       'pages/mine/messageReply',
@@ -47,7 +51,6 @@ class App extends Component {
       'pages/mine/contact',
       'pages/mine/message',
       'pages/mine/assistant',
-      'pages/mine/personalDetails',
       'pages/mine/enterpriseData',
       'pages/mine/index',
       'pages/mine/activitys',
@@ -60,10 +63,8 @@ class App extends Component {
       'pages/wisdom/index',
       'pages/connectionSearch/index',
       'pages/internationalRelations/index',
-      
       'pages/governmentCounsel/index',
       'pages/governmentDocking/index',
-      
       'pages/commerceIntroduce/index',
       'pages/joinUs/index',
       'pages/bindPhone/index',

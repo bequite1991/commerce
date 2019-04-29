@@ -36,6 +36,9 @@ class Index extends Component {
       url: url
     });
   }
+  emmitEvent(item){
+    this.props.onClick(item);
+  }
 
   render () {
     const { list } = this.props;
@@ -48,7 +51,7 @@ class Index extends Component {
               title={item.label}
               note={item.value}
               arrow='right'
-              onClick={this.goPage.bind(this,item.url)}
+              onClick={this.emmitEvent.bind(this,item)}
             />)
           })}
         </AtList>

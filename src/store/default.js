@@ -54,6 +54,8 @@ const defaultStore = observable({
   mine_messageComment:[],
   //我模块 系统消息
   mine_messageSystem:[],
+  //我模块 编辑信息
+  mine_editor:{},
   //领事馆列表数据
   internation_consulate:[],
   // 国际商会列表数据
@@ -200,6 +202,7 @@ const defaultStore = observable({
     // };
     const t =  this;
     const pages = getCurrentPages();
+    const options = pages[pages.length - 1].options;
     request("/config/commerce_activity_detail_app",{
       data: {
         id:pages[pages.length - 1].options.id
@@ -375,6 +378,13 @@ const defaultStore = observable({
         'content-type': 'application/json'
       }
     }).then((res) => {
+      if(!res.data.data){
+        wx.showToast({
+          title: res.data.message,
+          icon: 'none'
+        })
+        return;
+      }
       const data = res.data.data.data_list;
       if(data.list.length){
         data.list.forEach((item,key)=>{
@@ -640,12 +650,12 @@ const defaultStore = observable({
   },
   //我 企业信息编辑
   getEnterpriseData(){
-    const datas = [{label:"公司名称",value:"上海唯众传媒股份有限公司",url:""},{label:"公司地址",value:"上海市徐汇区中山西路1788弄58号",url:""},{label:"公司网址",value:"http://www.v2006.tv/",url:""},{label:"公司电话",value:"+86(0)21 5169 7588",url:""},{label:"公司邮箱",value:"vividmedia@v2006.tv",url:""},{label:"公司介绍",value:"唯众传媒是中国领先的原创优质视频",url:""}];
+    const datas = [{key:"company",label:"公司名称",value:"上海唯众传媒股份有限公司",url:""},{key:"company",label:"公司地址",value:"上海市徐汇区中山西路1788弄58号",url:""},{key:"company",label:"公司网址",value:"http://www.v2006.tv/",url:""},{key:"company",label:"公司电话",value:"+86(0)21 5169 7588",url:""},{key:"company",label:"公司邮箱",value:"vividmedia@v2006.tv",url:""},{key:"indroduce",label:"公司介绍",value:"唯众传媒是中国领先的原创优质视频",url:""}];
     return datas;
   },
   //我 个人信息编辑
   getPersonalData(){
-    const datas = [{label:"姓名",value:"王铁柱",url:""},{label:"性别",value:"男",url:""},{label:"联系方式",value:"13888888888",url:""},{label:"个人简介",value:"北师大艺术与传媒学院博士，资深",url:""},{label:"个人荣誉",value:"1.2013-2014年度上海市三八红旗",url:""},{label:"公司信息",value:"唯众传媒",url:""}];
+    const datas = [{key:"name",label:"姓名",value:"王铁柱",url:""},{key:"gender",label:"性别",value:"男",url:""},{key:"telphone",label:"联系方式",value:"13888888888",url:""},{key:"introduce",label:"个人简介",value:"北师大艺术与传媒学院博士，资深",url:""},{key:"honor",label:"个人荣誉",value:"1.2013-2014年度上海市三八红旗",url:""},{key:"company",label:"公司信息",value:"唯众传媒",url:""}];
     return datas;
   },
   //我 助理信息编辑
@@ -739,6 +749,43 @@ const defaultStore = observable({
         time:"2019-04-09 14:30"
      }]
   },
+  //我 设置编辑器配置
+  setMineEditor(params){
+    const pages = getCurrentPages();
+    const page = pages[pages.length - 1]
+    this.mine_mineEditor = params;
+    this.mine_mineEditor.formPage = page.route;
+  },
+  submitMineEditorValue(){
+    const t = this;
+    request(t.mine_mineEditor.url,{
+      method:"post",
+      data: {
+        [t.mine_mineEditor.key]:t.mine_mineEditor.value
+      },
+      header: {
+        'content-type': 'application/json'
+      }
+    }).then((res) => {
+      if(!res.data.data){
+        wx.showToast({
+          title: res.data.message,
+          icon: 'none'
+        })
+        setTimeout(()=>{
+          wx.navigateBack()
+        },2000)
+      }else{
+        wx.showToast({
+          title: "修改成功！",
+          icon: 'none'
+        });
+        setTimeout(()=>{
+          wx.navigateBack()
+        },2000)
+      }
+    });
+  }
 
 })
 export default defaultStore
