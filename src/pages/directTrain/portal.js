@@ -18,8 +18,7 @@ class Portal extends Component {
   }
 
   componentDidMount () {
-    const { defaultStore } = this.props;
-    const portalData = defaultStore.getPortalData();
+    this.handleClick();
   }
 
   componentWillUnmount () { }
@@ -31,7 +30,7 @@ class Portal extends Component {
   goPage(url){
     Taro.navigateTo({
       // url: '/pages/joinUs/index'
-      url: `/pages/governmentDocking/index`
+      url: url
     })
   }
   handleClick(){
@@ -41,11 +40,11 @@ class Portal extends Component {
 
   render () {
     const { defaultStore:{directTrain,directTrainStatus} } = this.props;
-    const list = directTrain.$mobx.valus;
+    const list = directTrain.$mobx.values;
     return (
         <View>
           <View className="portalList">
-            {list.map((item,index)=>{return <View key={index} className='portalItem' onClick={this.goPage.bind(this,item.href)}><Image className="bg" src={item.src} /><View className="title">{item.title}</View></View>})}
+            {list.map((item,index)=>{return <View key={index} className='portalItem' onClick={this.goPage.bind(this,`/pages/governmentDocking/index?id=${item.id}`)}><Image className="bg" src={item.src} /><View className="title">{item.title}</View></View>})}
           </View>
           <AtLoadMore
             onClick={this.handleClick.bind(this)}

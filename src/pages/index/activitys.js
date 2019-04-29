@@ -36,7 +36,7 @@ class Activitys extends Component {
   goPage(url){
     Taro.navigateTo({
       // url: '/pages/joinUs/index'
-      url: `/pages/${url}/index`
+      url: url
     })
   }
   //加载更多
@@ -57,10 +57,10 @@ class Activitys extends Component {
     const list = home_activitysList.$mobx.values;
     return (
       <View className='activitys'>
-        <View className='titleTop' onClick={this.goPage.bind(this,'activityInformation')}>全部活动</View>
+        <View className='titleTop' onClick={this.goPage.bind(this,`/pages/indexactivityInformation/index`)}>全部活动</View>
         <View className="activitysList">
           {list.map((item,index)=>{
-            return <View key={index} className='activitysItem' onClick={this.goPage.bind(this,'activityInformationDetail')}><View className='itemLeft'><View className="name">{item.name}</View><View className="descript">{item.descript}</View><View className="status">{item.status}</View><View className="tags">{item.tags}</View></View><View className="itemRight"><Image src={item.photo} /></View></View>
+            return <View key={index} className='activitysItem' onClick={this.goPage.bind(this,`/pages/activityInformationDetail/index?id=${item.id}`,item.id)}><View className='itemLeft'><View className="name">{item.name}</View><View className="descript">{item.descript}</View><View className="status">{item.status}</View><View className="tags">{item.tags}</View></View><View className="itemRight"><Image src={item.photo} /></View></View>
           })}
         </View>
       </View>

@@ -215,7 +215,8 @@ const defaultStore = observable({
       data.photo = data.picture;
       data.time = data.start_time;
       data.status = data.amount + "人";
-      data.detailPhotos = data.content;
+      data.origin = data.name;
+      data.phone = data.telphone;
       t.activityDetail = data;
     });
 
@@ -367,9 +368,9 @@ const defaultStore = observable({
   //政企直通车
   getPortalData(){
     const t = this;
-    this.directTrain = [{title:"上海市",src:"http://img2.imgtn.bdimg.com/it/u=1326920324,644760078&fm=200&gp=0.jpg",href:"www.baidu.com"},{title:"上海市",src:"http://img2.imgtn.bdimg.com/it/u=1326920324,644760078&fm=200&gp=0.jpg",href:"www.baidu.com"},{title:"上海市",src:"http://img2.imgtn.bdimg.com/it/u=1326920324,644760078&fm=200&gp=0.jpg",href:"www.baidu.com"},{title:"上海市",src:"http://img2.imgtn.bdimg.com/it/u=1326920324,644760078&fm=200&gp=0.jpg",href:"www.baidu.com"},{title:"上海市",src:"http://img2.imgtn.bdimg.com/it/u=1326920324,644760078&fm=200&gp=0.jpg",href:"www.baidu.com"},{title:"上海市",src:"http://img2.imgtn.bdimg.com/it/u=1326920324,644760078&fm=200&gp=0.jpg",href:"www.baidu.com"}];
+    // this.directTrain = [{title:"上海市",src:"http://img2.imgtn.bdimg.com/it/u=1326920324,644760078&fm=200&gp=0.jpg",href:"www.baidu.com"},{title:"上海市",src:"http://img2.imgtn.bdimg.com/it/u=1326920324,644760078&fm=200&gp=0.jpg",href:"www.baidu.com"},{title:"上海市",src:"http://img2.imgtn.bdimg.com/it/u=1326920324,644760078&fm=200&gp=0.jpg",href:"www.baidu.com"},{title:"上海市",src:"http://img2.imgtn.bdimg.com/it/u=1326920324,644760078&fm=200&gp=0.jpg",href:"www.baidu.com"},{title:"上海市",src:"http://img2.imgtn.bdimg.com/it/u=1326920324,644760078&fm=200&gp=0.jpg",href:"www.baidu.com"},{title:"上海市",src:"http://img2.imgtn.bdimg.com/it/u=1326920324,644760078&fm=200&gp=0.jpg",href:"www.baidu.com"}];
     t.directTrainStatus = "loading";
-    request("/config/ccommerce_government",{
+    request("/config/commerce_government",{
       data: {
         page:t.directTrainPage,
         pageSize:t.directTrainPageSize
@@ -385,15 +386,13 @@ const defaultStore = observable({
         })
         return;
       }
-      const data = res.data.data.data_list;
-      if(data.list.length){
-        data.list.forEach((item,key)=>{
-            item.post = item.job_title;
-            item.company = item.company_name;
-            item.name = item.user_name;
-            item.photo = item.picture;
-            if(key == data.list.length -1){
-              t.directTrain = data.list;
+      const data = res.data.data.page_data;
+      if(data.currentRecords.length){
+        data.currentRecords.forEach((item,key)=>{
+            item.title = item.province;
+            item.src = item.photos;
+            if(key == data.currentRecords.length -1){
+              t.directTrain = data.currentRecords;
             }
         });
         t.directTrainPage++;
@@ -403,11 +402,43 @@ const defaultStore = observable({
       }
     });
   },
-  //政府对接
+  // 政企直通车 政府对接
   getDockingPortalData(){
     const datas = [{title:"优惠政策",src:"http://img2.imgtn.bdimg.com/it/u=1326920324,644760078&fm=200&gp=0.jpg",href:"www.baidu.com"},{title:"投资机遇",src:"http://img2.imgtn.bdimg.com/it/u=1326920324,644760078&fm=200&gp=0.jpg",href:"www.baidu.com"},{title:"差异化发展",src:"http://img2.imgtn.bdimg.com/it/u=1326920324,644760078&fm=200&gp=0.jpg",href:"www.baidu.com"},{title:"政策介绍",src:"http://img2.imgtn.bdimg.com/it/u=1326920324,644760078&fm=200&gp=0.jpg",href:"www.baidu.com"}];
     return datas;
   },
+  //政企直通车 提交政府咨询
+  submitGovernmentCounsele(params){
+    const t = this;
+    request("/config/commerce__commerce_api_tb_government_consult_add_45685",{
+      method:"post",
+      data: params,
+      header: {
+        'content-type': 'application/json'
+      }
+    }).then((res) => {
+      if(!res.data.data){
+        wx.showToast({
+          title: res.data.message,
+          icon: 'none'
+        })
+        setTimeout(()=>{
+          wx.navigateBack()
+        },2000)
+      }else{
+        wx.showToast({
+          title: "提交成功！",
+          icon: 'none'
+        });
+        setTimeout(()=>{
+          wx.navigateBack()
+        },2000)
+      }
+    });
+  }
+
+
+
   //领馆列表
   getConsulateList(){
     const t=this;
@@ -573,7 +604,7 @@ const defaultStore = observable({
   //组织列表
   getOrganizationList(type){
     //type 列表请求参数
-    // const list = [{photo:"https://taro-ui.aotu.io/img/logo-taro.png",title:"红酒会俱乐部",subtitle:"一份静谧的高贵，一种脱俗的气质",members:"12",activitys:[{photo:"https://taro-ui.aotu.io/img/logo-taro.png",title:"红酒品鉴大会",time:"04-02",address:"某某酒店"},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",title:"红酒品鉴大会",time:"04-02",address:"某某酒店"}]},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",title:"红酒会俱乐部",subtitle:"一份静谧的高贵，一种脱俗的气质",members:"12",activitys:[{photo:"https://taro-ui.aotu.io/img/logo-taro.png",title:"红酒品鉴大会",time:"04-02",address:"某某酒店"},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",title:"红酒品鉴大会",time:"04-02",address:"某某酒店"}]},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",title:"红酒会俱乐部",subtitle:"一份静谧的高贵，一种脱俗的气质",members:"12",activitys:[{photo:"https://taro-ui.aotu.io/img/logo-taro.png",title:"红酒品鉴大会",time:"04-02",address:"某某酒店"},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",title:"红酒品鉴大会",time:"04-02",address:"某某酒店"}]},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",title:"红酒会俱乐部",subtitle:"一份静谧的高贵，一种脱俗的气质",members:"12",activitys:[{photo:"https://taro-ui.aotu.io/img/logo-taro.png",title:"红酒品鉴大会",time:"04-02",address:"某某酒店"},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",title:"红酒品鉴大会",time:"04-02",address:"某某酒店"}]},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",title:"红酒会俱乐部",subtitle:"一份静谧的高贵，一种脱俗的气质",members:"12",activitys:[{photo:"https://taro-ui.aotu.io/img/logo-taro.png",title:"红酒品鉴大会",time:"04-02",address:"某某酒店"},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",title:"红酒品鉴大会",time:"04-02",address:"某某酒店"}]},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",title:"红酒会俱乐部",subtitle:"一份静谧的高贵，一种脱俗的气质",members:"12",activitys:[{photo:"https://taro-ui.aotu.io/img/logo-taro.png",title:"红酒品鉴大会",time:"04-02",address:"某某酒店"},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",title:"红酒品鉴大会",time:"04-02",address:"某某酒店"}]},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",title:"红酒会俱乐部",subtitle:"一份静谧的高贵，一种脱俗的气质",members:"12",activitys:[{photo:"https://taro-ui.aotu.io/img/logo-taro.png",title:"红酒品鉴大会",time:"04-02",address:"某某酒店"},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",title:"红酒品鉴大会",time:"04-02",address:"某某酒店"}]}];
+    // const list = [{photo:"https://taro-ui.aotu.io/img/logo-taro.png",title:"红酒会俱乐部",subtitle:"一份静谧的高贵，一种脱俗的气质",members:"12",activitys:[{photo:"https://taro-ui.aotu.io/img/logo-taro.png",title:"红酒品鉴大会",time:"04-02",address:"某某酒店"},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",title:"红酒品鉴大会",time:"04-02",address:"某某酒店"}]}];
     // return list;
     const t = this;
     request('/config/commerce_org_list',{
@@ -646,6 +677,42 @@ const defaultStore = observable({
         email:"vividmedia@v2006.tv"
       }
     };
+
+    const t = this;
+    t.userinfo ={};
+    request('/config/commerce_get_userinfo').then(res => {
+      debugger
+      const { data, company, honor_list } = res.data.data;
+      const result = {
+        photo: data.photo || '',
+        name: data.name || '',
+        position: Job[data.commerce_job] || '',
+        company: company.name || '',
+        phone: data.telphone || '',
+        abstract: data.introduce || '',
+        companyAbstract: company.introduce || '',
+        companyInfo:{
+          website: company.website || '',
+          name: company.name || '',
+          address: company.address || '',
+          phone: company.phone || '',
+          email: company.email || ''
+        },
+        honor:[]
+      };
+      if(honor_list && honor_list.list && honor_list.list.length>0){
+        result.honor = honor_list.list.map(item => {
+          return {
+            title: item.title || '',
+            color:"#5683C9"
+          }
+        });
+      }
+      console.log('result:',result);
+      t.userinfo = result;
+    });
+
+
     return datas;
   },
   //我 企业信息编辑
