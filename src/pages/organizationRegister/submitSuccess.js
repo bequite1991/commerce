@@ -67,10 +67,10 @@ class Index extends Component {
           <View className="at-icon at-icon-check-circle icon"></View>
           <View class="words">请求发送成功，等待管理员审</View>
         </View>
-        <AtButton onClick={this.submit.bind(this)} className="submit" type='primary' size='normal'>返回</AtButton>
+        <AtButton onClick={this.goPage.bind(this, 'index')} className="submit" type='primary' size='normal'>返回</AtButton>
       </View>
     )
   }
 }
 
-export default Index 
+export default Index

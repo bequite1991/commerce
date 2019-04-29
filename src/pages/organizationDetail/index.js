@@ -45,9 +45,9 @@ class Index extends Component {
   componentDidHide () { }
 
   goPage(){
+    const t = this;
     Taro.navigateTo({
-      // url: '/pages/joinUs/index'
-      url: '/pages/joinUs/index'
+      url: `/pages/organizationRegister/index?id=${t.$router.params.id}`
     });
   }
   handleClick (value) {
