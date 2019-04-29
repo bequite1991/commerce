@@ -16,7 +16,10 @@ class Portal extends Component {
     console.log('componentWillReact')
   }
 
-  componentDidMount () { }
+  componentDidMount () {
+    const { defaultStore } = this.props;
+    defaultStore.getPortalData();
+  }
 
   componentWillUnmount () { }
 
@@ -32,8 +35,8 @@ class Portal extends Component {
   }
 
   render () {
-    const { defaultStore } = this.props;
-    const portalData = defaultStore.getPortalData();
+    const { defaultStore:{directTrain,directTrainStatus} } = this.props;
+    const portalData = directTrain.$mobx.values;
 
     return (
         <View>

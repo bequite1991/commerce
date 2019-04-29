@@ -49,15 +49,19 @@ class Index extends Component {
   }
   //校验并 提交表单
   submit(){
+    const { defaultStore,defaultStore: { userinfo} } = this.props;
+    debugger
+    const pages = getCurrentPages();
+    const options = pages[pages.length - 1].options;
     let warring = false;
     const t = this;
     const formName = {
       name:"姓名",
-      company:"企业名",
-      position:"职位",
+      company_name:"企业名",
+      job_title:"职位",
       phone:"手机号码",
-      need:"希望学习和了解的政策方向",
-      needCustom:"希望学习和了解的政策方向"
+      direction:"希望学习和了解的政策方向",
+      detail:"希望学习和了解的政策方向"
     }
     Object.keys(this.state).forEach((item,key)=>{
       if(!t.state[item] && !warring){
@@ -66,6 +70,12 @@ class Index extends Component {
           'title': "请填写" + formName[item] + "!",
           'icon':"none",
         })
+      }
+      if(key ==  Object.keys(this.state).length - 1 && !warring){
+        const formData = this.state;
+        formData.government_id = options.id;
+        formData.user_id = userinfo.id;
+        defaultStore.submitGovernmentCounsele(params)
       }
     });
   }
@@ -83,8 +93,8 @@ class Index extends Component {
               <AtInput
                 className="inputEditor"
                 type='text'
-                value={this.state.company}
-                onChange={this.handleChange.bind(this,"company")}
+                value={this.state.company_name}
+                onChange={this.handleChange.bind(this,"company_name")}
               />
             </View>
           </View>
@@ -110,8 +120,8 @@ class Index extends Component {
               <AtInput
                 className="inputEditor"
                 type='text'
-                value={this.state.position}
-                onChange={this.handleChange.bind(this,"position")}
+                value={this.state.job_title}
+                onChange={this.handleChange.bind(this,"job_title")}
               />
             </View>
           </View>
@@ -133,17 +143,13 @@ class Index extends Component {
             <View className="title required">希望学习和了解的政策方向</View>
             <View className="subtitle"></View>
             <View className="input">
-              <Picker className="inputEditor" mode='selector' range={this.state.selector} onChange={this.handleChange.bind(this,"need")}>
+              <Picker className="inputEditor" mode='selector' range={this.state.selector} onChange={this.handleChange.bind(this,"direction")}>
                 <View className='picker'>
-                  {this.state.need||""}
+                  {this.state.direction||""}
                   <AtIcon className="chevron-down" value='chevron-down' size='30' color='#606060'></AtIcon>
                 </View>
               </Picker>
             </View>
-
-
-
-
           </View>
 
           <View className="formItem">
@@ -153,8 +159,8 @@ class Index extends Component {
               <AtInput
                 className="inputEditor"
                 type='text'
-                value={this.state.needCustom}
-                onChange={this.handleChange.bind(this,"needCustom")}
+                value={this.state.detail}
+                onChange={this.handleChange.bind(this,"detail")}
               />
             </View>
           </View>

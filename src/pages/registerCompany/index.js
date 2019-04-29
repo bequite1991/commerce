@@ -83,8 +83,8 @@ class Index extends Component {
               <AtInput
                 className="inputEditor"
                 type='text'
-                value={this.state.company}
-                onChange={this.handleChange.bind(this,"company")}
+                value={this.state.company_name}
+                onChange={this.handleChange.bind(this,"company_name")}
               />
             </View>
           </View>

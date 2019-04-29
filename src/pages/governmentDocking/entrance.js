@@ -20,13 +20,26 @@ class Index extends Component {
     navigationBarTextStyle: "black",
   }
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      proviceId:null
+    }
+  }
+
   componentWillMount () { }
 
   componentWillReact () {
     console.log('componentWillReact')
   }
 
-  componentDidMount () { }
+  componentDidMount () {
+    const pages = getCurrentPages();
+    const proviceId = pages[pages.length - 1].options.id;
+    this.setState({
+      proviceId
+    })
+  }
 
   componentWillUnmount () { }
 
@@ -37,25 +50,26 @@ class Index extends Component {
   goPage(url){
     Taro.navigateTo({
       // url: '/pages/joinUs/index'
-      url: `/pages/${url}/index`
+      url: url
     })
   }
 
   render () {
     const { defaultStore } = this.props;
+
     return (
       <View>
-        <View className='entrance' onClick={this.goPage.bind(this,'registerCompany')} key="商道智慧">
+        <View className='entrance' onClick={this.goPage.bind(this,`/pages/governmentCounsel/index?id=${this.state.proviceId}`)} key="商道智慧">
           <View className='tips'></View>
           <View><icon type="success" size="50" /></View>
           <text>政策咨询</text>
         </View>
-        <View className='entrance' onClick={this.goPage.bind(this,'governmentCounsel')}>
+        <View className='entrance' onClick={this.goPage.bind(this,`/pages/registerCompany/index?id=${this.state.proviceId}`)}>
           <View className='tips'></View>
           <View><icon type="success" size="50" /></View>
           <text>注册公司</text>
         </View>
-        <View className='entrance' onClick={this.goPage.bind(this,'largeProjects')}>
+        <View className='entrance' onClick={this.goPage.bind(this,`/pages/largeProjects/index?id=${this.state.proviceId}`)}>
           <View className='tips'></View>
           <View><icon type="success" size="50" /></View>
           <text>重大投资对接</text>
