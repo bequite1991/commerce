@@ -45,10 +45,24 @@ class Index extends Component {
     });
   }
   imageChange(value){
-    debugger
     this.setState({
       userPhoto:value[0].url
     })
+  }
+  eventClick(item){
+    const t = this;
+    const {defaultStore} = this.props;
+    const param = {
+      url:"/config/commerce_update_userinfo",
+      key:item.key,
+      value:item.value,
+      editorType:item.editorType || "textarea"
+    }
+    debugger
+    defaultStore.setMineEditor(param);
+    setTimeout(()=>{
+      t.goPage("/pages/mine/editor")
+    },500);
   }
 
   render () {
@@ -59,7 +73,8 @@ class Index extends Component {
         <View className="photo">
           <View className="label">头像</View>
           <View className="value">
-            <Image src={this.state.userPhoto} /></View>
+            <Image src={this.state.userPhoto} />
+          </View>
             <AtImagePicker
               files={this.state.files}
               onChange={this.imageChange.bind(this)}
@@ -67,7 +82,7 @@ class Index extends Component {
               className="photoSelect"
             />
         </View>
-        <CustomList list={enterpriseData} />
+        <CustomList list={enterpriseData} onClick={this.eventClick.bind(this)} />
       </View>
     )
   }

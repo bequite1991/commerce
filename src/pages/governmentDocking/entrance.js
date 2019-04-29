@@ -45,7 +45,7 @@ class Index extends Component {
     const { defaultStore } = this.props;
     return (
       <View>
-        <View className='entrance' onClick={this.goPage.bind(this,'governmentCounsel')} key="商道智慧">
+        <View className='entrance' onClick={this.goPage.bind(this,'registerCompany')} key="商道智慧">
           <View className='tips'></View>
           <View><icon type="success" size="50" /></View>
           <text>政策咨询</text>
@@ -55,7 +55,7 @@ class Index extends Component {
           <View><icon type="success" size="50" /></View>
           <text>注册公司</text>
         </View>
-        <View className='entrance' onClick={this.goPage.bind(this,'governmentCounsel')}>
+        <View className='entrance' onClick={this.goPage.bind(this,'largeProjects')}>
           <View className='tips'></View>
           <View><icon type="success" size="50" /></View>
           <text>重大投资对接</text>

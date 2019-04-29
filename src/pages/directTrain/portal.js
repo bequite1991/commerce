@@ -1,6 +1,7 @@
 import Taro, { Component } from '@tarojs/taro';
 import { View, Button, Text,Swiper, SwiperItem} from '@tarojs/components';
 import { observer, inject } from '@tarojs/mobx';
+import { AtLoadMore } from 'taro-ui'
 
 import './portal.scss';
 
@@ -16,7 +17,10 @@ class Portal extends Component {
     console.log('componentWillReact')
   }
 
-  componentDidMount () { }
+  componentDidMount () {
+    const { defaultStore } = this.props;
+    const portalData = defaultStore.getPortalData();
+  }
 
   componentWillUnmount () { }
 
@@ -30,16 +34,23 @@ class Portal extends Component {
       url: `/pages/governmentDocking/index`
     })
   }
+  handleClick(){
+    const { defaultStore } = this.props;
+    defaultStore.getPortalData();
+  }
 
   render () {
-    const { defaultStore } = this.props;
-    const portalData = defaultStore.getPortalData();
-
+    const { defaultStore:{directTrain,directTrainStatus} } = this.props;
+    const list = directTrain.$mobx.valus;
     return (
         <View>
           <View className="portalList">
-            {portalData.map((item,index)=>{return <View key={index} className='portalItem' onClick={this.goPage.bind(this,item.href)}><Image className="bg" src={item.src} /><View className="title">{item.title}</View></View>})}
+            {list.map((item,index)=>{return <View key={index} className='portalItem' onClick={this.goPage.bind(this,item.href)}><Image className="bg" src={item.src} /><View className="title">{item.title}</View></View>})}
           </View>
+          <AtLoadMore
+            onClick={this.handleClick.bind(this)}
+            status={directTrainStatus}
+          />
         </View>
     )
   }

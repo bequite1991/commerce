@@ -2,7 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text,Swiper, SwiperItem,Picker} from '@tarojs/components'
 import { observer, inject } from '@tarojs/mobx'
 import Card from "../../components/card/index.js";
-import { AtInput, AtForm,AtButton,AtMessage,AtIcon } from 'taro-ui';
+import { AtInput, AtForm,AtButton,AtIcon } from 'taro-ui';
 import Tags from "../../components/tags/index.js";
 
 import './index.scss';

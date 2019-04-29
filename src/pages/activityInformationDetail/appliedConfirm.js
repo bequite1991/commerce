@@ -34,10 +34,10 @@ class Index extends Component {
 
   componentDidHide () { }
 
-  goPage(){
+  goPage(path){
     Taro.navigateTo({
       // url: '/pages/joinUs/index'
-      url: '/pages/joinUs/index'
+      url: `/pages/activityInformationDetail/${path}`
     });
   }
 
@@ -69,7 +69,7 @@ class Index extends Component {
               <View className="value main">{activity_appliedConfirm.phone}</View>
             </View>
           </View>
-          <AtButton className="apply" type='primary' onClick={this.goPage}>确认报名</AtButton>
+          <AtButton className="apply" type='primary' onClick={this.goPage.bind(this,'appliedSuccess')}>确认报名</AtButton>
         </View>
     )
   }

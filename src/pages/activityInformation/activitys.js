@@ -12,18 +12,15 @@ import './activitys.scss';
 @observer
 class Index extends Component {
 
-  config = {
-    navigationBarTitleText: '新沪商联合会',
-    navigationBarTextStyle: "black",
-  }
-
   componentWillMount () { }
 
   componentWillReact () {
     console.log('componentWillReact')
   }
 
-  componentDidMount () { }
+  componentDidMount () {
+    this.handleClick()
+  }
 
   componentWillUnmount () { }
 
@@ -31,25 +28,32 @@ class Index extends Component {
 
   componentDidHide () { }
 
-  goPage(url){
+  goPage(id){
     Taro.navigateTo({
       // url: '/pages/joinUs/index'
-      url: `/pages/${url}/index`
+      url: `/pages/activityInformationDetail/index?id=${id}`
     })
+  }
+  handleClick(){
+    const { defaultStore } = this.props;
+    defaultStore.getActivityInformList();
   }
 
   render () {
-    const { defaultStore} = this.props;
-    const activitysList = defaultStore.getActivityInformList();
+    const { defaultStore:{activity_activitysListStatus,activity_activityInformList}} = this.props;
+    const activitysList = activity_activityInformList.$mobx.values;
     return (
       <View className='activitys'>
         <View className='title'>全部活动</View>
         <View className="activitysList">
           {activitysList.map((item,index)=>{
-            return <View key={index} className='activitysItem' onClick={this.goPage.bind(this,'activityInformationDetail')}><View className='itemLeft'><View className="name">{item.name}</View><View className="descript">{item.descript}</View><View className="status">{item.status}</View><View className="tags">{item.tags}</View></View><View className="itemRight"><Image src={item.photo} /></View></View>
+            return <View key={index} className='activitysItem' onClick={this.goPage.bind(this,item.id)}><View className='itemLeft'><View className="name">{item.name}</View><View className="descript">{item.descript}</View><View className="status">{item.status}</View><View className="tags">{item.tags}</View></View><View className="itemRight"><Image src={item.photo} /></View></View>
           })}
         </View>
-
+        <AtLoadMore
+          onClick={this.handleClick.bind(this)}
+          status={activity_activitysListStatus}
+        />
       </View>
     )
   }

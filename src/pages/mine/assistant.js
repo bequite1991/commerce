@@ -51,6 +51,22 @@ class Index extends Component {
     })
   }
 
+  eventClick(item){
+    const t = this;
+    const {defaultStore} = this.props;
+    const param = {
+      url:"/config/commerce_update_userinfo",
+      key:item.key,
+      value:item.value,
+      editorType:item.editorType || "textarea"
+    }
+    debugger
+    defaultStore.setMineEditor(param);
+    setTimeout(()=>{
+      t.goPage("/pages/mine/editor")
+    },500);
+  }
+
   render () {
     const {defaultStore} = this.props;
     const enterpriseData = defaultStore.getAssistantData();
@@ -67,7 +83,7 @@ class Index extends Component {
               className="photoSelect"
             />
         </View>
-        <CustomList list={enterpriseData} />
+        <CustomList list={enterpriseData} onClick={this.eventClick.bind(this)} />
       </View>
     )
   }

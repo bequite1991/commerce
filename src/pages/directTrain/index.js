@@ -30,7 +30,9 @@ class Index extends Component {
     console.log('componentWillReact')
   }
 
-  componentDidMount () { }
+  componentDidMount () {
+
+  }
 
   componentWillUnmount () { }
 
@@ -46,11 +48,6 @@ class Index extends Component {
   }
 
   render () {
-    const { defaultStore } = this.props;
-    let {formData,sexOpen,positionsArr} = this.state;
-    const introduce = defaultStore.getIntroduce();
-    const parntersData = introduce.partner;
-    const brandsData = introduce.brands;
     return (
       <View className='directTrain'>
         <Banner />

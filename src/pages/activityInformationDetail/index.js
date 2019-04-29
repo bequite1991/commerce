@@ -35,36 +35,20 @@ class Index extends Component {
 
   componentDidHide () { }
 
-  goPage(){
+  goPage(path){
     Taro.navigateTo({
       // url: '/pages/joinUs/index'
-      url: '/pages/joinUs/index'
+      url: `/pages/activityInformationDetail/${path}`
     });
   }
 
   render () {
     const { defaultStore:{activityDetail,activity_messageList} } = this.props;
     const list = activity_messageList.$mobx.values;
-
-    const datas = {
-      photo:"https://taro-ui.aotu.io/img/logo-taro.png",
-      name:"玩转地球天河汇123健康俱乐部",
-      time:"2019-04-15 13:00",
-      address:"北京市朝阳区高碑店乡高碑店村一区33号",
-      rate:"1000积分",
-      origin:"王铁柱",
-      phone:"13888888888",
-      status:"10人",
-      comment:[],
-      detailPhotos:"https://img.zcool.cn/community/01f49a5c9b403aa801208f8b35c9e4.jpg@1280w_1l_2o_100sh.jpg"
-    };
-
-
-
     return (
       <View className='activityDetail'>
         <Banner />
-        <View className="title">{activityDetail.name}</View>
+        <View className="title">{activityDetail.title}</View>
         <View className="form">
           <View className="formItem">
             <View className="label">时间</View>
@@ -89,10 +73,10 @@ class Index extends Component {
           <View className="formItem">
             <View className="label">已报名</View>
             <View className="value">{activityDetail.status}</View>
-            <View className="button"><View className='at-icon at-icon-eye icon'></View><View className="text">查看</View></View>
+            <View className="button" onClick={this.goPage.bind(this,"applied")}><View className='at-icon at-icon-eye icon'></View><View className="text">查看</View></View>
           </View>
         </View>
-        <Card title="留言" subTitle="查看全部" href="pages/joinUs/index">
+        <Card title="留言" subTitle="查看全部" href="message">
           <View className="messageList">
             {list.map((item,index)=>{
               return (<View className="message" key={index}>
@@ -110,9 +94,9 @@ class Index extends Component {
             })}
           </View>
         </Card>
-        <Card title="活动详情" href="pages/joinUs/index">
+        <Card title="活动详情">
           <Image className="detailPhotos" src={activityDetail.detailPhotos} />
-          <AtButton className="apply" type='primary' onClick={this.goPage}>确认报名</AtButton>
+          <AtButton className="apply" type='primary' onClick={this.goPage.bind(this,'appliedConfirm')}>确认报名</AtButton>
         </Card>
       </View>
     )
