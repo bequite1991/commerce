@@ -56,12 +56,29 @@ class Index extends Component {
   }
 
   submit(){
-    Taro.navigateTo({
-      // url: '/pages/joinUs/index'
-      url: `/pages/organizationRegister/submitSuccess`
-    })
+    const reason = this.state.value;
+    if(!reason){
+      wx.showToast({
+        title: '请输入申请理由...',
+        icon: 'none'
+      });
+      return ;
+    }
+    const { defaultStore } = this.props;
+    const id = this.$router.params.id;
+    defaultStore.orgRegister(id, reason).then(res => {
+      if(res.data.ok){
+        Taro.navigateTo({
+          url: `/pages/organizationRegister/submitSuccess`
+        })
+      }else{
+        wx.showToast({
+          title: `加入失败,${res.data.message}`,
+          icon: 'none'
+        });
+      }
+    });
   }
-
 
   render () {
     return (
@@ -69,7 +86,7 @@ class Index extends Component {
         <AtTextarea
           className="textarea"
           value={this.state.value}
-          onBlur={this.handleChange.bind(this)}
+          onChange={this.handleChange.bind(this)}
           maxLength={100}
           placeholder='请填写您想加入该组织的理由！'
         />
@@ -79,4 +96,4 @@ class Index extends Component {
   }
 }
 
-export default Index 
+export default Index

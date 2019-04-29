@@ -684,8 +684,20 @@ const defaultStore = observable({
 
       t.org_detail = result;
     })
-
   },
+
+  // 加入组织
+  orgRegister(id, reason) {
+    console.log(`id:${id},reason:${reason}`);
+    return request('/config/commerce_join_org',{
+      data: {
+        org_id: id,
+        reason
+      },
+      method: 'POST'
+    });
+  },
+
   //我  个人信息
   getMineDetail(){
     const datas = {
