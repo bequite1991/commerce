@@ -37,7 +37,11 @@ class Index extends Component {
     console.log('componentWillReact')
   }
 
-  componentDidMount () { }
+  componentDidMount () {
+    const { defaultStore } = this.props;
+    debugger
+    defaultStore.getMineDetail();
+  }
 
   componentWillUnmount () { }
 
@@ -51,42 +55,22 @@ class Index extends Component {
       url: `/pages/mine/${url}`
     });
   }
-  showSexAction(){
-    this.setState({
-      sexOpen:true
-    })
-  }
-  selectSex(sex){
-    let {formData} = this.state;
-    formData.sex = sex;
-    this.setState({
-      sexOpen:false
-    })
-  }
-  onDateChange(date){
-    let {formData,isChange} = this.state;
-    formData.birthday = date.detail.value;
-    this.setState({
-      isChange:isChange + 1
-    });
-  }
 
   render () {
-    const { defaultStore } = this.props;
+    const { defaultStore:{mine_userinfo} } = this.props;
     let {formData,sexOpen,positionsArr} = this.state;
-    const introduce = defaultStore.getMineDetail();
 
     return (
       <View className='memberDetail'>
         <View className="memberBase">
           <View className="photo">
-            <Image src={introduce.photo} />
+            <Image src={mine_userinfo.photo} />
           </View>
           <View className="info">
-            <View className="name">{introduce.name}</View>
-            <View className="position">{introduce.position}</View>
-            <View className="company">公司名称：{introduce.company}</View>
-            <View className="phone">联系方式：{introduce.phone}</View>
+            <View className="name">{mine_userinfo.name}</View>
+            <View className="position">{mine_userinfo.position}</View>
+            <View className="company">公司名称：{mine_userinfo.company}</View>
+            <View className="phone">联系方式：{mine_userinfo.phone}</View>
           </View>
         </View>
         <AtList className="list">

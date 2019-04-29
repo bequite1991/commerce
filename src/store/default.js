@@ -437,10 +437,7 @@ const defaultStore = observable({
         },2000)
       }
     });
-  }
-
-
-
+  },
   //领馆列表
   getConsulateList(){
     const t=this;
@@ -719,26 +716,27 @@ const defaultStore = observable({
   },
   //我  个人信息
   getMineDetail(){
-    const datas = {
-      photo:"https://taro-ui.aotu.io/img/logo-taro.png",
-      name:"杨辉",
-      position:"常务副会长",
-      company:"唯众传媒 vivid media",
-      phone:"13888888888",
-      abstract:"北师大艺术与传媒学院博士，资深媒体人， TV2.0新思维理念倡导者。 历任湖南卫视节目中心副主任、CNBC中国区项目经理。2006年创建唯众传媒,先后创办《开讲啦》、《波士堂》、《我是先生》《老妈驾到》、《你正常吗》、《暴走法条君》等50余档电视和网络节目，出品节目获得超过70项重大奖项。热心公益，现任雷励中国的理事长和上海公益事业发展基金会创始理事。",
-      honor:[{title:"2015年度全国三八红旗手",color:"#5683C9"},{title:"影响中国传媒领军人物",color:"#5683C9"},{title:"2015中国商业最具创意人物100",color:"#5683C9"},{title:"两次入选“中国商界女性精英价值榜",color:"#5683C9"},{title:"2013-2014年度上海市三八红旗手标兵",color:"#5683C9"}],
-      companyAbstract:"唯众传媒是中国领先的原创优质视频生产全媒体整合运营商。 成立于2006年的唯众传媒是一家致力于原创追求，以提供优质视频内容为核心竞争力的全媒体整合运营商，是中国传媒界原创节目数量最多，专注于优质视频产品策划与制作的民营传媒机构。公司拥有国内一流的策划力量、导演团队和运营班底，以视频节目创意、策划、制作、经营，大型活动策划、执行，新媒体业务为核心业务。坚持以提供原创、精品、输出正向价值观为核心理念，以打造大文化、大财经、大生活、大综艺四大产品矩阵为发展战略。 ",
-      companyInfo:{
-        website:"http://www.v2006.tv/",
-        name:"上海唯众传媒股份有限公司",
-        address:"上海市徐汇区中山西路1788弄58号（200235）",
-        phone:"+86(0)21 5169 7588",
-        email:"vividmedia@v2006.tv"
-      }
-    };
+    // const datas = {
+    //   photo:"https://taro-ui.aotu.io/img/logo-taro.png",
+    //   name:"杨辉",
+    //   position:"常务副会长",
+    //   company:"唯众传媒 vivid media",
+    //   phone:"13888888888",
+    //   abstract:"北师大艺术与传媒学院博士，资深媒体人， TV2.0新思维理念倡导者。 历任湖南卫视节目中心副主任、CNBC中国区项目经理。2006年创建唯众传媒,先后创办《开讲啦》、《波士堂》、《我是先生》《老妈驾到》、《你正常吗》、《暴走法条君》等50余档电视和网络节目，出品节目获得超过70项重大奖项。热心公益，现任雷励中国的理事长和上海公益事业发展基金会创始理事。",
+    //   honor:[{title:"2015年度全国三八红旗手",color:"#5683C9"},{title:"影响中国传媒领军人物",color:"#5683C9"},{title:"2015中国商业最具创意人物100",color:"#5683C9"},{title:"两次入选“中国商界女性精英价值榜",color:"#5683C9"},{title:"2013-2014年度上海市三八红旗手标兵",color:"#5683C9"}],
+    //   companyAbstract:"唯众传媒是中国领先的原创优质视频生产全媒体整合运营商。 成立于2006年的唯众传媒是一家致力于原创追求，以提供优质视频内容为核心竞争力的全媒体整合运营商，是中国传媒界原创节目数量最多，专注于优质视频产品策划与制作的民营传媒机构。公司拥有国内一流的策划力量、导演团队和运营班底，以视频节目创意、策划、制作、经营，大型活动策划、执行，新媒体业务为核心业务。坚持以提供原创、精品、输出正向价值观为核心理念，以打造大文化、大财经、大生活、大综艺四大产品矩阵为发展战略。 ",
+    //   companyInfo:{
+    //     website:"http://www.v2006.tv/",
+    //     name:"上海唯众传媒股份有限公司",
+    //     address:"上海市徐汇区中山西路1788弄58号（200235）",
+    //     phone:"+86(0)21 5169 7588",
+    //     email:"vividmedia@v2006.tv"
+    //   }
+    // };
+    debugger
 
     const t = this;
-    t.userinfo ={};
+    t.mine_userinfo ={};
     request('/config/commerce_get_userinfo').then(res => {
       debugger
       const { data, company, honor_list } = res.data.data;
@@ -768,11 +766,8 @@ const defaultStore = observable({
         });
       }
       console.log('result:',result);
-      t.userinfo = result;
+      t.mine_userinfo = result;
     });
-
-
-    return datas;
   },
   //我 企业信息编辑
   getEnterpriseData(){

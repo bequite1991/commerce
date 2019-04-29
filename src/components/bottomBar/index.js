@@ -63,7 +63,7 @@ class Index extends Component {
           <View className='Peoples'><Image src={Peoples} /></View>
           <text>人脉</text>
         </View>
-        <View className={this.props.active == 3?'bottomBarItem':"bottomBarItem"} onClick={this.goPage.bind(this,'me')}>
+        <View className={this.props.active == 3?'bottomBarItem':"bottomBarItem"} onClick={this.goPage.bind(this,'mine')}>
           <View className='tips'></View>
           <View className='Me'><Image src={Me} /></View>
           <text>我</text>
