@@ -28,7 +28,9 @@ class Index extends Component {
     console.log('componentWillReact')
   }
 
-  componentDidMount () { }
+  componentDidMount () { 
+
+  }
 
   componentWillUnmount () { }
 
@@ -51,7 +53,6 @@ class Index extends Component {
       value:item.value,
       editorType:item.editorType || "textarea"
     }
-    debugger
     defaultStore.setMineEditor(param);
     setTimeout(()=>{
       t.goPage("/pages/mine/editor")
@@ -59,8 +60,8 @@ class Index extends Component {
   }
 
   render () {
-    const {defaultStore} = this.props;
-    const enterpriseData = defaultStore.getEnterpriseData();
+    const {defaultStore:{mine_enterpriseData}} = this.props;
+    const enterpriseData = mine_enterpriseData.$mobx.values;
     return (
       <View className='enterpriseData'>
         <CustomList list={enterpriseData} onClick={this.eventClick.bind(this)} />

@@ -39,7 +39,6 @@ class Index extends Component {
 
   componentDidMount () {
     const { defaultStore } = this.props;
-    debugger
     defaultStore.getMineDetail();
   }
 

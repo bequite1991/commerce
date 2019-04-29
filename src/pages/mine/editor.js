@@ -45,7 +45,6 @@ class Index extends Component {
   }
   handleChange(e){
     const { defaultStore:{mine_mineEditor} } = this.props;
-    debugger
     // const params = Object.assign(mine_mineEditor,{value:e});
     mine_mineEditor.value = e.detail.value;
     // defaultStore.setMineEditor({value:e});

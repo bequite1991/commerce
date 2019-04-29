@@ -56,6 +56,8 @@ const defaultStore = observable({
   mine_messageSystem:[],
   //我模块 编辑信息
   mine_editor:{},
+  //我模块 公司信息
+  mine_enterpriseData:{},
   //领事馆列表数据
   internation_consulate:[],
   // 国际商会列表数据
@@ -745,12 +747,10 @@ const defaultStore = observable({
     //     email:"vividmedia@v2006.tv"
     //   }
     // };
-    debugger
 
     const t = this;
     t.mine_userinfo ={};
     request('/config/commerce_get_userinfo').then(res => {
-      debugger
       const { data, company, honor_list } = res.data.data;
       const result = {
         photo: data.photo || '',
@@ -779,12 +779,8 @@ const defaultStore = observable({
       }
       console.log('result:',result);
       t.mine_userinfo = result;
+      t.mine_enterpriseData = [{key:"name",label:"公司名称",value:result.companyInfo.name},{key:"address",label:"公司地址",value:result.companyInfo.address},{key:"website",label:"公司网址",value:result.companyInfo.website},{key:"phone",label:"公司电话",value:result.companyInfo.phone},{key:"email",label:"公司邮箱",value:result.companyInfo.email},{key:"companyAbstract",label:"公司介绍",value:result.companyAbstract}];
     });
-  },
-  //我 企业信息编辑
-  getEnterpriseData(){
-    const datas = [{key:"company",label:"公司名称",value:"上海唯众传媒股份有限公司",url:""},{key:"company",label:"公司地址",value:"上海市徐汇区中山西路1788弄58号",url:""},{key:"company",label:"公司网址",value:"http://www.v2006.tv/",url:""},{key:"company",label:"公司电话",value:"+86(0)21 5169 7588",url:""},{key:"company",label:"公司邮箱",value:"vividmedia@v2006.tv",url:""},{key:"indroduce",label:"公司介绍",value:"唯众传媒是中国领先的原创优质视频",url:""}];
-    return datas;
   },
   //我 个人信息编辑
   getPersonalData(){
