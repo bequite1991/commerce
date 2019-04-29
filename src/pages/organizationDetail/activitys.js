@@ -23,10 +23,10 @@ class Activitys extends Component {
 
   componentDidHide () {}
 
-  goPage(url){
+  goPage(url, id){
     Taro.navigateTo({
       // url: '/pages/joinUs/index'
-      url: `/pages/${url}/index`
+      url: `/pages/${url}/index?id=${id}`
     })
   }
 
@@ -35,7 +35,7 @@ class Activitys extends Component {
     return (
         <View className="activitys">
           {activitys.map((item,index)=>{
-            return <View key={index} className='activitysItem' onClick={this.goPage.bind(this,'activityInformationDetail')}><View className='itemLeft'><View className="name">{item.name}</View><View className="descript">{item.descript}</View><View className="status">{item.status}</View><View className="tags">{item.tags}</View></View><View className="itemRight"><Image src={item.photo} /></View></View>
+            return <View key={index} className='activitysItem' onClick={this.goPage.bind(this,'activityInformationDetail',item.id)}><View className='itemLeft'><View className="name">{item.name}</View><View className="descript">{item.descript}</View><View className="status">{item.status}</View><View className="tags">{item.tags}</View></View><View className="itemRight"><Image src={item.photo} /></View></View>
           })}
         </View>
     );

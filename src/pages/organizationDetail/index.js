@@ -29,7 +29,9 @@ class Index extends Component {
   componentWillMount () {
     const { defaultStore } = this.props;
     const id = this.$router.params.id;
-    defaultStore.getOrganizationDetail(id);
+    const user = wx.getStorageSync("_TY_U");
+    defaultStore.getOrganizationDetail(id, user);
+
   }
 
   componentWillReact () {
@@ -74,7 +76,9 @@ class Index extends Component {
             <View style='background-color: #ffffff;'><Activitys activitys={organizationDetail.activitys} /></View>
           </AtTabsPane>
         </AtTabs>
-        <AtButton className="apply" type='primary' onClick={this.goPage}>申请</AtButton>
+        {
+          !organizationDetail.hasJoin && <AtButton className="apply" type='primary' onClick={this.goPage}>申请</AtButton>
+        }
       </View>
     )
   }
