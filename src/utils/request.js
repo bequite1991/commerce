@@ -1,6 +1,7 @@
 import Taro from '@tarojs/taro'
 
-const API_HOST = 'http://118.25.103.49:8000';
+// const API_HOST = 'http://118.25.103.49:8000';
+const API_HOST = 'https://mokelay.com';
 
 console.log('API_HOST:',API_HOST);
 export default function request(url, options) {
