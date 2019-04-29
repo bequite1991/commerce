@@ -39,7 +39,7 @@ class Presidium extends Component {
         <View className='title' onClick={this.goPage.bind(this,'wisdom')}>主席团成员</View>
         <View className="presidiumList">
           {list.map((item,index)=>{
-            return <View key={index} className='presidiumItem' onClick={this.goPage.bind(this,'wisdomMemberDetail')}><View className="photo"><Image src={item.photo} /></View><View className="name">{item.name}</View><View className="post">{item.post}</View><View className="company">{item.company}</View></View>
+            return <View key={index} className='presidiumItem' onClick={this.goPage.bind(this,'wisdomMemberDetail')}><View className="photo"><Image src={item.photo} /></View><View className="name">{item.name}</View><View className="post">{item.post}</View><View className="company">{item.company||""}</View></View>
           })}
         </View>
 
