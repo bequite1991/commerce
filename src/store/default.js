@@ -648,7 +648,7 @@ const defaultStore = observable({
     });
   },
   //组织详情
-  getOrganizationDetail(id){
+  getOrganizationDetail(id, user){
     const t=this;
     request('/config/commerce_org_detail',{
       data: {
@@ -710,7 +710,16 @@ const defaultStore = observable({
         });
         result.members[0].list = masters;
         result.members[1].list = partners;
+
+        // const user = wx.setStorageSync("_TY_U");
+        console.log('user:', user);
+
+        const my = partner_list.list.filter(item => {
+          return item.user_id = user.id;
+        });
+        result.hasJoin = my && my.length > 0;
       }
+      console.log('result:',result);
 
       t.org_detail = result;
     })
