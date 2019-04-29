@@ -79,6 +79,7 @@ const defaultStore = observable({
   faccPagePageSize: 10,
   // 组织列表
   org_type_list: {},
+  org_detail: {},
   //政企直通车列表
   directTrain:[],
   directTrainPage:1,
@@ -86,6 +87,7 @@ const defaultStore = observable({
   directTrainStatus:"more",
   //政企直通车详情
   directTrainDetail:[],
+
 
   //首页 banner
   getBannerList() {
@@ -618,6 +620,7 @@ const defaultStore = observable({
 
       const result = list.map(item => {
         const tmp = {
+          id: item.id,
           photo: item.logo || '',
           title: item.name || '',
           subtitle: item.description || '',
@@ -629,6 +632,7 @@ const defaultStore = observable({
         });
         tmp.activitys = tmpA.map( two => {
           return {
+            id: two.id,
             photo: two.picture || '',
             title: two.title || '',
             time: two.start_time || '',
@@ -645,18 +649,73 @@ const defaultStore = observable({
     });
   },
   //组织详情
-  getOrganizationDetail(){
-    const datas = {
-      header:{
-        banner:"https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180",
-        logo:"https://taro-ui.aotu.io/img/logo-taro.png",
-        title:"红酒会俱乐部",
-        subtitle:"一份静谧的高贵，一种脱俗的气质，轻问浅嗅，典雅高贵心醉。"
-      },
-      members:[{group:"组织负责人",list:[{photo:"https://taro-ui.aotu.io/img/logo-taro.png",name:"王铁柱",subtitle:"上海复星高科技（集团）有限公司 董事长",position:"组长"},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",name:"王铁柱",subtitle:"上海复星高科技（集团）有限公司 董事长",position:"秘书长"},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",name:"王铁柱",subtitle:"上海复星高科技（集团）有限公司 董事长",position:"秘书长"}]},{group:"组织成员",list:[{photo:"https://taro-ui.aotu.io/img/logo-taro.png",name:"王铁柱",subtitle:"上海复星高科技（集团）有限公司 董事长",position:"成员"},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",name:"王铁柱",subtitle:"上海复星高科技（集团）有限公司 董事长",position:"成员"},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",name:"王铁柱",subtitle:"上海复星高科技（集团）有限公司 董事长",position:"成员"}]}],
-      activitys:[{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护,贫困患儿",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png",tags:"环境保护"}]
-    };
-    return datas;
+  getOrganizationDetail(id){
+    const t=this;
+    request('/config/commerce_org_detail',{
+      data: {
+        id
+      }
+    }).then(res => {
+      const { data, activity_list, partner_list } = res.data.data;
+      //  org_detail
+      const result = {
+        header:{
+          banner: data.cover_img || '',
+          logo: data.logo || '',
+          title: data.name || '',
+          subtitle: data.description || '',
+        },
+        members: [{
+          group: '组织负责人',
+          list: []
+        },{
+          group: '组织成员',
+          list: []
+        }],
+        activitys: []
+      };
+      if(activity_list && activity_list.list && activity_list.list.length){
+        result.activitys = activity_list.list.map(item => {
+          return {
+            id: item.id,
+            descript: item.description || '',
+            tags: item.tag || '',
+            status: `${item.num || 0}人参与`,
+            name: item.title || '',
+            photo: item.picture || '',
+          }
+        });
+      }
+      if(partner_list && partner_list.list && partner_list.list.length){
+        const masters = [];
+        const partners = [];
+        partner_list.list.forEach( item => {
+          if(item.job > 0){
+            masters.push({
+              id: item.id,
+              photo: item.photo || '',
+              name: item.user_name || '',
+              subtitle: (item.company_name || item.company_info || ''),
+              position: item.job_title,
+            });
+          }else{
+            partners.push({
+              id: item.id,
+              photo: item.photo || '',
+              name: item.user_name || '',
+              subtitle: (item.company_name || item.company_info || ''),
+              position: item.job_title,
+            });
+          }
+
+        });
+        result.members[0].list = masters;
+        result.members[1].list = partners;
+      }
+
+      t.org_detail = result;
+    })
+
   },
   //我  个人信息
   getMineDetail(){
@@ -749,7 +808,7 @@ const defaultStore = observable({
   //我 我的积分详情
   getMyScoreDetail(){
      this.mine_myScoreDetail = [{name:"客服充值",time:"04-13 16:24",value:"+20000"},{name:"客服充值",time:"04-15 16:24",value:"-1000"},{name:"客服充值",time:"04-15 16:24",value:"-1000"},{name:"客服充值",time:"04-15 16:24",value:"-1000"},{name:"客服充值",time:"04-15 16:24",value:"-1000"},{name:"客服充值",time:"04-15 16:24",value:"-1000"},{name:"客服充值",time:"04-15 16:24",value:"-1000"},{name:"客服充值",time:"04-15 16:24",value:"-1000"},{name:"客服充值",time:"04-15 16:24",value:"-1000"}]
-  }, 
+  },
   //我 设置 设置隐私
   getSettingPrivacy(){
      this.mine_settingPrivacy = {

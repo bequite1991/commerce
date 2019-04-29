@@ -5,7 +5,7 @@ import { observer, inject } from '@tarojs/mobx'
 
 import Logo from '../../public/images/logo@3x.png';
 
-import './banner.scss';
+import './members.scss';
 
 
 
@@ -54,4 +54,4 @@ class Index extends Component {
   }
 }
 
-export default Index 
+export default Index

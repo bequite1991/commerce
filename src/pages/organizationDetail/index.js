@@ -26,7 +26,11 @@ class Index extends Component {
     };
   }
 
-  componentWillMount () { }
+  componentWillMount () {
+    const { defaultStore } = this.props;
+    const id = this.$router.params.id;
+    defaultStore.getOrganizationDetail(id);
+  }
 
   componentWillReact () {
     console.log('componentWillReact')
@@ -54,7 +58,10 @@ class Index extends Component {
 
   render () {
     const { defaultStore } = this.props;
-    const organizationDetail = defaultStore.getOrganizationDetail();
+    const organizationDetail = defaultStore.org_detail;
+
+    console.log('organizationDetail:', organizationDetail);
+
     const tabList = [{ title: '成员' }, { title: '活动' }];
     return (
       <View className='detail'>
@@ -73,4 +80,4 @@ class Index extends Component {
   }
 }
 
-export default Index 
+export default Index

@@ -29,22 +29,21 @@ class Index extends Component {
 
   componentDidHide () { }
 
-  goPage(url){
+  goPage(url, id){
     Taro.navigateTo({
       // url: '/pages/joinUs/index'
-      url: `/pages/${url}/index`
+      url: `/pages/${url}/index?id=${id}`
     })
   }
 
-
   render () {
     const { defaultStore} = this.props;
-    const list = defaultStore.org_type_list[this.props.type];
+    const list = defaultStore.org_type_list[this.props.type] || [];
     return (
       <View className='commerce'>
         <View className="activitysList">
           {list.map((item,index)=>{
-            return <View onClick={this.goPage.bind(this,'organizationDetail')} key={index} className='activitysItem'>
+            return <View onClick={() => this.goPage('organizationDetail', item.id)} key={index} className='activitysItem'>
               <View className="itemLeft"><Image src={item.photo} /></View>
               <View className='itemRight'>
                 <View className="name">{item.title}</View>
@@ -55,7 +54,7 @@ class Index extends Component {
             </View>
               <View className="activitys">
                 {item.activitys.map((act,key)=>{
-                    return <View key={key} className='activity' onClick={this.goPage.bind(this,'activityInformationDetail')}><View className="activityPhoto"><Image src={act.photo} /></View><View className="activityTitle">{act.title}</View><View className="activityTime">{act.time} {act.address}</View></View>
+                    return <View key={key} className='activity' onClick={() => this.goPage('activityInformationDetail', item.id)}><View className="activityPhoto"><Image src={act.photo} /></View><View className="activityTitle">{act.title}</View><View className="activityTime">{act.time} {act.address}</View></View>
                   })}
             </View>
             </View>
