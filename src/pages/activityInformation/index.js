@@ -53,7 +53,7 @@ class Index extends Component {
           value={this.state.searchKey}
           onActionClick={this.search.bind(this)}
         />
-        <Entrance />
+        {/*<Entrance />*/}
         <Activitys />
         <BottomBar />
         <AtFab className="displayNone">
@@ -64,4 +64,4 @@ class Index extends Component {
   }
 }
 
-export default Index 
+export default Index

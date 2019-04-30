@@ -30,14 +30,16 @@ class Index extends Component {
   }
 
   componentWillMount () {
-    this.checkAuth();
   }
 
   componentWillReact () {
     console.log ('componentWillReact');
+
   }
 
-  componentDidMount () {}
+  componentDidMount () {
+    this.checkAuth();
+  }
 
   componentWillUnmount () {}
 
@@ -62,6 +64,10 @@ class Index extends Component {
     console.log(e.detail.errMsg)
     console.log(e.detail.userInfo)
     console.log(e.detail.rawData)
+
+    this.setState({
+      isOpened: false
+    });
   }
 
   render () {
@@ -74,12 +80,9 @@ class Index extends Component {
         <Activitys />
         <AtActionSheet isOpened={this.state.isOpened} cancelText='取消' title='获取你的昵称、头像、地区及性别'>
           <AtActionSheetItem>
-            <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo={this.handleAuth}>
+            <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo={(e) => this.handleAuth(e)}>
               确认
             </button>
-          </AtActionSheetItem>
-          <AtActionSheetItem>
-            取消
           </AtActionSheetItem>
         </AtActionSheet>
 
