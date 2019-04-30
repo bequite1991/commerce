@@ -14,7 +14,8 @@ page {
 		margin:auto;
 		margin-top: 60rpx;
 		width: 90%;
-		background:rgba(0,58,128,1)
+		background:rgba(0,58,128,1);
+		margin-left: 0;
 	}
 	.brands{
 		white-space:nowrap;
@@ -152,4 +153,6 @@ page {
 		display: blcok;
 		height: 100vh;
 	}
+	.content{
+		width: 100%;
 }

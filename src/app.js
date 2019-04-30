@@ -18,11 +18,18 @@ const store = {
   defaultStore
 }
 
+// "http://ty-storage.oss-cn-hangzhou.aliyuncs.com/457de538b81666d1e94e43d2e0d4d0cd.png"
+//"http://ty-storage.oss-cn-hangzhou.aliyuncs.com/4332309ca696289d725eab37f8751870.png"
+//"http://ty-storage.oss-cn-hangzhou.aliyuncs.com/1003e1fd3c24255ce652482f17eff562.png"
+
+
 class App extends Component {
 
   config = {
     pages: [
       'pages/index/index',
+      'pages/commerceIntroduce/index',
+      'pages/activityInformationDetail/appliedConfirm',
       'pages/largeProjects/index',
       'pages/registerCompany/index',
       'pages/mine/personalDetails',
@@ -43,7 +50,6 @@ class App extends Component {
       'pages/mine/myActivitys',
       'pages/activityInformationDetail/appliedFail',
       'pages/activityInformationDetail/appliedSuccess',
-      'pages/activityInformationDetail/appliedConfirm',
       'pages/activityInformationDetail/messageDetail',
       'pages/activityInformationDetail/applied',
       'pages/activityInformationDetail/index',
@@ -65,7 +71,6 @@ class App extends Component {
       'pages/internationalRelations/index',
       'pages/governmentCounsel/index',
       'pages/governmentDocking/index',
-      'pages/commerceIntroduce/index',
       'pages/joinUs/index',
       'pages/bindPhone/index',
     ],

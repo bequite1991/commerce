@@ -1,6 +1,6 @@
 import Taro, {Component} from '@tarojs/taro';
 import {View, Button, Text, Swiper, SwiperItem} from '@tarojs/components';
-import { AtActionSheet, AtActionSheetItem } from "taro-ui"
+import { AtActionSheet, AtActionSheetItem,AtIcon } from "taro-ui"
 import {observer, inject} from '@tarojs/mobx';
 import Banner from './banner.js';
 import Logo from '../../public/images/logo@3x.png';
@@ -72,7 +72,6 @@ class Index extends Component {
         <Entrance />
         <Presidium />
         <Activitys />
-
         <AtActionSheet isOpened={this.state.isOpened} cancelText='取消' title='获取你的昵称、头像、地区及性别'>
           <AtActionSheetItem>
             <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo={this.handleAuth}>

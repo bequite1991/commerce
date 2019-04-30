@@ -1,3 +1,4 @@
+@import "../../app.scss";
 .entrance{
 	display: inline-block;
 	width: 25%;
@@ -11,5 +12,8 @@
 		font-weight:400;
 		color:rgba(46,46,53,1);
 		line-height:32rpx;
+	}
+	.icon{
+		font-size: 60rpx;
 	}
 }

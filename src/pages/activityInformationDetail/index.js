@@ -17,6 +17,13 @@ class Index extends Component {
     navigationBarTextStyle: "black",
   }
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      activityId: null
+    }
+  }
+
   componentWillMount () { }
 
   componentWillReact () {
@@ -24,9 +31,12 @@ class Index extends Component {
   }
 
   componentDidMount () { 
+    const pages = getCurrentPages();
+    const activityId = pages[pages.length - 1].options.id;
     const { defaultStore} = this.props;
     defaultStore.getActivityDetail();
     defaultStore.getMessageList();
+    this.state.activityId = activityId;
   }
 
   componentWillUnmount () { }
@@ -37,8 +47,7 @@ class Index extends Component {
 
   goPage(path){
     Taro.navigateTo({
-      // url: '/pages/joinUs/index'
-      url: `/pages/activityInformationDetail/${path}`
+      url: path
     });
   }
 
@@ -73,7 +82,7 @@ class Index extends Component {
           <View className="formItem">
             <View className="label">已报名</View>
             <View className="value">{activityDetail.status}</View>
-            <View className="button" onClick={this.goPage.bind(this,"applied")}><View className='at-icon at-icon-eye icon'></View><View className="text">查看</View></View>
+            <View className="button" onClick={this.goPage.bind(this,`/pages/activityInformationDetail/applied`)}><View className='at-icon at-icon-eye icon'></View><View className="text">查看</View></View>
           </View>
         </View>
         <Card title="留言" subTitle="查看全部" href="message">
@@ -95,8 +104,10 @@ class Index extends Component {
           </View>
         </Card>
         <Card title="活动详情">
-          <Image className="detailPhotos" src={activityDetail.detailPhotos} />
-          <AtButton className="apply" type='primary' onClick={this.goPage.bind(this,'appliedConfirm')}>确认报名</AtButton>
+          <View className="content">
+            <rich-text nodes="{{activityDetail.content}}"></rich-text>
+            <AtButton className="apply" type='primary' onClick={this.goPage.bind(this,`/pages/activityInformationDetail/appliedConfirm?id=${this.state.activityId}`)}>确认报名</AtButton>
+          </View>
         </Card>
       </View>
     )

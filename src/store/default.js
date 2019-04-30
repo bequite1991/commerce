@@ -93,7 +93,7 @@ const defaultStore = observable({
 
   //首页 banner
   getBannerList() {
-    const bannerList = [{name:"banner0",url:"https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180"},{name:"banner1",url:"https://img14.360buyimg.com/babel/s700x360_jfs/t1/4099/12/2578/101668/5b971b4bE65ae279d/89dd1764797acfd9.jpg!q90!cc_350x180"},{name:"banner2",url:"https://img11.360buyimg.com/babel/s700x360_jfs/t1/4776/39/2280/143162/5b9642a5E83bcda10/d93064343eb12276.jpg!q90!cc_350x180"},{name:"banner3",url:"https://img14.360buyimg.com/babel/s700x360_jfs/t1/4099/12/2578/101668/5b971b4bE65ae279d/89dd1764797acfd9.jpg!q90!cc_350x180"}];
+    const bannerList = [{name:"banner0",url:"http://ty-storage.oss-cn-hangzhou.aliyuncs.com/457de538b81666d1e94e43d2e0d4d0cd.png"},{name:"banner1",url:"http://ty-storage.oss-cn-hangzhou.aliyuncs.com/4332309ca696289d725eab37f8751870.png"},{name:"banner2",url:"http://ty-storage.oss-cn-hangzhou.aliyuncs.com/1003e1fd3c24255ce652482f17eff562.png"}];
     return bannerList
   },
   //首页 主席团成员
@@ -222,8 +222,19 @@ const defaultStore = observable({
       data.origin = data.name;
       data.phone = data.telphone;
       t.activityDetail = data;
+      const commentList = res.data.data.page_data.currentRecords;
+      commentList.forEach((ele,key)=>{
+        ele.time = ele.create_time;
+        ele.words = ele.content;
+        ele.post = ele.job_title;
+        ele.company = ele.company_name;
+        ele.name = ele.company_name;
+        ele.company = ele.user_name;
+        if(key == (commentList.length - 1)){
+          t.activity_messageList = commentList;
+        }
+      });
     });
-
   },
   //活动详情  留言
   getMessageList() {
@@ -319,45 +330,86 @@ const defaultStore = observable({
     //   }
     // });
   },
-    //活动详情 申请加入 确认
+    //活动详情 申请加入 获取确认信息
   getAppliedConfirm() {
     const t = this;
-    t.activity_appliedConfirm = {
-      photo:"https://taro-ui.aotu.io/img/logo-taro.png",
-      name:"玩转地球天河汇123健康俱乐部",
-      time:"2019-04-15 13:00",
-      address:"北京市朝阳区高碑店乡高碑店村一区33号",
-      rate:"1000积分",
-      origin:"王铁柱",
-      phone:"13888888888",
-      status:"10人",
-      comment:[],
-      detailPhotos:"https://img.zcool.cn/community/01f49a5c9b403aa801208f8b35c9e4.jpg@1280w_1l_2o_100sh.jpg"
-    };
-    // const presidiumList =
-
-    // Taro.request({
-    //   url: `${API_HOST}/config/commerce_presidium`,
-    //   data: {
-    //     commerce_job:""
-    //   },
-    //   header: {
-    //     'content-type': 'application/json'
-    //   }
-    // }).then((res) => {
-    //   const data = res.data.data.data_list;
-    //   if(data.list.length){
-    //     data.list.forEach((item,key)=>{
-    //         item.post = item.job_title;
-    //         item.company = item.company_name;
-    //         item.name = item.user_name;
-    //         item.photo = item.picture;
-    //         if(key == data.list.length -1){
-    //           t.home_presidiumList = data.list;
-    //         }
-    //     });
-    //   }
-    // });
+    // t.activity_appliedConfirm = {
+    //   photo:"https://taro-ui.aotu.io/img/logo-taro.png",
+    //   name:"玩转地球天河汇123健康俱乐部",
+    //   time:"2019-04-15 13:00",
+    //   address:"北京市朝阳区高碑店乡高碑店村一区33号",
+    //   rate:"1000积分",
+    //   origin:"王铁柱",
+    //   phone:"13888888888",
+    //   status:"10人",
+    //   comment:[],
+    //   detailPhotos:"https://img.zcool.cn/community/01f49a5c9b403aa801208f8b35c9e4.jpg@1280w_1l_2o_100sh.jpg"
+    // };
+    const pages = getCurrentPages();
+    const activityid = pages[pages.length - 1].options.id;
+    request("/config/commerce_part_activity_confirm",{
+      data: {
+        id:activityid || 1
+      },
+      header: {
+        'content-type': 'application/json'
+      }
+    }).then((res) => {
+      if(!res.data.data){
+        wx.showToast({
+          title: res.data.message,
+          icon: 'none'
+        })
+        return;
+      }
+      const data = res.data.data.data;
+      const result = {
+        name:data.title || "",
+        time:data.start_time || "",
+        address:data.address || "",
+        rate:data.amount || "",
+        origin:data.user_name || "",
+        phone:data.telphone || "",
+      };
+      t.activity_appliedConfirm = result;
+    });
+  },
+  //活动详情 申请加入 确认
+  getConfirmJoin(){
+    const t = this;
+    const pages = getCurrentPages();
+    const activityid = pages[pages.length - 1].options.id;
+    request("/config/commerce_part_activity",{
+      method:"get",
+      data: {
+        id:activityid || 1
+      },
+      header: {
+        'content-type': 'application/json'
+      }
+    }).then((res) => {
+      if(!res.data.data){
+        wx.showToast({
+          title: res.data.message,
+          icon: 'none'
+        })
+        setTimeout(()=>{
+          Taro.navigateTo({
+            url: `/pages/activityInformationDetail/appliedFail?id=${activityid}`
+          });
+        },2000)
+      }else{
+        wx.showToast({
+          title: "报名成功！",
+          icon: 'none'
+        });
+        setTimeout(()=>{
+          Taro.navigateTo({
+            url: `/pages/activityInformationDetail/appliedSuccess?id=${activityid}`
+          });
+        },2000)
+      }
+    });
   },
   //商会介绍
   getIntroduce(){

@@ -33,10 +33,12 @@ class Index extends Component {
   componentDidHide () { }
 
   goPage(path){
+    const pages = getCurrentPages();
+    const activityId = pages[pages.length - 1].options.id;
     Taro.navigateTo({
-      // url: '/pages/joinUs/index'
-      url: '/pages/activityInformationDetail/index'
+      url: `/pages/activityInformationDetail/index?id=${activityId}`
     });
+
   }
 
   render () {

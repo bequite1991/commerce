@@ -98,7 +98,7 @@ class Index extends Component {
         <AtFab onClick={this.goPage.bind(this,'organizationRegister')}>
           <Text className='at-fab__icon at-icon at-icon-add'></Text>
         </AtFab>
-        <BottomBar active={2} />
+        <BottomBar active={1} />
       </View>
     )
   }

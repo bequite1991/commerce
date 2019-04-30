@@ -40,36 +40,40 @@ class Index extends Component {
       url: `/pages/activityInformationDetail/${path}`
     });
   }
+  confirmJoin(){
+    const { defaultStore } = this.props;
+    defaultStore.getConfirmJoin();
+  }
 
   render () {
     const { messages} = this.props;
     const { defaultStore:{activity_appliedConfirm}} = this.props;
     return (
         <View className="appliedConfirm">
-          <View className="title">{activity_appliedConfirm.name}</View>
+          <View className="title">{activity_appliedConfirm.name || ""}</View>
           <View className="form">
             <View className="formItem">
               <View className="label">时间</View>
-              <View className="value">{activity_appliedConfirm.time}</View>
+              <View className="value">{activity_appliedConfirm.time || ""}</View>
             </View>
             <View className="formItem">
               <View className="label">地址</View>
-              <View className="value">{activity_appliedConfirm.address}</View>
+              <View className="value">{activity_appliedConfirm.address || ""}</View>
             </View>
             <View className="formItem">
               <View className="label">积分</View>
-              <View className="value">{activity_appliedConfirm.rate}</View>
+              <View className="value">{activity_appliedConfirm.rate || ""}</View>
             </View>
             <View className="formItem">
               <View className="label">发起人</View>
-              <View className="value main">{activity_appliedConfirm.origin}</View>
+              <View className="value main">{activity_appliedConfirm.origin || ""}</View>
             </View>
             <View className="formItem">
               <View className="label">联系方式</View>
-              <View className="value main">{activity_appliedConfirm.phone}</View>
+              <View className="value main">{activity_appliedConfirm.phone || ""}</View>
             </View>
           </View>
-          <AtButton className="apply" type='primary' onClick={this.goPage.bind(this,'appliedSuccess')}>确认报名</AtButton>
+          <AtButton className="apply" type='primary' onClick={this.confirmJoin.bind(this)}>确认报名</AtButton>
         </View>
     )
   }

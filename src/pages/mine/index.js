@@ -4,6 +4,7 @@ import { observer, inject } from '@tarojs/mobx'
 import Card from "../../components/card/index.js";
 import { AtList, AtListItem  } from 'taro-ui';
 import Tags from "../../components/tags/index.js";
+import BottomBar from '../../components/bottomBar/index.js';
 
 import './index.scss';
 
@@ -117,6 +118,7 @@ class Index extends Component {
             onClick={this.goPage.bind(this,"setting")}
           />
         </AtList>
+        <BottomBar active={3}/>
       </View>
     )
   }

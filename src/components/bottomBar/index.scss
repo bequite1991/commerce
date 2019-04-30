@@ -1,3 +1,4 @@
+@import "../../app.scss";
 .bottomBar{
 	width:100%;
 	height:98rpx;
@@ -46,9 +47,12 @@
 		height: 46rpx;
 		margin:auto;
 	}
+	.icon{
+		font-size: 40rpx;
+	}
 }
 .activeBar{
 	text{
-		color:#4880FF;
+		color:#003A80;
 	}
 }
