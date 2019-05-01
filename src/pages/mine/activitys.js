@@ -12,6 +12,11 @@ import './index.scss';
 @observer
 class Index extends Component {
 
+  config = {
+    navigationBarTitleText: '我的活动',
+    navigationBarTextStyle: "black",
+  }
+
   constructor (props) {
     super (props);
     this.state = {

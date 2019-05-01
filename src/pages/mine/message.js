@@ -5,7 +5,7 @@ import Card from "../../components/card/index.js";
 import { AtList, AtListItem  } from 'taro-ui';
 import Tags from "../../components/tags/index.js";
 
-import './index.scss';
+import './message.scss';
 
 
 @inject('defaultStore')
@@ -60,17 +60,17 @@ class Index extends Component {
         <View className="header">
           <View className='entrance' onClick={this.goPage.bind(this,'commerceIntroduce')} key="商道智慧">
             <View className='tips'></View>
-            <View><icon type="success" size="50" /></View>
+            <View><text class="icon iconfont iconxitongxiaoxi"></text></View>
             <text>系统消息</text>
           </View>
           <View className='entrance' onClick={this.goPage.bind(this,'activityInformation')}>
             <View className='tips'></View>
-            <View><icon type="success" size="50" /></View>
+            <View><text class="icon iconfont iconxinzenghuifu"></text></View>
             <text>新增回复</text>
           </View>
           <View className='entrance' onClick={this.goPage.bind(this,'directTrain')}>
             <View className='tips'></View>
-            <View><icon type="success" size="50" /></View>
+            <View><text class="icon iconfont iconxinzengliuyan"></text></View>
             <text>新增留言</text>
           </View>
         </View>

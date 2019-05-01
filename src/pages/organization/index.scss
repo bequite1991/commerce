@@ -8,4 +8,12 @@
 		right:20rpx;
 		background-color: #003A80;
 	}
+	.tabs{
+		.at-tabs__item--active {
+			color:#003A80;
+		}
+		.at-tabs__item-underline{
+			background-color:#003A80;
+		}
+	}
 }

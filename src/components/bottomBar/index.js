@@ -51,22 +51,22 @@ class Index extends Component {
         <View className={this.props.active == 0?'bottomBarItem activeBar':"bottomBarItem"} onClick={this.goPage.bind(this,'index')}>
           <View className='tips'></View>
           <View className='Home'><text class={this.props.active == 0?"icon iconfont iconshouyexuanzhongzhuangtai":"icon iconfont iconshouyeweixuanzhong"}></text></View>
-          <text>首页</text>
+          <View className="words">首页</View>
         </View>
         <View className={this.props.active == 1?'bottomBarItem activeBar':"bottomBarItem"} onClick={this.goPage.bind(this,'organization')}>
           <View className='tips'></View>
           <View className='Zuzhi'><text class={this.props.active == 1?"icon iconfont iconzuzhixuanzhongzhuangtai":"icon iconfont iconzuzhiweixuanzhongzhuangtai"}></text></View>
-          <text>组织</text>
+          <View className="words">组织</View>
         </View>
         <View className={this.props.active == 2?'bottomBarItem activeBar':"bottomBarItem"} onClick={this.goPage.bind(this,'connection')}>
           <View className='tips'></View>
           <View className='Peoples'><text class={this.props.active == 2?"icon iconfont iconrenmaixuanzhongzhuangtai":"icon iconfont iconrenmaiweixuanzhongzhuangtai"}></text></View>
-          <text>人脉</text>
+          <View className="words">人脉</View>
         </View>
         <View className={this.props.active == 3?'bottomBarItem activeBar':"bottomBarItem"} onClick={this.goPage.bind(this,'mine')}>
           <View className='tips'></View>
           <View className='Me'><text class={this.props.active == 3?"icon iconfont iconwoxuanzhongzhuangtai":"icon iconfont iconwoweixuanzhongzhuangtai"}></text></View>
-          <text>我</text>
+          <View className="words">我</View>
         </View>
       </View>
     )

@@ -1,3 +1,4 @@
+@import "../../app.scss";
 .entrance{
 	display: inline-block;
 	width: 33.333%;
@@ -12,4 +13,17 @@
 		color:rgba(46,46,53,1);
 		line-height:32rpx;
 	}
+	.icon1{
+		font-size: 70rpx;
+		color:#E68C35;
+	}
+	.icon2{
+		font-size: 60rpx;
+		color:#181E76;
+	}
+	.icon3{
+		font-size: 60rpx;
+		color:#A9D5FF;
+	}
+
 }

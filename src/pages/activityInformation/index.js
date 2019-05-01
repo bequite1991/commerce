@@ -56,9 +56,6 @@ class Index extends Component {
         {/*<Entrance />*/}
         <Activitys />
         <BottomBar />
-        <AtFab className="displayNone">
-          <Text className='at-fab__icon at-icon at-icon-add'></Text>
-        </AtFab>
       </View>
     )
   }
