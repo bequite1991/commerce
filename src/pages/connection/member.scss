@@ -18,9 +18,8 @@
 		padding: 40rpx 0;
 		width:154rpx;
 		height:200rpx;
-		border-radius: 50%;
 		overflow:hidden;
-		margin-right: 70rpx;
+		margin-right: 40rpx;
 		image{
 			width: 154rpx;
 			height: 200rpx;
@@ -49,7 +48,15 @@
 		}
 		.company{
 			max-width:380rpx;
-			line-height:30rpx;
+			height: 96rpx;
+			display: flex;
+			align-items: center;
+			font-size:28rpx;
+			font-family:PingFangSC-Regular;
+			font-weight:400;
+			color:rgba(58,58,58,1);
+			line-height:40rpx;
+            overflow: hidden;
 		}
 	}
   .mb42{
