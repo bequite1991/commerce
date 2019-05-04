@@ -43,10 +43,12 @@ class Index extends Component {
   componentDidHide () { }
 
   goPage(url){
-    Taro.navigateTo({
-      // url: '/pages/joinUs/index'
-      url: `/pages/mine/${url}`
-    });
+    const { defaultStore } = this.props;
+    defaultStore.confirmCommerceSendVc(this.state.value,this.state.phone);
+    // Taro.navigateTo({
+    //   // url: '/pages/joinUs/index'
+    //   url: `/pages/mine/${url}`
+    // });
   }
   handleChange(e){
     this.setState({
@@ -71,6 +73,8 @@ class Index extends Component {
         });
       }
     },1000);
+
+
   }
 
   render () {
@@ -88,7 +92,7 @@ class Index extends Component {
             <View className={this.state.sec == 60?"displayNo":"sec"}>{this.state.sec}s</View>
           </AtInput>
         </AtForm>
-        <View className="info">请查看<View className="phone">+86{this.state.phone}</View>接收到的短信</View>
+        <View className="info">请查看<View className="phone">+86{this.state.phone || ""}</View>接收到的短信</View>
         <AtButton disabled={!this.state.newPhone} onClick={this.goPage.bind(this,"changePhone")} className="submit" type='primary' size='normal'>确认</AtButton>
       </View>
     )

@@ -30,7 +30,7 @@ class Index extends Component {
 
   componentDidMount () {
     const { defaultStore } = this.props;
-    defaultStore.getSettingPhone();
+    // defaultStore.getSettingPhone();
   }
 
   componentWillUnmount () { }
@@ -47,14 +47,14 @@ class Index extends Component {
   }
 
   render () {
-    const { defaultStore:{mine_userInfo} } = this.props;
+    const { defaultStore:{mine_userinfo} } = this.props;
 
     return (
       <View className='settingPhone'>
         <AtList>
           <AtListItem
             title='手机号码'
-            extraText={mine_userInfo.phone}
+            extraText={mine_userinfo.phone}
           />
         </AtList>
         <AtButton onClick={this.goPage.bind(this,"settingPhoneChange")} className="submit" type='primary' size='normal'>更改手机号</AtButton>

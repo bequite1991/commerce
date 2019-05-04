@@ -63,4 +63,20 @@
 			}
 		}
 	}
+	.replayInput{
+		height:120rpx;
+		background:rgba(255,255,255,1);
+		box-shadow:0rpx 0rpx 8rpx 0rpx rgba(0,0,0,0.23);
+		position:fixed;
+		left:0;
+		bottom:0;
+		width:100%;
+		z-index:100;
+		.at-icon-search{
+			display: none;
+		}
+	}
+	.displayNone{
+		display: none;
+	}
 }

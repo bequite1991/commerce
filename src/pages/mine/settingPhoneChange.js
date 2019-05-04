@@ -47,6 +47,8 @@ class Index extends Component {
     });
   }
   handleChange(e){
+    const { defaultStore } = this.props;
+    defaultStore.commerceSendVc(e);
     this.setState({
       newPhone:e
     });

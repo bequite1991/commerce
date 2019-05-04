@@ -265,10 +265,39 @@ const defaultStore = observable({
       });
     });
   },
+  //回复评论
+  submitComment(){
+    const t = this;
+    request("/config/commerce_add_comment",{
+      method:"post",
+      data: formData,
+      header: {
+        'content-type': 'application/json'
+      }
+    }).then((res) => {
+      if(!res.data.data){
+        wx.showToast({
+          title: res.data.message,
+          icon: 'none'
+        })
+        setTimeout(()=>{
+          wx.navigateBack()
+        },2000)
+      }else{
+        wx.showToast({
+          title: "回复成功！",
+          icon: 'none'
+        });
+        setTimeout(()=>{
+          wx.navigateBack()
+        },2000)
+      }
+    });
+  },
   //活动详情  留言
   getMessageList() {
     const t = this;
-    t.activity_messageList = [{time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"}];
+    // t.activity_messageList = [{time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"}];
     // const presidiumList =
 
     // Taro.request({
@@ -948,33 +977,101 @@ const defaultStore = observable({
   //我 近期活动列表
   getMyRecentActivitys(){
      this.mine_recentActivitys = [{status:"待进行",subtitle:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",organization:"环境保护",time:"2019-04-01",title:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{status:"已进行",subtitle:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",organization:"环境保护",time:"2019-04-02",title:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{status:"待进行",subtitle:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",organization:"环境保护",time:"2019-04-04",title:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{status:"已进行",subtitle:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",time:"2019-04-09",title:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png",organization:"环境保护"}];
+    const t = this;
+    request('/config/commerce_my_activity',{
+      data: {},
+      header: {
+        'content-type': 'application/json'
+      }
+    }).then((res) => {
+        if(!res.data.data){
+          wx.showToast({
+            title: res.data.message,
+            icon: 'none'
+          })
+          setTimeout(()=>{
+            wx.navigateBack()
+          },2000)
+        }else{
+        }
+      }
+    });
   },
   //我 我的积分
   getMyScore(){
-     this.mine_myScore = {
-      score:2000,
-      list:[{name:"客服充值",time:"04-13 16:24",value:"+20000"},{name:"客服充值",time:"04-15 16:24",value:"-1000"}]
-     }
+
+    const t = this;
+    request('/config/commerce_integral_log',{
+      data: {},
+      header: {
+        'content-type': 'application/json'
+      }
+    }).then((res) => {
+      debugger
+      if(!res.data.data){
+        wx.showToast({
+          title: res.data.message,
+          icon: 'none'
+        })
+        setTimeout(()=>{
+          wx.navigateBack()
+        },2000)
+      }else{
+        t.mine_myScore = {
+          score:2000,
+          list:[{name:"客服充值",time:"04-13 16:24",value:"+20000"},{name:"客服充值",time:"04-15 16:24",value:"-1000"}]
+        }
+      }
+    });
   },
   //我 我的积分详情
   getMyScoreDetail(){
      this.mine_myScoreDetail = [{name:"客服充值",time:"04-13 16:24",value:"+20000"},{name:"客服充值",time:"04-15 16:24",value:"-1000"},{name:"客服充值",time:"04-15 16:24",value:"-1000"},{name:"客服充值",time:"04-15 16:24",value:"-1000"},{name:"客服充值",time:"04-15 16:24",value:"-1000"},{name:"客服充值",time:"04-15 16:24",value:"-1000"},{name:"客服充值",time:"04-15 16:24",value:"-1000"},{name:"客服充值",time:"04-15 16:24",value:"-1000"},{name:"客服充值",time:"04-15 16:24",value:"-1000"}]
   },
-  //我 设置 设置隐私
+  //我 设置 获取隐私设置
   getSettingPrivacy(){
      this.mine_settingPrivacy = {
-        phone:true,
-        abstract:true,
-        honor:false,
-        companyAbstract:true,
-        companyInfo:false
+        hide_phone:true,
+        hide_personal_introduce:true,
+        hide_honor:false,
+        hide_company_introduce:true,
+        hide_company:false
      }
   },
   //我 设置 设置隐私
+  settingPrivacy(params){
+    const t = this;
+    request("/config/commerce_save_privacy",{
+      method:"post",
+      data: params,
+      header: {
+        'content-type': 'application/json'
+      }
+    }).then((res) => {
+      if(!res.data.data){
+        wx.showToast({
+          title: res.data.message,
+          icon: 'none'
+        })
+        setTimeout(()=>{
+          //wx.navigateBack()
+        },2000)
+      }else{
+        wx.showToast({
+          title: "提交成功！",
+          icon: 'none'
+        });
+        setTimeout(()=>{
+          //wx.navigateBack()
+        },2000)
+      }
+    });
+  },
+  //我 设置 设置隐私
   getSettingPhone(){
-     this.mine_userInfo = {
-        phone:13988888888
-     }
+     // this.mine_userInfo = {
+     //    phone:13988888888
+     // }
   },
   //我 收到的回复列表
   getMessageReply(){
@@ -1070,6 +1167,101 @@ const defaultStore = observable({
       method:"post",
       data: {
         file:path
+      },
+      header: {
+        'content-type': 'application/json'
+      }
+    }).then((res) => {
+      if(!res.data.data){
+        wx.showToast({
+          title: res.data.message,
+          icon: 'none'
+        })
+        setTimeout(()=>{
+          wx.navigateBack()
+        },2000)
+      }else{
+        wx.showToast({
+          title: "修改成功！",
+          icon: 'none'
+        });
+        setTimeout(()=>{
+          wx.navigateBack()
+        },2000)
+      }
+    });
+  },
+  //商会获取验证码
+  commerceSendVc(telphone){
+    const t = this;
+    request('/config/commerce_send_vc',{
+      method:"post",
+      data: {
+        telphone:telphone
+      },
+      header: {
+        'content-type': 'application/json'
+      }
+    }).then((res) => {
+      if(!res.data.data){
+        wx.showToast({
+          title: res.data.message,
+          icon: 'none'
+        })
+        setTimeout(()=>{
+          wx.navigateBack()
+        },2000)
+      }else{
+        wx.showToast({
+          title: "修改成功！",
+          icon: 'none'
+        });
+        setTimeout(()=>{
+          wx.navigateBack()
+        },2000)
+      }
+    });
+  },
+  //我 设置 更改手机号码
+  confirmCommerceSendVc(vc_code,telphone){
+    const t = this;
+    request('/config/commerce_update_telphone',{
+      method:"post",
+      data: {
+        vc_code:vc_code,
+        telphone:telphone
+      },
+      header: {
+        'content-type': 'application/json'
+      }
+    }).then((res) => {
+      if(!res.data.data){
+        wx.showToast({
+          title: res.data.message,
+          icon: 'none'
+        })
+        setTimeout(()=>{
+          wx.navigateBack()
+        },2000)
+      }else{
+        wx.showToast({
+          title: "修改成功！",
+          icon: 'none'
+        });
+        setTimeout(()=>{
+          wx.navigateBack()
+        },2000)
+      }
+    });
+  },
+  //我 设置 更改手机号码
+  getUserCode(){
+    const t = this;
+    request('/config/commerce_integral_log',{
+      method:"post",
+      data: {
+        vc_code:vc_code,
+        telphone:telphone
       },
       header: {
         'content-type': 'application/json'
