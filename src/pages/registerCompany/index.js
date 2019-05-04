@@ -20,13 +20,15 @@ class Index extends Component {
   constructor (props) {
     super (props);
     this.state = {
-      company:null,
-      scope:null,
+      pre_company_name:null,
+      range:null,
       industry:null,
-      position:null,
+      nature:null,
+      register_capital:null,
+      name:null,
+      card_no:null,
+      job_title:null,
       phone:null,
-      need:null,
-      needCustom:null,
       selector: ['美国', '中国', '巴西', '日本'],
     };
   }
@@ -50,22 +52,35 @@ class Index extends Component {
   }
   //校验并 提交表单
   submit(){
+    const { defaultStore,defaultStore: { userinfo} } = this.props;
+    const pages = getCurrentPages();
+    const options = pages[pages.length - 1].options;
+    const formData = this.state;
+    formData.government_id = options.id;
+    formData.user_id = userinfo.id;
     let warring = false;
     const t = this;
     const formName = {
-      company:"预核准公司名称",
-      scope:"经营范围",
+      pre_company_name:"预核准公司名称",
+      range:"经营范围",
       industry:"所属行业",
-      need:"希望学习和了解的政策方向",
-      needCustom:"希望学习和了解的政策方向"
+      nature:"公司性质",
+      register_capital:"注册资本",
+      name:"姓名",
+      card_no:"身份证",
+      job_title:"职位",
+      phone:"手机"
     }
     Object.keys(this.state).forEach((item,key)=>{
-      if(!t.state[item] && !warring){
+      if(!t.state[item] && !warring && formName[item]){
         warring = true;
         Taro.showToast({
           'title': "请填写" + formName[item] + "!",
           'icon':"none",
         })
+      }
+      if(key ==  Object.keys(this.state).length - 1 && !warring){
+        defaultStore.submitRegisterCompany(formData);
       }
     });
   }
@@ -83,8 +98,8 @@ class Index extends Component {
               <AtInput
                 className="inputEditor"
                 type='text'
-                value={this.state.company_name}
-                onChange={this.handleChange.bind(this,"company_name")}
+                value={this.state.pre_company_name}
+                onChange={this.handleChange.bind(this,"pre_company_name")}
               />
             </View>
           </View>
@@ -97,8 +112,8 @@ class Index extends Component {
               <AtInput
                 className="inputEditor"
                 type='text'
-                value={this.state.scope}
-                onChange={this.handleChange.bind(this,"scope")}
+                value={this.state.range}
+                onChange={this.handleChange.bind(this,"range")}
               />
             </View>
           </View>
@@ -110,8 +125,8 @@ class Index extends Component {
               <AtInput
                 className="inputEditor"
                 type='text'
-                value={this.state.position}
-                onChange={this.handleChange.bind(this,"position")}
+                value={this.state.industry}
+                onChange={this.handleChange.bind(this,"industry")}
               />
             </View>
           </View>
@@ -120,9 +135,9 @@ class Index extends Component {
             <View className="title required">公司性质</View>
             <View className="subtitle"></View>
             <View className="input">
-              <Picker className="inputEditor" mode='selector' range={this.state.selector} onChange={this.handleChange.bind(this,"need")}>
+              <Picker className="inputEditor" mode='selector' range={this.state.selector} onChange={this.handleChange.bind(this,"nature")}>
                 <View className='picker'>
-                  {this.state.need||""}
+                  {this.state.nature||""}
                   <AtIcon className="chevron-down" value='chevron-down' size='30' color='#606060'></AtIcon>
                 </View>
               </Picker>
@@ -133,9 +148,9 @@ class Index extends Component {
             <View className="title required">注册资本</View>
             <View className="subtitle"></View>
             <View className="input">
-              <Picker className="inputEditor" mode='selector' range={this.state.selector} onChange={this.handleChange.bind(this,"need")}>
+              <Picker className="inputEditor" mode='selector' range={this.state.selector} onChange={this.handleChange.bind(this,"register_capital")}>
                   <View className='picker'>
-                    {this.state.need||""}
+                    {this.state.register_capital||""}
                     <AtIcon className="chevron-down" value='chevron-down' size='30' color='#606060'></AtIcon>
                 </View>
               </Picker>
@@ -149,8 +164,8 @@ class Index extends Component {
               <AtInput
                 className="inputEditor"
                 type='text'
-                value={this.state.industry}
-                onChange={this.handleChange.bind(this,"industry")}
+                value={this.state.name}
+                onChange={this.handleChange.bind(this,"name")}
               />
             </View>
           </View>
@@ -162,8 +177,8 @@ class Index extends Component {
               <AtInput
                 className="inputEditor"
                 type='text'
-                value={this.state.industry}
-                onChange={this.handleChange.bind(this,"industry")}
+                value={this.state.card_no}
+                onChange={this.handleChange.bind(this,"card_no")}
               />
             </View>
           </View>
@@ -175,8 +190,8 @@ class Index extends Component {
               <AtInput
                 className="inputEditor"
                 type='text'
-                value={this.state.industry}
-                onChange={this.handleChange.bind(this,"industry")}
+                value={this.state.job_title}
+                onChange={this.handleChange.bind(this,"job_title")}
               />
             </View>
           </View>
@@ -188,8 +203,8 @@ class Index extends Component {
               <AtInput
                 className="inputEditor"
                 type='text'
-                value={this.state.industry}
-                onChange={this.handleChange.bind(this,"industry")}
+                value={this.state.phone}
+                onChange={this.handleChange.bind(this,"phone")}
               />
             </View>
           </View>

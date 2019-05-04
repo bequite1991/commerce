@@ -1,5 +1,4 @@
 .card{
-	margin-top: 20rpx;
 	background-color: #fff;
 	display: inline-block;
 	width: 100%;
@@ -49,6 +48,8 @@
 		line-height:40rpx;
 		display: inline-block;
 		overflow:auto;
-		width:calc(100% - 36px)
+		box-sizing:border-box;
+		width:100%;
+
 	}
 }

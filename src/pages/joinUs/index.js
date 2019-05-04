@@ -3,7 +3,7 @@ import { View, Button, Text,Swiper, SwiperItem,Picker} from '@tarojs/components'
 import { observer, inject } from '@tarojs/mobx'
 import Banner from "./banner.js";
 import Card from "../../components/card/index.js";
-import { AtInput, AtForm,AtActionSheet, AtActionSheetItem,AtRadio  } from 'taro-ui';
+import { AtInput, AtForm,AtActionSheet, AtActionSheetItem,AtRadio,AtButton  } from 'taro-ui';
 import Tags from "../../components/tags/index.js";
 
 import './index.scss';
@@ -22,12 +22,12 @@ class Index extends Component {
     super (props);
     this.state = {
       formData: {
-        birthday:"1950-01-01"
+        birth_day:"1950-01-01"
       },
       sexOpen:false,
       selectorChecked:"男性",
       isChange:0,
-      position:"会员",
+      commerce_job:"会员",
       positionsArr:["名誉会长","会长","轮值主席","常务副会长","副会长","理事","会员"]
     };
   }
@@ -59,17 +59,35 @@ class Index extends Component {
   }
   selectSex(sex){
     let {formData} = this.state;
-    formData.sex = sex;
+    formData.gender = sex;
     this.setState({
       sexOpen:false
     })
   }
   onDateChange(date){
     let {formData,isChange} = this.state;
-    formData.birthday = date.detail.value;
+    formData.birth_day = date.detail.value;
     this.setState({
       isChange:isChange + 1
     });
+  }
+  onTagChange(val){
+    let {formData} = this.state;
+    this.state.formData.commerce_job = val;
+  }
+  submit(){
+    const { defaultStore, defaultStore:{mine_userInfo} } = this.props;
+    const cacheUser = wx.getStorageSync("_TY_CurrentInfo");
+    this.state.formData.weixin_id = cacheUser.weixin_id;
+    defaultStore.submitJoinUs(this.state.formData);
+  }
+  //填写表单
+  handleChange(param,words){
+    if(words.detail){
+      this.state.formData[param] = this.state.selector[words.detail.value];
+    }else{
+      this.state.formData[param] = words;
+    }
   }
 
   render () {
@@ -80,7 +98,7 @@ class Index extends Component {
     const brandsData = introduce.brands;
     return (
       <View className='joinUs'>
-        <View className="position"><Tags tags={positionsArr} /></View>
+        <View className="position"><Tags tags={positionsArr} onChange={this.onTagChange.bind(this)}/></View>
         
         <Card title="入会须知" subTitle="更多" href="pages/joinUs/index">
             一、 会员入会程序： 1. 认真阅读本会章程，填写入会申请表（需加盖公司公章）； 2. 提供贵企业资料（公司和企业家个人简介、公司和个人电子 照片、公司LOGO、营业执照扫描件（加盖公章）、个人身份证复印件、最近一期财务年报）； 3. 联合会秘书处初审； 4. 提交会长会议审议通过； 5. 缴纳会费并注册； 6. 秘书处颁发会员证。
@@ -93,14 +111,14 @@ class Index extends Component {
                 type='text'
                 placeholder='请填写姓名'
                 value={formData.name}
-                onChange={this.handleChange.bind(this)}
+                onChange={this.handleChange.bind(this,"name")}
               />
               <AtInput
-                name='sex'
+                name='gender'
                 title='性 别'
                 type='number'
                 placeholder='请选择性别'
-                value={formData.sex}
+                value={formData.gender}
                 onFocus={this.showSexAction.bind(this)}
               />
               <AtActionSheet isOpened = {sexOpen} cancelText='取消' title='头部标题可以用通过转义字符换行'>
@@ -112,63 +130,64 @@ class Index extends Component {
                 </AtActionSheetItem>
               </AtActionSheet>
               <AtInput
-                name='position'
+                name='job'
                 title='职 务'
                 type='text'
                 placeholder='请填写职务'
-                value={formData.position}
-                onChange={this.handleChange.bind(this)}
+                value={formData.job}
+                onChange={this.handleChange.bind(this,"job")}
               />
               <Picker className="formItem" mode='date' onChange={this.onDateChange.bind(this)}>
                 <View className='title'>
                   生 日
                 </View>
                 <View className="content">
-                  {formData.birthday}
+                  {formData.birth_day}
                 </View>
               </Picker>
               <AtInput
-                name='phone'
+                name='telphone'
                 title='联系电话'
-                type='phone'
+                type='telphone'
                 placeholder='请填写联系电话'
-                value={formData.phone}
-                onChange={this.handleChange.bind(this)}
+                value={formData.telphone}
+                onChange={this.handleChange.bind(this,"telphone")}
               />
               <AtInput
-                name='enterprise'
+                name='company_name'
                 title='企业名称'
                 type='text'
                 placeholder='请填写企业名称'
-                value={formData.enterprise}
-                onChange={this.handleChange.bind(this)}
+                value={formData.company_name}
+                onChange={this.handleChange.bind(this,"company_name")}
               />
               <AtInput
-                name='capital'
+                name='register_capital'
                 title='注册资本'
                 type='digit'
                 placeholder='请填写注册资本'
-                value={formData.capital}
-                onChange={this.handleChange.bind(this)}
+                value={formData.register_capital}
+                onChange={this.handleChange.bind(this,"register_capital")}
               />
               <AtInput
-                name='creditCode'
+                name='social_creit_code'
                 title='统一社会信用代码'
                 type='digit'
                 placeholder='请填写统一社会信用代码'
-                value={formData.creditCode}
-                onChange={this.handleChange.bind(this)}
+                value={formData.social_creit_code}
+                onChange={this.handleChange.bind(this,"social_creit_code")}
               />
               <AtInput
-                name='field'
+                name='industry'
                 title='行业领域'
                 type='text'
                 placeholder='请填写行业领域'
-                value={formData.field}
-                onChange={this.handleChange.bind(this)}
+                value={formData.industry}
+                onChange={this.handleChange.bind(this,"industry")}
               />
             </AtForm>
         </Card>
+        <View className="submitButton"><AtButton onClick={this.submit.bind(this)} className="button" type='primary'>确认提交</AtButton></View>
       </View>
     )
   }

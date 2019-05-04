@@ -123,6 +123,35 @@ const defaultStore = observable({
       }
     });
   },
+  //首页 申请加入商会
+  submitJoinUs(formData) {
+    const t = this;
+    request("/config/commerce_join_aply",{
+      method:"post",
+      data: formData,
+      header: {
+        'content-type': 'application/json'
+      }
+    }).then((res) => {
+      if(!res.data.data){
+        wx.showToast({
+          title: res.data.message,
+          icon: 'none'
+        })
+        setTimeout(()=>{
+          wx.navigateBack()
+        },2000)
+      }else{
+        wx.showToast({
+          title: "修改成功！",
+          icon: 'none'
+        });
+        setTimeout(()=>{
+          wx.navigateBack()
+        },2000)
+      }
+    });
+  },
   //首页活动列表
   getActivitysList (params){
     const t = this;
@@ -467,6 +496,64 @@ const defaultStore = observable({
   submitGovernmentCounsele(params){
     const t = this;
     request("/config/commerce__commerce_api_tb_government_consult_add_45685",{
+      method:"post",
+      data: params,
+      header: {
+        'content-type': 'application/json'
+      }
+    }).then((res) => {
+      if(!res.data.data){
+        wx.showToast({
+          title: res.data.message,
+          icon: 'none'
+        })
+        setTimeout(()=>{
+          wx.navigateBack()
+        },2000)
+      }else{
+        wx.showToast({
+          title: "提交成功！",
+          icon: 'none'
+        });
+        setTimeout(()=>{
+          wx.navigateBack()
+        },2000)
+      }
+    });
+  },
+  //政企直通车 公司注册
+  submitRegisterCompany(params){
+    const t = this;
+    request("/config/commerce_gr_form_commit",{
+      method:"post",
+      data: params,
+      header: {
+        'content-type': 'application/json'
+      }
+    }).then((res) => {
+      if(!res.data.data){
+        wx.showToast({
+          title: res.data.message,
+          icon: 'none'
+        })
+        setTimeout(()=>{
+          wx.navigateBack()
+        },2000)
+      }else{
+        wx.showToast({
+          title: "提交成功！",
+          icon: 'none'
+        });
+        setTimeout(()=>{
+          wx.navigateBack()
+        },2000)
+      }
+    });
+  },
+  //政企直通车 公司注册
+  submitLargeProjects(params){
+    const t = this;
+    request("/config/commerce_ga_form_commit",{
       method:"post",
       data: params,
       header: {
@@ -975,7 +1062,39 @@ const defaultStore = observable({
         },2000)
       }
     });
-  }
+  },
+  //上传文件
+  uploaderFile(path,name){
+    const t = this;
+    request('/config/commerce_oss_upload',{
+      method:"post",
+      data: {
+        file:path
+      },
+      header: {
+        'content-type': 'application/json'
+      }
+    }).then((res) => {
+      if(!res.data.data){
+        wx.showToast({
+          title: res.data.message,
+          icon: 'none'
+        })
+        setTimeout(()=>{
+          wx.navigateBack()
+        },2000)
+      }else{
+        wx.showToast({
+          title: "修改成功！",
+          icon: 'none'
+        });
+        setTimeout(()=>{
+          wx.navigateBack()
+        },2000)
+      }
+    });
+  },
+
 
 })
 export default defaultStore

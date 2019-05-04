@@ -39,9 +39,11 @@ class Index extends Component {
     });
   }
   onChange(index){
+    const { tags } = this.props;
     this.setState({
       active:index
     });
+    this.props.onChange(tags[index])
   }
 
   render () {

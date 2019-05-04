@@ -23,7 +23,10 @@ class Index extends Component {
     console.log('componentWillReact')
   }
 
-  componentDidMount () { }
+  componentDidMount () {
+    const { defaultStore } = this.props;
+    defaultStore.getCommerceList();
+  }
 
   componentWillUnmount () { }
 
@@ -39,10 +42,11 @@ class Index extends Component {
   }
 
   render () {
-    const { defaultStore } = this.props;
+    const { defaultStore,defaultStore:{home_activitysList,internation_commerce} } = this.props;
     const introduce = defaultStore.getIntroduce();
-    const parntersData = introduce.partner;
-    const brandsData = introduce.brands;
+    const parntersData = internation_commerce.$mobx.values;
+    const brandsData = home_activitysList.$mobx.values;
+    parntersData.length = 6;
     return (
       <View className='introdeuce'>
         <Banner />
@@ -51,13 +55,13 @@ class Index extends Component {
         </Card>
         <Card title="合作伙伴" subTitle="全部" href="pages/joinUs/index">
             {parntersData.map((item,index)=>{
-            return <Image key={item.name} src={item.src}  className="logo"/>
+            return <Image key={item.title} src={item.logo}  className="logo"/>
           })}
         </Card>
         <Card title="活动品牌" subTitle="更多" href="pages/joinUs/index">
             <View className="brands">
               {brandsData.map((item,index)=>{
-                return <View className="brand" key={item.name}><Image src={item.src} className="brandImg"/><Text className="subTitle">{item.title}</Text></View>
+                return <View className="brand" key={item.name}><Image src={item.picture} className="brandImg"/><Text className="subTitle">{item.title}</Text></View>
               })}
             </View>
         </Card>

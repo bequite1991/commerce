@@ -20,12 +20,12 @@ class Index extends Component {
   constructor (props) {
     super (props);
     this.state = {
-      company:null,
       name:null,
-      position:null,
+      company_name:null,
+      job_title:null,
       phone:null,
-      need:null,
-      needCustom:null,
+      direction:null,
+      detail:null,
       selector: ['美国', '中国', '巴西', '日本'],
     };
   }
@@ -45,26 +45,32 @@ class Index extends Component {
   componentDidHide () { }
   //填写表单
   handleChange(param,words){
-    this.state[param] = words;
+    if(words.detail){
+      this.state[param] = this.state.selector[words.detail.value];
+    }else{
+      this.state[param] = words;
+    }
   }
   //校验并 提交表单
   submit(){
     const { defaultStore,defaultStore: { userinfo} } = this.props;
-    debugger
     const pages = getCurrentPages();
     const options = pages[pages.length - 1].options;
     let warring = false;
+    const formData = this.state;
+    formData.government_id = options.id;
+    formData.user_id = userinfo.id;
     const t = this;
     const formName = {
+      company_name:"企业名称",
       name:"姓名",
-      company_name:"企业名",
       job_title:"职位",
       phone:"手机号码",
       direction:"希望学习和了解的政策方向",
       detail:"希望学习和了解的政策方向"
     }
     Object.keys(this.state).forEach((item,key)=>{
-      if(!t.state[item] && !warring){
+      if(!t.state[item] && !warring && formName[item]){
         warring = true;
         Taro.showToast({
           'title': "请填写" + formName[item] + "!",
@@ -72,10 +78,7 @@ class Index extends Component {
         })
       }
       if(key ==  Object.keys(this.state).length - 1 && !warring){
-        const formData = this.state;
-        formData.government_id = options.id;
-        formData.user_id = userinfo.id;
-        defaultStore.submitGovernmentCounsele(params)
+        defaultStore.submitGovernmentCounsele(formData);
       }
     });
   }

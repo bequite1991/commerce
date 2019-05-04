@@ -20,10 +20,10 @@ class Index extends Component {
   constructor (props) {
     super (props);
     this.state = {
-      plan:"+ 上传文件（需小于500M）",
+      investment:"+ 上传文件（需小于500M）",
       scope:null,
       industry:null,
-      position:null,
+      intent_desc:null,
       phone:null,
       need:null,
       needCustom:null,
@@ -50,14 +50,20 @@ class Index extends Component {
   }
   //校验并 提交表单
   submit(){
+    const { defaultStore,defaultStore: { userinfo} } = this.props;
+    const pages = getCurrentPages();
+    const options = pages[pages.length - 1].options;
+    const formData = this.state;
+    formData.government_id = options.id;
     let warring = false;
     const t = this;
     const formName = {
-      company:"预核准公司名称",
-      scope:"经营范围",
-      industry:"所属行业",
-      need:"希望学习和了解的政策方向",
-      needCustom:"希望学习和了解的政策方向"
+      company_name:"预核准公司名称",
+      name:"姓名",
+      phone:"电话",
+      intent_desc:"合作意向说明 ",
+      investment:"项目投资计划书",
+      business_license:"企业营业执照证明",
     }
     Object.keys(this.state).forEach((item,key)=>{
       if(!t.state[item] && !warring){
@@ -67,34 +73,14 @@ class Index extends Component {
           'icon':"none",
         })
       }
+      if(key ==  Object.keys(this.state).length - 1 && !warring){
+        defaultStore.submitLargeProjects(formData);
+      }
     });
   }
-  uploader(){
-
-    wx.chooseFile()
-
-
-    // wx.uploadFile({
-    //   url: url,
-    //   filePath: filePath,
-    //   name: name,
-    //   header: {
-    //     'content-type': 'multipart/form-data'
-    //   },
-    //   formData:formData,    //请求额外的form data
-    //   success:function(res) {
-    //     console.log(res);
-    //     if(res.statusCode ==200){
-    //      typeof success == "function" && success(res.data);
-    //     }else{
-    //     typeof fail == "function" && fail(res.data);
-    //     }
-    //   },
-    //   fail: function (res) {
-    //     console.log(res);
-    //     typeof fail == "function" && fail(res.data);
-    //   }
-    // })
+  uploader(url,filePath,name){
+    const { defaultStore } = this.props;
+    defaultStore.uploaderFile(filePath[0].url,name)
   }
 
   render () {
@@ -110,8 +96,8 @@ class Index extends Component {
               <AtInput
                 className="inputEditor"
                 type='text'
-                value={this.state.company}
-                onChange={this.handleChange.bind(this,"company")}
+                value={this.state.company_name}
+                onChange={this.handleChange.bind(this,"company_name")}
               />
             </View>
           </View>
@@ -124,8 +110,8 @@ class Index extends Component {
               <AtInput
                 className="inputEditor"
                 type='text'
-                value={this.state.scope}
-                onChange={this.handleChange.bind(this,"scope")}
+                value={this.state.name}
+                onChange={this.handleChange.bind(this,"name")}
               />
             </View>
           </View>
@@ -137,8 +123,8 @@ class Index extends Component {
               <AtInput
                 className="inputEditor"
                 type='text'
-                value={this.state.industry}
-                onChange={this.handleChange.bind(this,"industry")}
+                value={this.state.phone}
+                onChange={this.handleChange.bind(this,"phone")}
               />
             </View>
           </View>
@@ -150,8 +136,8 @@ class Index extends Component {
               <AtInput
                 className="inputEditor"
                 type='text'
-                value={this.state.position}
-                onChange={this.handleChange.bind(this,"position")}
+                value={this.state.intent_desc}
+                onChange={this.handleChange.bind(this,"intent_desc")}
               />
             </View>
           </View>
@@ -163,8 +149,8 @@ class Index extends Component {
               <AtInput
                 className="inputEditor"
                 type='text'
-                value={this.state.plan}
-                onChange={this.handleChange.bind(this,"position")}
+                value={this.state.investment}
+                onChange={this.handleChange.bind(this,"investment")}
                 disabled
               />
             </View>
@@ -173,10 +159,10 @@ class Index extends Component {
           <View className="formItem">
             <View className="title required">企业营业执照证明</View>
             <View className="subtitle">支持jpg，png，gif，bmp，tiff等图片格式</View>
-            <View className="input" onClick={this.uploader.bind(this)}>
+            <View className="input">
               <AtImagePicker
-                files={this.state.files}
-                onChange={this.onChange.bind(this)}
+                files={this.state.business_license}
+                onChange={this.uploader.bind(this,"business_license")}
               />
             </View>
           </View>

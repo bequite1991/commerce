@@ -50,7 +50,7 @@ class Index extends Component {
   render () {
     const { defaultStore } = this.props;
     let swiperItems = null;
-    const bannerLsit = defaultStore.getBannerList();
+    const bannerLsit = [{src:"http://ty-storage.oss-cn-hangzhou.aliyuncs.com/4332309ca696289d725eab37f8751870.png",name:"banner"}]
     return (
         <Swiper
           className='banner'
@@ -60,7 +60,7 @@ class Index extends Component {
           displayMultipleItems = '1'
           autoplay = {false}>
           {bannerLsit.map((item,index)=>{
-            return <SwiperItem key={item.name} className='bannerItem'><View><Image src={item.url} /></View></SwiperItem>
+            return <SwiperItem key={item.name} className='bannerItem'><View><Image src={item.src} /></View></SwiperItem>
           })}
         </Swiper>
     )

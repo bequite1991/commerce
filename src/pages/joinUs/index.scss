@@ -39,4 +39,12 @@ page {
 			display: inline-block;
 		}
 	}
+	.submitButton{
+		margin-top: 60rpx;
+		.button{
+			width: 80%;
+			margin:auto;
+			background:rgba(0,58,128,1);
+		}
+	}
 }
