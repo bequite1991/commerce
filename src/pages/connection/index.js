@@ -82,7 +82,7 @@ class Index extends Component {
             <Facc ref="facc" keywords={this.state.searchKey}/>
           </AtTabsPane>
         </AtTabs>
-        <BottomBar active={1}/>
+        <BottomBar active={2}/>
       </View>
     )
   }

@@ -95,7 +95,7 @@ class Index extends Component {
             <View style='background-color: #ffffff;'><List type="commonweal"/></View>
           </AtTabsPane>
         </AtTabs>
-        <AtFab onClick={this.goPage.bind(this,'organizationRegister')}>
+        <AtFab style="display:none;" onClick={this.goPage.bind(this,'organizationRegister')}>
           <Text className='at-fab__icon at-icon at-icon-add'></Text>
         </AtFab>
         <BottomBar active={1} />

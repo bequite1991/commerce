@@ -61,17 +61,17 @@ class Index extends Component {
       <View>
         <View className='entrance' onClick={this.goPage.bind(this,`/pages/governmentCounsel/index?id=${this.state.proviceId}`)} key="商道智慧">
           <View className='tips'></View>
-          <View><icon type="success" size="50" /></View>
+          <View><text class="icon1 iconfont iconicon-test"></text></View>
           <text>政策咨询</text>
         </View>
         <View className='entrance' onClick={this.goPage.bind(this,`/pages/registerCompany/index?id=${this.state.proviceId}`)}>
           <View className='tips'></View>
-          <View><icon type="success" size="50" /></View>
+          <View><text class="icon2 iconfont iconloufang"></text></View>
           <text>注册公司</text>
         </View>
         <View className='entrance' onClick={this.goPage.bind(this,`/pages/largeProjects/index?id=${this.state.proviceId}`)}>
           <View className='tips'></View>
-          <View><icon type="success" size="50" /></View>
+          <View><text class="icon3 iconfont iconzoushitu"></text></View>
           <text>重大投资对接</text>
         </View>
       </View>

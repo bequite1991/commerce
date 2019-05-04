@@ -23,7 +23,7 @@
 		font-weight:400;
 		color:rgba(0,0,0,1);
 		line-height:50rpx;
-		margin-bottom: 12rpx;
+		margin-bottom: 4rpx;
 	}
 	.descript{
 		font-size:24rpx;
@@ -32,6 +32,13 @@
 		color:rgba(0,0,0,1);
 		line-height:34rpx;
 		width:450rpx;
+		margin-bottom: 4rpx;
+		overflow: hidden;
+        text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
+        -webkit-text-overflow: ellipsis;
+        -moz-text-overflow: ellipsis;
+        white-space: nowrap;  /*规定段落中的文本不进行换行*/
 	}
 	.status{
 		font-size:24rpx;

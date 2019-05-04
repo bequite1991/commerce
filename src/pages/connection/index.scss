@@ -3,5 +3,11 @@
 		margin-bottom: 80rpx;
 	}
 	.tabs{
+		.at-tabs__item--active {
+			color:#003A80;
+		}
+		.at-tabs__item-underline{
+			background-color:#003A80;
+		}
 	}
 }

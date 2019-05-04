@@ -460,7 +460,7 @@ const defaultStore = observable({
   },
   // 政企直通车 政府对接
   getDockingPortalData(){
-    const datas = [{title:"优惠政策",src:"http://img2.imgtn.bdimg.com/it/u=1326920324,644760078&fm=200&gp=0.jpg",href:"www.baidu.com"},{title:"投资机遇",src:"http://img2.imgtn.bdimg.com/it/u=1326920324,644760078&fm=200&gp=0.jpg",href:"www.baidu.com"},{title:"差异化发展",src:"http://img2.imgtn.bdimg.com/it/u=1326920324,644760078&fm=200&gp=0.jpg",href:"www.baidu.com"},{title:"政策介绍",src:"http://img2.imgtn.bdimg.com/it/u=1326920324,644760078&fm=200&gp=0.jpg",href:"www.baidu.com"}];
+    const datas = [{title:"优惠政策",src:"http://ty-storage.oss-cn-hangzhou.aliyuncs.com/8622f250ff316d4ea0ef7e336169fda3.jpeg",href:"www.baidu.com"},{title:"投资机遇",src:"http://ty-storage.oss-cn-hangzhou.aliyuncs.com/8622f250ff316d4ea0ef7e336169fda3.jpeg",href:"www.baidu.com"},{title:"差异化发展",src:"http://ty-storage.oss-cn-hangzhou.aliyuncs.com/8622f250ff316d4ea0ef7e336169fda3.jpeg",href:"www.baidu.com"},{title:"政策介绍",src:"http://ty-storage.oss-cn-hangzhou.aliyuncs.com/8622f250ff316d4ea0ef7e336169fda3.jpeg",href:"www.baidu.com"}];
     return datas;
   },
   //政企直通车 提交政府咨询

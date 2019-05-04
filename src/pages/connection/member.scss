@@ -1,6 +1,7 @@
 .connectionMemberBase{
 	background-color: #fff;
 	display: flex;
+	align-items: center;
 	height:240rpx;
 	background:rgba(255,255,255,1);
 	box-shadow:0rpx 0rpx 12rpx -4rpx rgba(0,0,0,0.23);
@@ -15,14 +16,13 @@
 	}
 	.photo{
 		padding: 40rpx 0;
-		width:190rpx;
-		height:190rpx;
-		border-radius: 50%;
+		width:154rpx;
+		height:200rpx;
 		overflow:hidden;
-		margin-right: 70rpx;
+		margin-right: 40rpx;
 		image{
-			width: 100%;
-			height: 100%;
+			width: 154rpx;
+			height: 200rpx;
 		}
 	}
 	.info{
@@ -45,6 +45,18 @@
 		}
 		.position{
 			display: inline-block;
+		}
+		.company{
+			max-width:380rpx;
+			height: 96rpx;
+			display: flex;
+			align-items: center;
+			font-size:28rpx;
+			font-family:PingFangSC-Regular;
+			font-weight:400;
+			color:rgba(58,58,58,1);
+			line-height:40rpx;
+            overflow: hidden;
 		}
 	}
   .mb42{
