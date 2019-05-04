@@ -7,6 +7,13 @@ import './presidium.scss';
 @inject ('defaultStore')
 @observer
 class Presidium extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      width: "0rpx"
+    }
+  }
+
   componentWillMount () {}
 
   componentWillReact () {
@@ -14,7 +21,7 @@ class Presidium extends Component {
   }
 
   componentDidMount () {
-    const {defaultStore} = this.props;
+    const {defaultStore,defaultStore:{home_presidiumList}} = this.props;
     defaultStore.getPresidiumList();
   }
 
@@ -34,15 +41,21 @@ class Presidium extends Component {
   render () {
     const {defaultStore:{home_presidiumList}} = this.props;
     const list = home_presidiumList.$mobx.values;
+    if(list.length*154 && this.state.width == "0rpx"){
+      this.setState({
+        width:list.length*137*2 + "rpx"
+      })
+    }
     return (
       <View className='presidium'>
         <View className='title' onClick={this.goPage.bind(this,'wisdom')}>主席团成员</View>
-        <View className="presidiumList">
-          {list.map((item,index)=>{
-            return <View key={index} className='presidiumItem' onClick={this.goPage.bind(this,'wisdomMemberDetail')}><View className="photo"><Image src={item.photo} /></View><View className="name">{item.name}</View><View className="post">{item.post}</View><View className="company">{item.company||""}</View></View>
-          })}
+        <View className="presidiumContent">
+          <View className="presidiumList" style={'width:' + this.state.width}>
+            {list.map((item,index)=>{
+              return <View key={index} className='presidiumItem' onClick={this.goPage.bind(this,'wisdomMemberDetail')}><View className="photo"><Image src={item.photo} /></View><View className="name">{item.name || "暂无信息"}</View><View className="post">{item.post || "暂无信息"}</View><View className="company">{item.company||"暂无信息"}</View></View>
+            })}
+          </View>
         </View>
-
       </View>
     );
   }

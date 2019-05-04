@@ -54,7 +54,7 @@ page {
 	.apply{
 		margin:auto;
 		margin-top: 60rpx;
-		width: 90%;
+		width:calc(100% - 36rpx);
 		background:rgba(0,58,128,1)
 	}
 }
