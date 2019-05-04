@@ -2,7 +2,7 @@
 	"miniprogramRoot": "dist/",
 	"projectname": "commerce",
 	"description": "新户商小程序项目",
-	"appid": "wx9f4c252fc910e928",
+	"appid": "wx187320cbb3959a1e",
 	"setting": {
 		"urlCheck": false,
 		"es6": true,
