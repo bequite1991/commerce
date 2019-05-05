@@ -24,7 +24,7 @@ class Entrance extends Component {
   componentDidHide () {}
 
   goPage(url){
-    this.checkUserType();
+    // this.checkUserType();
     Taro.navigateTo({
       // url: '/pages/joinUs/index'
       url: `/pages/${url}/index`
