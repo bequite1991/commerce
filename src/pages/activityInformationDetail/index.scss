@@ -15,8 +15,10 @@ page {
 		margin-top: 60rpx;
 		width: 90%;
 		background:rgba(0,58,128,1);
-		margin-left: 0;
 		width: calc(100% - 36rpx);
+	}
+	.at-button--primary{
+		border:1PX solid rgba(0,58,128,1);
 	}
 	.brands{
 		white-space:nowrap;

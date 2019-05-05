@@ -65,10 +65,10 @@ class Index extends Component {
         />
         <AtTabs className="tabs" current={this.state.current} tabList={tabList} onClick={this.handleClick.bind(this)}>
           <AtTabsPane current={this.state.current} index={0} >
-            <View style='background-color: #ffffff;' ><Commerce /></View>
+            <View style='background-color: #ffffff;' ><Consulate /></View>
           </AtTabsPane>
           <AtTabsPane current={this.state.current} index={1}>
-            <View style='background-color: #ffffff;'><Consulate /></View>
+            <View style='background-color: #ffffff;'><Commerce /></View>
           </AtTabsPane>
         </AtTabs>
 
