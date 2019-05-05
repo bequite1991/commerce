@@ -91,7 +91,7 @@ class Memebers extends Component {
                 <View className="photo"><Image src={item.photo} /></View>
                 <View className="position">{Job[item.commerce_job]}</View>
                 <View className="name">{item.name}</View>
-                <View className="descript">{item.company_name||''}<Text className="p10">{item.job_title||''}</Text></View>
+                <View className="descript">{item.company_name || item.company_info || ''}<Text className="p10">{item.job_title||''}</Text></View>
               </View>
             })}
           </View>
@@ -100,7 +100,7 @@ class Memebers extends Component {
             {president.map((item,index)=>{
               return <View key={index} className='member' onClick={()=>this.goPage(item.id)}>
                 <View className="photo"><Image src={item.photo} /></View><View className="position">{Job[item.commerce_job]}</View>
-                <View className="name">{item.name}</View><View className="descript">{item.company_name||''}<Text className="p10">{item.job_title||''}</Text></View>
+                <View className="name">{item.name}</View><View className="descript">{item.company_name || item.company_info ||''}<Text className="p10">{item.job_title||''}</Text></View>
               </View>
             })}
           </View>
@@ -109,7 +109,7 @@ class Memebers extends Component {
             {rotatingChairman.map((item,index)=>{
               return <View key={index} className='member' onClick={()=>this.goPage(item.id)}>
                 <View className="photo"><Image src={item.photo} /></View><View className="position">{Job[item.commerce_job]}</View>
-                <View className="name">{item.name}</View><View className="descript">{item.company_name||''}<Text className="p10">{item.job_title||''}</Text></View>
+                <View className="name">{item.name}</View><View className="descript">{item.company_name || item.company_info ||''}<Text className="p10">{item.job_title||''}</Text></View>
               </View>
             })}
           </View>
@@ -118,7 +118,7 @@ class Memebers extends Component {
             {committeeExperts.map((item,index)=>{
               return <View key={index} className='member' onClick={()=>this.goPage(item.id)}>
                 <View className="photo"><Image src={item.photo} /></View><View className="position">{Job['expert']}</View>
-                <View className="name">{item.name}</View><View className="descript">{item.company_name||''} <Text className="p10">{item.job_title||''}</Text></View>
+                <View className="name">{item.name}</View><View className="descript">{item.company_name || item.company_info ||''} <Text className="p10">{item.job_title||''}</Text></View>
               </View>
             })}
           </View>

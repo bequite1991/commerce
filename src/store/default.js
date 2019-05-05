@@ -723,7 +723,7 @@ const defaultStore = observable({
             id: item.id || '',
             phone: item.telphone || '',
             position: Job[item.commerce_job] || '',
-            company: `${item.company_name}·${item.job_title}`,
+            company: `${item.company_name || item.company_info || ''}·${item.job_title}`,
             name: item.name || '',
             photo: item.photo || ''
           }
