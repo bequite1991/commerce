@@ -9,18 +9,17 @@ import './consulate.scss';
 @observer
 class Index extends Component {
 
-  componentWillMount () {
-    console.log('componentWillReact')
-
-    const {defaultStore} = this.props;
-    defaultStore.getConsulateList();
+  componentWillMount () {    
   }
 
   componentWillReact () {
 
   }
 
-  componentDidMount () { }
+  componentDidMount () {
+    const {defaultStore} = this.props;
+    defaultStore.getConsulateList();
+  }
 
   componentWillUnmount () { }
 
@@ -31,7 +30,6 @@ class Index extends Component {
   render () {
     const { defaultStore} = this.props;
     const consulateList = defaultStore['internation_consulate'].$mobx.values;
-    console.log('consulateList:',consulateList);
     return (
       <View className='consulate'>
         <View className="activitysList">

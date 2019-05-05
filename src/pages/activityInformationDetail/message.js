@@ -48,7 +48,7 @@ class Index extends Component {
     });
   }
   //提交回复
-  onActionClick(content){
+  onActionClick(){
     
     debugger
     const { defaultStore } = this.props;

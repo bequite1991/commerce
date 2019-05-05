@@ -54,7 +54,7 @@ class Index extends Component {
 
   render () {
     const { defaultStore: { counter } } = this.props
-    const tabList = [{ title: '国际商会' },{ title: '驻沪领事馆' }];
+    const tabList = [{ title: '驻沪领事馆' },{ title: '国际商会' }];
     return (
       <View className='internationalRelations'>
         <AtSearchBar

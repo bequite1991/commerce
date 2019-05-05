@@ -13,15 +13,16 @@ import './commerce.scss';
 class Index extends Component {
 
   componentWillMount () {
-    const {defaultStore} = this.props;
-    defaultStore.getCommerceList();
   }
 
   componentWillReact () {
     console.log('componentWillReact')
   }
 
-  componentDidMount () { }
+  componentDidMount () {
+    const {defaultStore} = this.props;
+    defaultStore.getCommerceList();
+  }
 
   componentWillUnmount () { }
 
@@ -32,10 +33,13 @@ class Index extends Component {
   render () {
     const { defaultStore} = this.props;
     const list = defaultStore['internation_commerce'].$mobx.values;
+    const newList = [].concat(list);
+    const rever = newList.reverse();
+    console.log("rever:",rever);
     return (
       <View className='commerce'>
         <View className="activitysList">
-          {list.map((item,index)=>{
+          {rever.map((item,index)=>{
             return <View key={index} className='activitysItem'>
               <View className="itemLeft"><Image src={item.logo} /></View>
               <View className='itemRight'>

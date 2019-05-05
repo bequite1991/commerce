@@ -994,7 +994,6 @@ const defaultStore = observable({
           },2000)
         }else{
         }
-      }
     });
   },
   //我 我的积分
