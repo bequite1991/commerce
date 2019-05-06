@@ -64,10 +64,10 @@ class Index extends Component {
     console.log(e.detail.errMsg)
     console.log(e.detail.userInfo)
     console.log(e.detail.rawData)
-
     this.setState({
       isOpened: false
     });
+    this.checkAuth();
   }
 
   render () {
@@ -80,9 +80,9 @@ class Index extends Component {
         <Activitys />
         <AtActionSheet isOpened={this.state.isOpened} cancelText='取消' title='获取你的昵称、头像、地区及性别'>
           <AtActionSheetItem>
-            <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo={(e) => this.handleAuth(e)}>
+            <Button openType="getUserInfo" lang="zh_CN" onGetUserInfo={this.handleAuth} type='primary'>
               确认
-            </button>
+            </Button>
           </AtActionSheetItem>
         </AtActionSheet>
 
