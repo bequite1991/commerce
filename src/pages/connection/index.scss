@@ -1,6 +1,6 @@
 .internationalRelations{
 	.search{
-		margin-bottom: 80rpx;
+		// margin-bottom: 80rpx;
 	}
 	.tabs{
 		.at-tabs__item--active {
@@ -9,5 +9,26 @@
 		.at-tabs__item-underline{
 			background-color:#003A80;
 		}
+	}
+	.displayNone{
+		display: none;
+	}
+	.tabButton{
+		display: inline-block;
+		height:44rpx;
+		font-size:32rpx;
+		font-family:PingFangSC-Regular;
+		font-weight:400;
+		color:rgba(187,187,187,1);
+		line-height:44rpx;
+		margin:40rpx 60rpx;
+	}
+	.activity{
+		height:60rpx;
+		font-size:44rpx;
+		font-family:PingFangSC-Medium;
+		font-weight:500;
+		color:rgba(0,58,128,1);
+		line-height:60rpx;
 	}
 }

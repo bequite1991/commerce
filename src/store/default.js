@@ -73,12 +73,12 @@ const defaultStore = observable({
   memberPage: [],
   memberPageStatus: "loading",
   memberPagePage: 1,
-  memberPagePageSize: 10,
+  memberPagePageSize: 100000,
   // 人脉 专家委员会
   faccPage: [],
   faccPageStatus: "loading",
   faccPagePage: 1,
-  faccPagePageSize: 10,
+  faccPagePageSize: 100000,
   // 组织列表
   org_type_list: {},
   org_detail: {},
@@ -718,16 +718,39 @@ const defaultStore = observable({
     }).then(res => {
       const data = res.data.data.data;
       if(data.currentRecords.length){
-        t.memberPage = t.memberPage.concat(data.currentRecords.map( item => {
-          return {
-            id: item.id || '',
-            phone: item.telphone || '',
-            position: Job[item.commerce_job] || '',
-            company: `${item.company_name || item.company_info || ''}·${item.job_title}`,
-            name: item.name || '',
-            photo: item.photo || ''
-          }
-        }));
+        // t.memberPage = t.memberPage.concat(data.currentRecords.map( item => {
+        //   return {
+        //     id: item.id || '',
+        //     phone: item.telphone || '',
+        //     position: Job[item.commerce_job] || '',
+        //     company: `${item.company_name || item.company_info || ''}·${item.job_title}`,
+        //     name: item.name || '',
+        //     photo: item.photo || ''
+        //   }
+        // }));
+
+        //创建锚点数组
+        const words = {"A":0,"B":1,"C":2,"D":3,"E":4,"F":5,"G":6,"H":7,"I":8,"J":9,"K":10,"L":11,"M":12,"N":13,"O":14,"P":15,"Q":16,"R":17,"S":18,"T":19,"U":20,"V":21,"W":22,"X":23,"Y":24,"Z":25,"#":26};
+        const arr = [];
+        Object.keys(words).map((key)=>{
+          arr.push({
+            title: key,
+            key: key,
+            items: []
+          })
+        })
+         data.currentRecords.map( (item,key2) => {
+            item.phone = item.telphone || '';
+            item.position = Job[item.commerce_job] || '';
+            item.company = `${item.company_name || item.company_info || ''}·${item.job_title}`;
+            item.name = item.name || '';
+            item.photo = item.photo || '';
+            const _index = words[item.sort] || 26;
+            arr[_index].items.push(item);
+            if(key2 == data.currentRecords.length - 1){
+              t.memberPage = arr;
+            }
+        });
         t.memberPageStatus = "more";
       }else{
         t.memberPageStatus = "noMore";
@@ -751,17 +774,39 @@ const defaultStore = observable({
     }).then(res => {
       const data = res.data.data.data;
       if(data.currentRecords.length){
-        t.faccPage = t.faccPage.concat(data.currentRecords.map( item => {
-          return {
-            id: item.id || '',
-            phone: item.telphone || '',
-            position: Job[item.commerce_job] || '',
-            tag: item.industry || '',
-            company: `${item.company_name}·${item.job_title}`,
-            name: item.name || '',
-            photo: item.photo || ''
-          }
-        }));
+        // t.faccPage = t.faccPage.concat(data.currentRecords.map( item => {
+        //   return {
+        //     id: item.id || '',
+        //     phone: item.telphone || '',
+        //     position: Job[item.commerce_job] || '',
+        //     tag: item.industry || '',
+        //     company: `${item.company_name}·${item.job_title}`,
+        //     name: item.name || '',
+        //     photo: item.photo || ''
+        //   }
+        // }));
+        //创建锚点数组
+        const words = {"A":0,"B":1,"C":2,"D":3,"E":4,"F":5,"G":6,"H":7,"I":8,"J":9,"K":10,"L":11,"M":12,"N":13,"O":14,"P":15,"Q":16,"R":17,"S":18,"T":19,"U":20,"V":21,"W":22,"X":23,"Y":24,"Z":25,"#":26};
+        const arr = [];
+        Object.keys(words).map((key)=>{
+          arr.push({
+            title: key,
+            key: key,
+            items: []
+          })
+        })
+         data.currentRecords.map( (item,key2) => {
+            item.phone = item.telphone || '';
+            item.position = Job[item.commerce_job] || '';
+            item.company = `${item.company_name || item.company_info || ''}·${item.job_title}`;
+            item.name = item.name || '';
+            item.photo = item.photo || '';
+            const _index = words[item.sort] || 26;
+            arr[_index].items.push(item);
+            if(key2 == data.currentRecords.length - 1){
+              t.faccPage = arr;
+            }
+        });
         t.faccPageStatus = "more";
       }else{
         t.faccPageStatus = "noMore";
@@ -928,6 +973,9 @@ const defaultStore = observable({
     const t = this;
     t.mine_userinfo ={};
     request('/config/commerce_get_userinfo').then(res => {
+      if(!res.data.data.data){
+        return ;
+      }
       const { data, company, honor_list } = res.data.data;
       const result = {
         photo: data.photo || '',

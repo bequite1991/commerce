@@ -3,6 +3,8 @@ import { View, Button, Text,Swiper, SwiperItem} from '@tarojs/components'
 import { observer, inject } from '@tarojs/mobx'
 import { AtIndexes,AtFloatLayout, AtLoadMore  } from 'taro-ui'
 
+import CustomAtIndexes from "../../components/indexes/index.js";
+
 import './facc.scss';
 
 
@@ -35,13 +37,6 @@ class Index extends Component {
 
   componentDidHide () { }
 
-  onClick (item) {
-    console.log(item)
-    this.setState({
-      currentItem:item,
-      isOpened1:true
-    })
-  }
   handleClose(){
     this.setState({
       isOpened1:false
@@ -63,6 +58,10 @@ class Index extends Component {
       url: `/pages/wisdomMemberDetail/index?id=${id}`
     })
   }
+  
+  onClick(item){ 
+    this.goPage(item.id);
+  }
 
   render () {
     const { defaultStore} = this.props;
@@ -70,32 +69,12 @@ class Index extends Component {
     const faccPageStatus = defaultStore.faccPageStatus;
 
     return (
-      <View>
-        <scroll-view scrollY={true}   scrollWithAnimation={true}>
-          {faccPage.map((item,index)=>{
-            return (<View className="connectionMemberBase" key={index} onClick={()=>this.goPage(item.id)}>
-              <View className="border"></View>
-              <View className="photo">
-                <Image src={item.photo} />
-              </View>
-              <View className="info">
-                <View className="name">{item.name}</View>
-                <View className="position">{item.position}</View>
-                <View className="company">{item.company}</View>
-                <View className="phone">联系电话：{item.phone}</View>
-              </View>
-
-              <View className="tagTriangle"></View>
-              <View className="tagText">{item.tag}</View>
-
-            </View>)
-          })}
-        </scroll-view>
-        <AtLoadMore
-          className="mb42"
-          onClick={this.handleClick.bind(this)}
-          status={faccPageStatus}
-        />
+      <View style='height:100vh'>
+        <CustomAtIndexes
+          list={faccPage}
+          onClick={this.onClick.bind(this)}
+        >
+        </CustomAtIndexes>
       </View>
     )
   }

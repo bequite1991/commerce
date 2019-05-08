@@ -74,14 +74,15 @@ class Index extends Component {
           onChange={this.onChange.bind(this)}
           onActionClick={this.search.bind(this)}
         />
-        <AtTabs className="tabs" current={this.state.current} tabList={tabList} onClick={this.handleClick.bind(this)}>
-          <AtTabsPane current={this.state.current} index={0} >
-            <Member ref="member" id="member" keywords={this.state.searchKey}/>
-          </AtTabsPane>
-          <AtTabsPane current={this.state.current} index={1}>
-            <Facc ref="facc" keywords={this.state.searchKey}/>
-          </AtTabsPane>
-        </AtTabs>
+        <View className={this.state.current == 0?"tabButton activity":"tabButton"} onClick={this.handleClick.bind(this,0)}>会员</View>
+        <View className={this.state.current == 1?"tabButton activity":"tabButton"} onClick={this.handleClick.bind(this,1)}>专家委员会</View>
+        <View className={this.state.current == 0?"":"displayNone"}>
+          <Member ref="member" id="member" keywords={this.state.searchKey} />
+        </View>
+        <View className={this.state.current == 1?"":"displayNone"}>
+          <Facc ref="facc" keywords={this.state.searchKey} />
+        </View>
+
         <BottomBar active={2}/>
       </View>
     )
