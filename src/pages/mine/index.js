@@ -81,12 +81,12 @@ class Index extends Component {
             onClick={this.goPage.bind(this,"enterpriseData")}
 
           />
-          <AtListItem
-            title='我的助理'
-            arrow='right'
-            thumb='http://img10.360buyimg.com/jdphoto/s72x72_jfs/t5872/209/5240187906/2872/8fa98cd/595c3b2aN4155b931.png'
-            onClick={this.goPage.bind(this,"assistant")}
-          />
+          {/*<AtListItem*/}
+            {/*title='我的助理'*/}
+            {/*arrow='right'*/}
+            {/*thumb='http://img10.360buyimg.com/jdphoto/s72x72_jfs/t5872/209/5240187906/2872/8fa98cd/595c3b2aN4155b931.png'*/}
+            {/*onClick={this.goPage.bind(this,"assistant")}*/}
+          {/*/>*/}
           <AtListItem
             title='我的消息'
             arrow='right'
@@ -124,4 +124,4 @@ class Index extends Component {
   }
 }
 
-export default Index 
+export default Index
