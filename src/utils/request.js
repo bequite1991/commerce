@@ -11,18 +11,10 @@ export default function request(url, options) {
   // 获取存储的sessionId
   const cookie = wx.getStorageSync("_TY_S");
   let newOptions = { ...options };
-  if (newOptions.method === 'POST' || newOptions.method === 'PUT') {
-    newOptions.header = {
-      "Content-Type": "application/x-www-form-urlencoded",
-      'Cookie': (cookie ? 'JSESSIONID=' + cookie : ''),
-      ...newOptions.header
-    }
-  } else {
-    newOptions.header = {
-      'Content-Type': 'application/json',  // 这里是特殊处理
-      'Cookie': (cookie ? 'JSESSIONID=' + cookie : ''),
-      ...newOptions.header
-    }
+  newOptions.header = {
+    "Content-Type": "application/x-www-form-urlencoded",
+    'Cookie': (cookie ? 'JSESSIONID=' + cookie : ''),
+    ...newOptions.header
   }
 
   return Taro.request({url, ...newOptions})

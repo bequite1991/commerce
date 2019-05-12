@@ -1184,9 +1184,9 @@ const defaultStore = observable({
       data: {
         [t.mine_mineEditor.key]:t.mine_mineEditor.value
       },
-      header: {
-        'content-type': 'application/json'
-      }
+      // header: {
+      //   'content-type': 'application/json'
+      // }
     }).then((res) => {
       if(!res.data.data){
         wx.showToast({
