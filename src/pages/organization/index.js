@@ -50,7 +50,9 @@ class Index extends Component {
   componentDidHide () { }
 
   search(keys){
-
+    console.log('searchKey:', this.state.searchKey);
+    const { defaultStore} = this.props;
+    defaultStore.getOrganizationList('', this.state.searchKey);
   }
 
   handleClick (value) {
@@ -76,25 +78,27 @@ class Index extends Component {
           className="search"
           placeholder="搜索组织、俱乐部"
           value={this.state.searchKey}
+          onChange={(val)=> this.setState({searchKey: val})}
           onActionClick={this.search.bind(this)}
         />
-        <AtTabs className="tabs" current={this.state.current} tabList={tabList} onClick={this.handleClick.bind(this)}>
-          <AtTabsPane current={this.state.current} index={0} >
-            <View style='background-color: #ffffff;' ><List type="outing"/></View>
-          </AtTabsPane>
-          <AtTabsPane current={this.state.current} index={1}>
-            <View style='background-color: #ffffff;'><List type="golf"/></View>
-          </AtTabsPane>
-          <AtTabsPane current={this.state.current} index={2}>
-            <View style='background-color: #ffffff;'><List type="body_building"/></View>
-          </AtTabsPane>
-          <AtTabsPane current={this.state.current} index={3}>
-            <View style='background-color: #ffffff;'><List type="tea"/></View>
-          </AtTabsPane>
-          <AtTabsPane current={this.state.current} index={4}>
-            <View style='background-color: #ffffff;'><List type="commonweal"/></View>
-          </AtTabsPane>
-        </AtTabs>
+        {/*<AtTabs className="tabs" current={this.state.current} tabList={tabList} onClick={this.handleClick.bind(this)}>*/}
+          {/*<AtTabsPane current={this.state.current} index={0} >*/}
+            {/*<View style='background-color: #ffffff;' ><List type="outing"/></View>*/}
+          {/*</AtTabsPane>*/}
+          {/*<AtTabsPane current={this.state.current} index={1}>*/}
+            {/*<View style='background-color: #ffffff;'><List type="golf"/></View>*/}
+          {/*</AtTabsPane>*/}
+          {/*<AtTabsPane current={this.state.current} index={2}>*/}
+            {/*<View style='background-color: #ffffff;'><List type="body_building"/></View>*/}
+          {/*</AtTabsPane>*/}
+          {/*<AtTabsPane current={this.state.current} index={3}>*/}
+            {/*<View style='background-color: #ffffff;'><List type="tea"/></View>*/}
+          {/*</AtTabsPane>*/}
+          {/*<AtTabsPane current={this.state.current} index={4}>*/}
+            {/*<View style='background-color: #ffffff;'><List type="commonweal"/></View>*/}
+          {/*</AtTabsPane>*/}
+        {/*</AtTabs>*/}
+        <List type=""/>
         <AtFab style="display:none;" onClick={this.goPage.bind(this,'organizationRegister')}>
           <Text className='at-fab__icon at-icon at-icon-add'></Text>
         </AtFab>

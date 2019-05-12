@@ -816,14 +816,15 @@ const defaultStore = observable({
 
   },
   //组织列表
-  getOrganizationList(type){
+  getOrganizationList(type, keywords){
     //type 列表请求参数
     // const list = [{photo:"https://taro-ui.aotu.io/img/logo-taro.png",title:"红酒会俱乐部",subtitle:"一份静谧的高贵，一种脱俗的气质",members:"12",activitys:[{photo:"https://taro-ui.aotu.io/img/logo-taro.png",title:"红酒品鉴大会",time:"04-02",address:"某某酒店"},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",title:"红酒品鉴大会",time:"04-02",address:"某某酒店"}]}];
     // return list;
     const t = this;
     request('/config/commerce_org_list',{
       data: {
-        type: type
+        type: type,
+        keywords: (keywords || ''),
       }
     }).then(res => {
       const { data, activity_list } = res.data.data;
