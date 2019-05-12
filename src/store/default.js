@@ -113,9 +113,9 @@ const defaultStore = observable({
       if(data.list.length){
         data.list.forEach((item,key)=>{
             item.post = item.job_title;
-            item.company = item.company_name;
+            item.company = item.company_name || item.company_info;
             item.name = item.user_name;
-            item.photo = item.picture;
+            item.photo = item.photo;
             if(key == data.list.length -1){
               t.home_presidiumList = data.list;
             }

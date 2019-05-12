@@ -34,10 +34,14 @@
 	.photo{
 		width:170rpx;
 		height:170rpx;
-		border-radius: 50%;
-		overflow:hidden;
 		margin:auto;
+		position: relative;
+		margin-bottom:10rpx;
 		image{
+			position: absolute;
+			top: 0;
+			left: 0;
+			border-radius: 50%;
 			width:170rpx;
 			height:170rpx;
 		}
@@ -59,7 +63,6 @@
 		min-height: 40rpx;
 	}
 	.company{
-		width: 95%;
 		height: 52rpx;
 		line-height: 26rpx;
 		font-size:20rpx;
@@ -71,6 +74,7 @@
 		display:block; 
 		white-space:pre-wrap;
 		word-wrap: break-word;
+		padding: 0 28rpx;
 
 	}
 	.presidiumContent{

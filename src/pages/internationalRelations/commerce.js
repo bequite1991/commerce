@@ -33,13 +33,10 @@ class Index extends Component {
   render () {
     const { defaultStore} = this.props;
     const list = defaultStore['internation_commerce'].$mobx.values;
-    const newList = [].concat(list);
-    const rever = newList.reverse();
-    console.log("rever:",rever);
     return (
       <View className='commerce'>
         <View className="activitysList">
-          {rever.map((item,index)=>{
+          {list.map((item,index)=>{
             return <View key={index} className='activitysItem'>
               <View className="itemLeft"><Image src={item.logo} /></View>
               <View className='itemRight'>

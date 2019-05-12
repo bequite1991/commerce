@@ -62,7 +62,7 @@ class Index extends Component {
 
     return (
       <View className='memberDetail'>
-        <View className="memberBase">
+        <View className="memberBase" onClick={this.goPage.bind(this,"personalDetails")}>
           <View className="photo">
             <Image src={mine_userinfo.photo} />
           </View>

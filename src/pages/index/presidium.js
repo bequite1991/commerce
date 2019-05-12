@@ -52,7 +52,12 @@ class Presidium extends Component {
         <View className="presidiumContent">
           <View className="presidiumList" style={'width:' + this.state.width}>
             {list.map((item,index)=>{
-              return <View key={index} className='presidiumItem' onClick={this.goPage.bind(this,'wisdomMemberDetail')}><View className="photo"><Image src={item.photo} /></View><View className="name">{item.name || "暂无信息"}</View><View className="post">{item.post || "暂无信息"}</View><View className="company">{item.company||"暂无信息"}</View></View>
+              return <View key={index} className='presidiumItem' onClick={this.goPage.bind(this,'wisdomMemberDetail')}>
+                    <View className="photo"><Image src={item.photo} /></View>
+                    <View className="name">{item.name || "暂无信息"}</View>
+                    <View className="post">{item.post || "暂无信息"}</View>
+                    <View className="company">{item.company||"暂无信息"}</View>
+              </View>
             })}
           </View>
         </View>
