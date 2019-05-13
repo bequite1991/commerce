@@ -43,7 +43,8 @@ class Index extends Component {
   componentDidHide () { }
 
   search(keys){
-
+    const { defaultStore} = this.props;
+    defaultStore.getActivityInformList(this.state.searchKey);
   }
 
 
@@ -53,6 +54,7 @@ class Index extends Component {
       <View className='activitysInformation'>
         <AtSearchBar
           value={this.state.searchKey}
+          onChange={(val)=> this.setState({searchKey: val})}
           onActionClick={this.search.bind(this)}
         />
         {/*<Entrance />*/}

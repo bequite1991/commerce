@@ -106,9 +106,6 @@ const defaultStore = observable({
       data: {
         commerce_job:""
       },
-      header: {
-        'content-type': 'application/json'
-      }
     }).then((res) => {
       const data = res.data.data.data_list;
       if(data.list.length){
@@ -130,9 +127,6 @@ const defaultStore = observable({
     request("/config/commerce_join_aply",{
       method:"post",
       data: formData,
-      header: {
-        'content-type': 'application/json'
-      }
     }).then((res) => {
       if(!res.data.data){
         wx.showToast({
@@ -163,9 +157,6 @@ const defaultStore = observable({
         page:1,
         pageSize:4
       },
-      header: {
-        'content-type': 'application/json'
-      }
     }).then((res) => {
       const data = res.data.data.data;
       if(data.currentRecords.length){
@@ -188,18 +179,16 @@ const defaultStore = observable({
     // return t.activitysList;
   },
   //活动模块  活动列表
-  getActivityInformList (){
+  getActivityInformList (keywords){
     const t =  this;
     // let presidiumList = [{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护,贫困患儿",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png",tags:"环境保护"}];
     t.activity_activitysListStatus = "loading";
     request("/config/commerce_hot_activitys",{
       data: {
         page:t.activity_activitysListPage,
-        pageSize:t.activity_activitysListPageSize
+        pageSize:t.activity_activitysListPageSize,
+        keywords: (keywords || ''),
       },
-      header: {
-        'content-type': 'application/json'
-      }
     }).then((res) => {
       const data = res.data.data.data;
       if(data.currentRecords.length){
@@ -241,9 +230,6 @@ const defaultStore = observable({
       data: {
         id:pages[pages.length - 1].options.id
       },
-      header: {
-        'content-type': 'application/json'
-      }
     }).then((res) => {
       const data = res.data.data.data;
       const data_list = res.data.data.data_list;
@@ -276,9 +262,6 @@ const defaultStore = observable({
     request("/config/commerce_add_comment",{
       method:"post",
       data: formData,
-      header: {
-        'content-type': 'application/json'
-      }
     }).then((res) => {
       if(!res.data.data){
         wx.showToast({
@@ -414,9 +397,6 @@ const defaultStore = observable({
       data: {
         id:activityid || 1
       },
-      header: {
-        'content-type': 'application/json'
-      }
     }).then((res) => {
       if(!res.data.data){
         wx.showToast({
@@ -447,9 +427,6 @@ const defaultStore = observable({
       data: {
         id:activityid || 1
       },
-      header: {
-        'content-type': 'application/json'
-      }
     }).then((res) => {
       if(!res.data.data){
         wx.showToast({
@@ -494,9 +471,6 @@ const defaultStore = observable({
         page:t.directTrainPage,
         pageSize:t.directTrainPageSize
       },
-      header: {
-        'content-type': 'application/json'
-      }
     }).then((res) => {
       if(!res.data.data){
         wx.showToast({
@@ -532,9 +506,6 @@ const defaultStore = observable({
     request("/config/commerce__commerce_api_tb_government_consult_add_45685",{
       method:"post",
       data: params,
-      header: {
-        'content-type': 'application/json'
-      }
     }).then((res) => {
       if(!res.data.data){
         wx.showToast({
@@ -561,9 +532,6 @@ const defaultStore = observable({
     request("/config/commerce_gr_form_commit",{
       method:"post",
       data: params,
-      header: {
-        'content-type': 'application/json'
-      }
     }).then((res) => {
       if(!res.data.data){
         wx.showToast({
@@ -590,9 +558,6 @@ const defaultStore = observable({
     request("/config/commerce_ga_form_commit",{
       method:"post",
       data: params,
-      header: {
-        'content-type': 'application/json'
-      }
     }).then((res) => {
       if(!res.data.data){
         wx.showToast({
@@ -821,14 +786,15 @@ const defaultStore = observable({
 
   },
   //组织列表
-  getOrganizationList(type){
+  getOrganizationList(type, keywords){
     //type 列表请求参数
     // const list = [{photo:"https://taro-ui.aotu.io/img/logo-taro.png",title:"红酒会俱乐部",subtitle:"一份静谧的高贵，一种脱俗的气质",members:"12",activitys:[{photo:"https://taro-ui.aotu.io/img/logo-taro.png",title:"红酒品鉴大会",time:"04-02",address:"某某酒店"},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",title:"红酒品鉴大会",time:"04-02",address:"某某酒店"}]}];
     // return list;
     const t = this;
     request('/config/commerce_org_list',{
       data: {
-        type: type
+        type: type,
+        keywords: (keywords || ''),
       }
     }).then(res => {
       const { data, activity_list } = res.data.data;
@@ -1035,9 +1001,6 @@ const defaultStore = observable({
     const t = this;
     request('/config/commerce_my_activity',{
       data: {},
-      header: {
-        'content-type': 'application/json'
-      }
     }).then((res) => {
         if(!res.data.data){
           wx.showToast({
@@ -1057,9 +1020,6 @@ const defaultStore = observable({
     const t = this;
     request('/config/commerce_integral_log',{
       data: {},
-      header: {
-        'content-type': 'application/json'
-      }
     }).then((res) => {
       debugger
       if(!res.data.data){
@@ -1098,9 +1058,6 @@ const defaultStore = observable({
     request("/config/commerce_save_privacy",{
       method:"post",
       data: params,
-      header: {
-        'content-type': 'application/json'
-      }
     }).then((res) => {
       if(!res.data.data){
         wx.showToast({
@@ -1191,9 +1148,9 @@ const defaultStore = observable({
       data: {
         [t.mine_mineEditor.key]:t.mine_mineEditor.value
       },
-      header: {
-        'content-type': 'application/json'
-      }
+      // header: {
+      //   'content-type': 'application/json'
+      // }
     }).then((res) => {
       if(!res.data.data){
         wx.showToast({
@@ -1222,9 +1179,6 @@ const defaultStore = observable({
       data: {
         file:path
       },
-      header: {
-        'content-type': 'application/json'
-      }
     }).then((res) => {
       if(!res.data.data){
         wx.showToast({
@@ -1253,9 +1207,6 @@ const defaultStore = observable({
       data: {
         telphone:telphone
       },
-      header: {
-        'content-type': 'application/json'
-      }
     }).then((res) => {
       if(!res.data.data){
         wx.showToast({
@@ -1285,9 +1236,6 @@ const defaultStore = observable({
         vc_code:vc_code,
         telphone:telphone
       },
-      header: {
-        'content-type': 'application/json'
-      }
     }).then((res) => {
       if(!res.data.data){
         wx.showToast({
@@ -1317,9 +1265,6 @@ const defaultStore = observable({
         vc_code:vc_code,
         telphone:telphone
       },
-      header: {
-        'content-type': 'application/json'
-      }
     }).then((res) => {
       if(!res.data.data){
         wx.showToast({
