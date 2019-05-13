@@ -31,6 +31,7 @@ class Index extends Component {
     const id = this.$router.params.id;
     const user = wx.getStorageSync("_TY_U");
     defaultStore.getOrganizationDetail(id, user);
+    wx.showShareMenu();
 
   }
 

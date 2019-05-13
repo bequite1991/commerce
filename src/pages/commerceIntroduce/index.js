@@ -26,6 +26,7 @@ class Index extends Component {
   componentDidMount () {
     const { defaultStore } = this.props;
     defaultStore.getCommerceList();
+    wx.showShareMenu();
   }
 
   componentWillUnmount () { }

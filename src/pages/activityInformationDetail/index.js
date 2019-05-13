@@ -37,6 +37,7 @@ class Index extends Component {
     defaultStore.getActivityDetail();
     defaultStore.getMessageList();
     this.state.activityId = activityId;
+    wx.showShareMenu();
   }
 
   componentWillUnmount () { }

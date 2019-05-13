@@ -33,9 +33,7 @@ class Index extends Component {
   componentDidHide () { }
 
   render () {
-    const { defaultStore } = this.props;
-    let swiperItems = null;
-    const bannerLsit = defaultStore.getBannerList();
+    const { defaultStore:{ activityDetail } } = this.props;
     return (
         <Swiper
           className='banner'
@@ -44,9 +42,7 @@ class Index extends Component {
           indicatorDots = {false}
           displayMultipleItems = '1'
           autoplay = {false}>
-          {bannerLsit.map((item,index)=>{
-            return <SwiperItem key={item.name} className='bannerItem'><View><Image src={item.url} /></View></SwiperItem>
-          })}
+          <SwiperItem key="1" className='bannerItem'><View><Image src={activityDetail.photo} /></View></SwiperItem>
         </Swiper>
     )
   }

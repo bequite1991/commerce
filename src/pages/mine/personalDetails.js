@@ -65,7 +65,8 @@ class Index extends Component {
   }
 
   render () {
-    const {defaultStore} = this.props;
+    const {defaultStore,defaultStore:{mine_userinfo}} = this.props;
+    const userPhoto = [{url:mine_userinfo.photo}];
     const enterpriseData = defaultStore.getPersonalData();
     return (
       <View className='personalData'>
@@ -75,7 +76,7 @@ class Index extends Component {
             <Image src={this.state.userPhoto} />
           </View>
             <AtImagePicker
-              files={this.state.files}
+              files={userPhoto}
               onChange={this.imageChange.bind(this)}
               length={1}
               className="photoSelect"

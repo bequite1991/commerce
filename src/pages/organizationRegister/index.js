@@ -28,6 +28,7 @@ class Index extends Component {
 
   componentWillReact () {
     console.log('componentWillReact')
+    wx.showShareMenu();
   }
 
   componentDidMount () { }

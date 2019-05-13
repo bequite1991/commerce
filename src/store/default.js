@@ -2,6 +2,7 @@ import { observable } from 'mobx';
 import Taro from '@tarojs/taro';
 import request from "../utils/request.js";
 
+
 const Job = {
   honor_chairman: '名誉会长',
   chairman: '会长',
@@ -245,11 +246,15 @@ const defaultStore = observable({
       }
     }).then((res) => {
       const data = res.data.data.data;
+      const data_list = res.data.data.data_list;
       data.photo = data.picture;
       data.time = data.start_time;
-      data.status = data.amount + "人";
+      data.status = res.data.data.data_list.length + "人";
+      data.rate = data.amount;
       data.origin = data.name;
       data.phone = data.telphone;
+
+      data.data_list = data_list;
       t.activityDetail = data;
       const commentList = res.data.data.page_data.currentRecords;
       commentList.forEach((ele,key)=>{
@@ -979,6 +984,7 @@ const defaultStore = observable({
       const { data, company, honor_list } = res.data.data;
       const result = {
         photo: data.photo || '',
+        gender:data.gender?"男":"女",
         name: data.name || '',
         position: Job[data.commerce_job] || '',
         company: company.name || '',
@@ -1009,7 +1015,8 @@ const defaultStore = observable({
   },
   //我 个人信息编辑
   getPersonalData(){
-    const datas = [{key:"name",label:"姓名",value:"王铁柱",url:""},{key:"gender",label:"性别",value:"男",url:""},{key:"telphone",label:"联系方式",value:"13888888888",url:""},{key:"introduce",label:"个人简介",value:"北师大艺术与传媒学院博士，资深",url:""},{key:"honor",label:"个人荣誉",value:"1.2013-2014年度上海市三八红旗",url:""},{key:"company",label:"公司信息",value:"唯众传媒",url:""}];
+    const t = this;
+    const datas = [{key:"name",label:"姓名",value:t.mine_userinfo.name,url:""},{key:"gender",label:"性别",value:t.mine_userinfo.gender,url:""},{key:"telphone",label:"联系方式",value:t.mine_userinfo.phone,url:""},{key:"introduce",label:"个人简介",value:t.mine_userinfo.abstract,url:""},{key:"honor",label:"个人荣誉",value:t.mine_userinfo.honor,url:""},{key:"company",label:"公司信息",value:t.mine_userinfo.companyInfo.name,url:""}];
     return datas;
   },
   //我 助理信息编辑
