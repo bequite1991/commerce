@@ -25,13 +25,16 @@ class Index extends Component {
     };
   }
 
-  componentWillMount () { }
+  componentWillMount () {}
 
   componentWillReact () {
     console.log('componentWillReact')
   }
 
-  componentDidMount () { }
+  componentDidMount () {
+    const {defaultStore} = this.props;
+    defaultStore.getPersonalData();
+  }
 
   componentWillUnmount () { }
 
@@ -65,9 +68,10 @@ class Index extends Component {
   }
 
   render () {
-    const {defaultStore,defaultStore:{mine_userinfo}} = this.props;
-    const userPhoto = [{url:mine_userinfo.photo}];
-    const enterpriseData = defaultStore.getPersonalData();
+    const {defaultStore,defaultStore:{mine_userinfo,mine_userinfo_array}} = this.props;
+    const userPhoto = [];
+    // const userPhoto = [{url:mine_userinfo.photo}];
+    const enterpriseData = mine_userinfo_array.$mobx.values;
     return (
       <View className='personalData'>
         <View className="photo">
