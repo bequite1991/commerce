@@ -1,0 +1,42 @@
+page{
+	background:rgba(234,234,234,1);
+}
+.messageSystem{
+	padding:20rpx;
+	.message{
+		.time{
+			font-size:24rpx;
+			font-family:PingFangSC-Regular;
+			font-weight:400;
+			color:rgba(153,153,153,1);
+			line-height:34rpx;
+			text-align: center;
+			margin-top:40rpx;
+			margin-bottom: 30rpx;
+		}
+		.messageInfo{
+			background-color: #fff;
+		}
+		image{
+			width:100%;
+			height:264rpx;
+		}
+		.title{
+			font-size:32rpx;
+			font-family:PingFangSC-Regular;
+			font-weight:400;
+			color:rgba(14,14,14,1);
+			line-height:44rpx;
+		}
+		.subtitle{
+			font-size:24rpx;
+			font-family:PingFangSC-Regular;
+			font-weight:400;
+			color:rgba(153,153,153,1);
+			line-height:34rpx;
+		}
+		.words{
+			padding: 20rpx 30rpx;
+		}
+	}
+}

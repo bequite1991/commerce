@@ -62,12 +62,6 @@ class Index extends Component {
     });
   }
 
-  goMineShare(){
-    Taro.navigateTo({
-      url: `/pages/mineShare/index`
-    });
-  }
-
   checkAuth() {
     const t=this;
     login(()=>{
@@ -155,16 +149,9 @@ class Index extends Component {
             thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
             onClick={this.goPage.bind(this,"setting")}
           />
-
-          <AtListItem
-            title='我的分享'
-            arrow='right'
-            thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
-            onClick={this.goMineShare.bind(this)}
-          />
         </AtList>
 
-        <BottomBar active={3}/>
+        {/*<BottomBar active={3}/>*/}
 
         <AtActionSheet isOpened={this.state.authOpened} cancelText='取消' title='获取你的昵称、头像、地区及性别'>
           <AtActionSheetItem>

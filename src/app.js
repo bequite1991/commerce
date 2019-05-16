@@ -32,14 +32,15 @@ class App extends Component {
       'pages/activityInformationDetail/appliedConfirm',
       'pages/largeProjects/index',
       'pages/registerCompany/index',
+      'pages/activityInformation/index',
+      'pages/directTrain/index',
+      'pages/directTrainDetail/index',
+
       'pages/mine/personalDetails',
       'pages/mine/editor',
       'pages/mine/messageSystem',
       'pages/mine/messageComment',
       'pages/mine/messageReply',
-      'pages/activityInformation/index',
-      'pages/directTrain/index',
-      'pages/directTrainDetail/index',
       'pages/mine/settingPhoneChange',
       'pages/mine/settingPhoneChangeMsg',
       'pages/mine/settingPhone',
@@ -48,18 +49,39 @@ class App extends Component {
       'pages/mine/scoreDetail',
       'pages/mine/score',
       'pages/mine/myActivitys',
-      'pages/activityInformationDetail/appliedFail',
-      'pages/activityInformationDetail/appliedSuccess',
-      'pages/activityInformationDetail/messageDetail',
-      'pages/activityInformationDetail/applied',
-      'pages/activityInformationDetail/index',
-      'pages/activityInformationDetail/message',
       'pages/mine/contact',
       'pages/mine/message',
       'pages/mine/assistant',
       'pages/mine/enterpriseData',
       'pages/mine/index',
       'pages/mine/activitys',
+
+      'pages/mineShare/personalDetails',
+      'pages/mineShare/editor',
+      'pages/mineShare/messageSystem',
+      'pages/mineShare/messageComment',
+      'pages/mineShare/messageReply',
+      'pages/mineShare/settingPhoneChange',
+      'pages/mineShare/settingPhoneChangeMsg',
+      'pages/mineShare/settingPhone',
+      'pages/mineShare/settingPrivacy',
+      'pages/mineShare/setting',
+      'pages/mineShare/scoreDetail',
+      'pages/mineShare/score',
+      'pages/mineShare/myActivitys',
+      'pages/mineShare/contact',
+      'pages/mineShare/message',
+      'pages/mineShare/assistant',
+      'pages/mineShare/enterpriseData',
+      'pages/mineShare/index',
+      'pages/mineShare/activitys',
+
+      'pages/activityInformationDetail/appliedFail',
+      'pages/activityInformationDetail/appliedSuccess',
+      'pages/activityInformationDetail/messageDetail',
+      'pages/activityInformationDetail/applied',
+      'pages/activityInformationDetail/index',
+      'pages/activityInformationDetail/message',
       'pages/wisdomMemberDetail/index',
       'pages/organizationRegister/index',
       'pages/organizationRegister/submitSuccess',
@@ -83,7 +105,7 @@ class App extends Component {
   }
 
   componentDidMount () {
-    
+
   }
 
   componentDidShow () {}
