@@ -49,6 +49,8 @@ const defaultStore = observable({
   mine_settingPrivacy:{},
   //我模块 设置 用户信息
   mine_userInfo:{},
+  //我模块 设置 用户信息数组版本
+  mine_userinfo_array:[],
   //我模块 收到的回复
   mine_messageReply:[],
   //我模块 收到的留言
@@ -982,8 +984,49 @@ const defaultStore = observable({
   //我 个人信息编辑
   getPersonalData(){
     const t = this;
-    const datas = [{key:"name",label:"姓名",value:t.mine_userinfo.name,url:""},{key:"gender",label:"性别",value:t.mine_userinfo.gender,url:""},{key:"telphone",label:"联系方式",value:t.mine_userinfo.phone,url:""},{key:"introduce",label:"个人简介",value:t.mine_userinfo.abstract,url:""},{key:"honor",label:"个人荣誉",value:t.mine_userinfo.honor,url:""},{key:"company",label:"公司信息",value:t.mine_userinfo.companyInfo.name,url:""}];
-    return datas;
+    t.mine_userinfo ={};
+    request('/config/commerce_get_userinfo').then(res => {
+      if(!res.data.data.data){
+        return ;
+      }
+      const { data, company, honor_list } = res.data.data;
+      const result = {
+        photo: data.photo || '',
+        gender:data.gender,
+        name: data.name || '',
+        position: Job[data.commerce_job] || '',
+        company: company.name || '',
+        phone: data.telphone || '',
+        abstract: data.introduce || '',
+        companyAbstract: company.introduce || '',
+        companyInfo:{
+          website: company.website || '',
+          name: company.name || '',
+          address: company.address || '',
+          phone: company.phone || '',
+          email: company.email || ''
+        },
+        honor:[]
+      };
+      if(honor_list && honor_list.list && honor_list.list.length>0){
+        result.honor = honor_list.list.map(item => {
+          return {
+            title: item.title || '',
+            color:"#5683C9"
+          }
+        });
+      }
+      console.log('result:',result);
+      t.mine_userinfo = result;
+      t.mine_enterpriseData = [{key:"name",label:"公司名称",value:result.companyInfo.name},{key:"address",label:"公司地址",value:result.companyInfo.address},{key:"website",label:"公司网址",value:result.companyInfo.website},{key:"phone",label:"公司电话",value:result.companyInfo.phone},{key:"email",label:"公司邮箱",value:result.companyInfo.email},{key:"companyAbstract",label:"公司介绍",value:result.companyAbstract}];
+      t.mine_userinfo_array = [
+        {key:"name",label:"姓名",value:t.mine_userinfo.name,url:""},
+        {key:"gender",label:"性别",text:t.mine_userinfo.gender?"男":"女",value:t.mine_userinfo.gender + "",url:"",editorType:"radio",options:[{ label: '男', value: "true" },{ label: '女', value: "false" }]},
+        {key:"telphone",label:"联系方式",value:t.mine_userinfo.phone,url:"",editorType:"telphone"},
+        {key:"introduce",label:"个人简介",value:t.mine_userinfo.abstract,url:""},{key:"honor",label:"个人荣誉",value:t.mine_userinfo.honor,url:""},
+        {key:"company",label:"公司信息",value:t.mine_userinfo.companyInfo.name,url:""}
+        ];
+    });
   },
   //我 助理信息编辑
   getAssistantData(){
@@ -1154,20 +1197,22 @@ const defaultStore = observable({
     }).then((res) => {
       if(!res.data.data){
         wx.showToast({
-          title: res.data.message,
+          title: "修改失败",
           icon: 'none'
         })
         setTimeout(()=>{
-          wx.navigateBack()
-        },2000)
+          t.getPersonalData();
+          wx.navigateBack();
+        },1000)
       }else{
         wx.showToast({
           title: "修改成功！",
           icon: 'none'
         });
         setTimeout(()=>{
+          t.getPersonalData();
           wx.navigateBack()
-        },2000)
+        },1000)
       }
     });
   },

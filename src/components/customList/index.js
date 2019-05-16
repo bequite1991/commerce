@@ -32,7 +32,7 @@ class Index extends Component {
   componentDidHide () { }
 
   goPage(url){
-    Taro.navigateTo({
+    Taro.redirectTo({
       url: url
     });
   }
@@ -49,7 +49,7 @@ class Index extends Component {
             return (<AtListItem
               key={index}
               title={item.label}
-              note={item.value}
+              note={item.text || item.value + ""}
               arrow='right'
               onClick={this.emmitEvent.bind(this,item)}
             />)

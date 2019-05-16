@@ -2,7 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text,Swiper, SwiperItem,Picker} from '@tarojs/components'
 import { observer, inject } from '@tarojs/mobx'
 import Card from "../../components/card/index.js";
-import {  AtInput,AtTextarea,AtButton  } from 'taro-ui';
+import {  AtInput,AtTextarea,AtButton,AtRadio  } from 'taro-ui';
 import Tags from "../../components/tags/index.js";
 
 import './editor.scss';
@@ -23,13 +23,25 @@ class Index extends Component {
     };
   }
 
-  componentWillMount () { }
+  componentWillMount () {
+    const { defaultStore:{mine_mineEditor} } = this.props;
+    if(mine_mineEditor.editorType == "telphone"){
+      Taro.redirectTo({
+        // url: '/pages/joinUs/index'
+        url: `/pages/mine/settingPhone`
+      })
+    }
+    this.setState({
+      value:mine_mineEditor.value
+    })
+  }
 
   componentWillReact () {
     console.log('componentWillReact')
   }
 
-  componentDidMount () { }
+  componentDidMount () {
+  }
 
   componentWillUnmount () { }
 
@@ -38,7 +50,7 @@ class Index extends Component {
   componentDidHide () { }
 
   goPage(url){
-    Taro.navigateTo({
+    Taro.redirectTo({
       // url: '/pages/joinUs/index'
       url: `/pages/mine/${url}`
     });
@@ -46,7 +58,16 @@ class Index extends Component {
   handleChange(e){
     const { defaultStore:{mine_mineEditor} } = this.props;
     // const params = Object.assign(mine_mineEditor,{value:e});
-    mine_mineEditor.value = e.detail.value;
+    if(typeof e == "boolean"){
+      mine_mineEditor.value = e
+      this.setState({
+        value:e
+      });
+      mine_mineEditor.value = e;
+    }else{
+      mine_mineEditor.value = e.detail.value;
+    }
+    
     // defaultStore.setMineEditor({value:e});
   }
   submit(){
@@ -56,21 +77,27 @@ class Index extends Component {
 
   render () {
     const { defaultStore:{mine_mineEditor} } = this.props;
+    const value = mine_mineEditor?mine_mineEditor.value+"":"";
     return (
       <View className="minEditor">
         <AtInput
-          className={mine_mineEditor.editorType!="textarea"?"":"displayNone"}
+          className={mine_mineEditor.editorType=="input"?"":"displayNone"}
           name='value'
-          title='标准五个字'
           type='text'
-          value={mine_mineEditor.value}
+          value={value}
           onChange={this.handleChange.bind(this)}
         />
         <AtTextarea
           className={mine_mineEditor.editorType=="textarea"?"":"displayNone"}
-          value={mine_mineEditor.value}
+          value={value}
           onChange={this.handleChange.bind(this)}
           maxLength={500}
+        />
+        <AtRadio
+          className={mine_mineEditor.editorType=="radio"?"":"displayNone"}
+          options={mine_mineEditor.options}
+          value={this.state.value}
+          onClick={this.handleChange.bind(this)}
         />
         <AtButton className="apply" type='primary' onClick={this.submit.bind(this,'appliedSuccess')}>确定</AtButton>
       </View>
