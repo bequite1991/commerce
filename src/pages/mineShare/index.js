@@ -22,6 +22,7 @@ class Index extends Component {
   constructor (props) {
     super (props);
     this.state = {
+      pic: '',
       formData: {
         birthday:"1950-01-01"
       },
@@ -43,10 +44,7 @@ class Index extends Component {
   componentDidMount () {
     const { defaultStore } = this.props;
     defaultStore.getMineDetail();
-    const u = wx.getStorageSync("_TY_U");
-    if(!u){
-      this.checkAuth();
-    }
+    this.checkAuth();
     wx.showShareMenu();
   }
 
@@ -67,9 +65,17 @@ class Index extends Component {
     const t=this;
     login(()=>{
       // Taro.startPullDownRefresh({});
-      Taro.navigateTo({
-        url: `/pages/mine/index`
-      });
+      // Taro.navigateTo({
+      //   url: `/pages/mine/index`
+      // });
+      const { defaultStore} = this.props;
+      // defaultStore.getMineDetail();
+      defaultStore.getPersonalData();
+      setTimeout(function(){
+        t.setState({
+          pic: (defaultStore.mine_userinfo && defaultStore.mine_userinfo.photo)
+        })
+      },1000);
     }, () => {
       //error 需要跳转登录授权
       t.setState({
@@ -97,7 +103,7 @@ class Index extends Component {
       <View className='memberDetail'>
         <View className="memberBase" onClick={this.goPage.bind(this,"personalDetails")}>
           <View className="photo">
-            <Image src={mine_userinfo.photo} />
+            <Image src={this.state.pic || mine_userinfo.photo} />
           </View>
           <View className="info">
             <View className="name">{mine_userinfo.name}</View>
