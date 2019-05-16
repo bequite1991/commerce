@@ -332,7 +332,7 @@ const defaultStore = observable({
   //活动详情  已经报名
   getAppliedList() {
     const t = this;
-   
+
     // const presidiumList =
 
     // Taro.request({
@@ -1211,7 +1211,7 @@ const defaultStore = observable({
       //   'content-type': 'application/json'
       // }
     }).then((res) => {
-      if(!res.data.data){
+      if(!res.data.ok){
         wx.showToast({
           title: "修改失败",
           icon: 'none'
@@ -1241,7 +1241,7 @@ const defaultStore = observable({
         file:path
       },
     }).then((res) => {
-      if(!res.data.data){
+      if(!res.data.ok){
         wx.showToast({
           title: res.data.message,
           icon: 'none'

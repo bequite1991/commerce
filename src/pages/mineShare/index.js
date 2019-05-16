@@ -47,6 +47,7 @@ class Index extends Component {
     if(!u){
       this.checkAuth();
     }
+    wx.showShareMenu();
   }
 
   componentWillUnmount () { }
