@@ -37,6 +37,11 @@ class Presidium extends Component {
       url: `/pages/${url}/index`
     })
   }
+  goWisdomMemberDetail(id){
+    Taro.navigateTo({
+      url: `/pages/wisdomMemberDetail/index?id=${id}`
+    })
+  }
 
   render () {
     const {defaultStore:{home_presidiumList}} = this.props;
@@ -52,7 +57,7 @@ class Presidium extends Component {
         <View className="presidiumContent">
           <View className="presidiumList" style={'width:' + this.state.width}>
             {list.map((item,index)=>{
-              return <View key={index} className='presidiumItem' onClick={this.goPage.bind(this,'wisdomMemberDetail')}>
+              return <View key={index} className='presidiumItem' onClick={this.goWisdomMemberDetail.bind(this,item.user_id)}>
                     <View className="photo"><Image src={item.photo} /></View>
                     <View className="name">{item.name || "暂无信息"}</View>
                     <View className="post">{item.post || "暂无信息"}</View>

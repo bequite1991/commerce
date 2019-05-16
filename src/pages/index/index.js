@@ -70,11 +70,19 @@ class Index extends Component {
     });
     this.checkAuth();
   }
+  goPage(url){
+    // this.checkUserType();
+    Taro.navigateTo({
+      // url: '/pages/joinUs/index'
+      url: `/pages/${url}/index`
+    })
+  }
 
   render () {
     return (
       <View className="homePage">
         <Image src={Logo} className="logo" />
+        <View onClick={this.goPage.bind(this,"joinUs")} className="joinUsButton">加入我们</View>
         <Banner />
         <Entrance />
         <Presidium />

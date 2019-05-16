@@ -245,17 +245,33 @@ const defaultStore = observable({
       data.data_list = data_list;
       t.activityDetail = data;
       const commentList = res.data.data.page_data.currentRecords;
+
       commentList.forEach((ele,key)=>{
-        ele.time = ele.create_time;
-        ele.words = ele.content;
-        ele.post = ele.job_title;
-        ele.company = ele.company_name;
-        ele.name = ele.company_name;
-        ele.company = ele.user_name;
+        ele.time = ele.create_time || "";
+        ele.words = ele.content || "";
+        ele.post = ele.job_title || "";
+        ele.company = ele.company_name || "";
+        ele.name = ele.user_name || "";
         if(key == (commentList.length - 1)){
           t.activity_messageList = commentList;
         }
       });
+
+       // t.activity_appliedList = [{time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"}];
+
+      const appliedList = res.data.data.data_list.list;
+      appliedList.forEach((ele,key)=>{
+        ele.time = ele.create_time || "";
+        ele.words = ele.content || "";
+        ele.post = ele.job_title || "";
+        ele.name = ele.user_name || "";
+        ele.company = ele.company_name || "";
+        if(key == (appliedList.length - 1)){
+          t.activity_appliedList = appliedList;
+        }
+      })
+
+
     });
   },
   //回复评论
@@ -316,7 +332,7 @@ const defaultStore = observable({
   //活动详情  已经报名
   getAppliedList() {
     const t = this;
-    t.activity_appliedList = [{time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{time:"2019-04-12 18:47",words:"很期待这次活动能给我带来不一样的收获，感谢新沪商 能给我们聚在一起的机会！",post:"会长",company:"中国石油华化工集团",name:"郑永刚",photo:"https://taro-ui.aotu.io/img/logo-taro.png"}];
+   
     // const presidiumList =
 
     // Taro.request({
@@ -946,7 +962,7 @@ const defaultStore = observable({
     const t = this;
     t.mine_userinfo ={};
     request('/config/commerce_get_userinfo').then(res => {
-      if(!res.data.data.data){
+      if(!res.data.data || !res.data.data.data){
         return ;
       }
       const { data, company, honor_list } = res.data.data;

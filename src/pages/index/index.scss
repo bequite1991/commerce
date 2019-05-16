@@ -7,4 +7,15 @@
 	.atFab{
 		display: fixed;
 	}
+	.joinUsButton{
+		display: inline-block;
+		float: right;
+		font-size:32rpx;
+		font-family:PingFangSC-Medium;
+		font-weight:500;
+		color:rgba(0,58,128,1);
+		line-height:64rpx;
+		margin-right: 40rpx;
+	}
+
 }

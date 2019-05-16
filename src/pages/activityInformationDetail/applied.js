@@ -34,11 +34,10 @@ class Index extends Component {
 
   componentDidHide () { }
 
-  goPage(){
+  goPage(id){
     Taro.navigateTo({
-      // url: '/pages/joinUs/index'
-      url: '/pages/joinUs/index'
-    });
+      url: `/pages/wisdomMemberDetail/index?id=${id}`
+    })
   }
 
   render () {
@@ -48,7 +47,7 @@ class Index extends Component {
     return (
         <View className="appliedList">
           {list.map((item,index)=>{
-            return (<View className="message" key={index}>
+            return (<View className="message" key={index} onClick={this.goPage.bind(this,item.user_id)}>
             <View className="userInfo">
               <View className="photo">
                 <Image src={item.photo} />

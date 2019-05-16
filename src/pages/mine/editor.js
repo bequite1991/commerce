@@ -77,26 +77,26 @@ class Index extends Component {
 
   render () {
     const { defaultStore:{mine_mineEditor} } = this.props;
-    const value = mine_mineEditor?mine_mineEditor.value+"":"";
+    const valueBase = mine_mineEditor?mine_mineEditor.value+"":"";
     return (
       <View className="minEditor">
         <AtInput
           className={mine_mineEditor.editorType=="input"?"":"displayNone"}
-          name='value'
+          name='valueBase'
           type='text'
-          value={value}
+          value={valueBase}
           onChange={this.handleChange.bind(this)}
         />
         <AtTextarea
           className={mine_mineEditor.editorType=="textarea"?"":"displayNone"}
-          value={value}
+          value={valueBase}
           onChange={this.handleChange.bind(this)}
           maxLength={500}
         />
         <AtRadio
           className={mine_mineEditor.editorType=="radio"?"":"displayNone"}
           options={mine_mineEditor.options}
-          value={this.state.value}
+          value={valueBase}
           onClick={this.handleChange.bind(this)}
         />
         <AtButton className="apply" type='primary' onClick={this.submit.bind(this,'appliedSuccess')}>确定</AtButton>
