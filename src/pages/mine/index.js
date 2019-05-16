@@ -2,9 +2,10 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text,Swiper, SwiperItem,Picker} from '@tarojs/components'
 import { observer, inject } from '@tarojs/mobx'
 import Card from "../../components/card/index.js";
-import { AtList, AtListItem  } from 'taro-ui';
+import { AtList, AtListItem,  AtActionSheet, AtActionSheetItem,AtIcon   } from 'taro-ui';
 import Tags from "../../components/tags/index.js";
 import BottomBar from '../../components/bottomBar/index.js';
+import login from '../../utils/authLogin';
 
 import './index.scss';
 
@@ -28,7 +29,8 @@ class Index extends Component {
       selectorChecked:"男性",
       isChange:0,
       position:"会员",
-      positionsArr:["名誉会长","会长","轮值主席","常务副会长","副会长","理事","会员"]
+      positionsArr:["名誉会长","会长","轮值主席","常务副会长","副会长","理事","会员"],
+      authOpened: false
     };
   }
 
@@ -41,6 +43,10 @@ class Index extends Component {
   componentDidMount () {
     const { defaultStore } = this.props;
     defaultStore.getMineDetail();
+    const u = wx.getStorageSync("_TY_U");
+    if(!u){
+      this.checkAuth();
+    }
   }
 
   componentWillUnmount () { }
@@ -54,6 +60,32 @@ class Index extends Component {
       // url: '/pages/joinUs/index'
       url: `/pages/mine/${url}`
     });
+  }
+
+  checkAuth() {
+    const t=this;
+    login(()=>{
+      // Taro.startPullDownRefresh({});
+      Taro.navigateTo({
+        url: `/pages/mine/index`
+      });
+    }, () => {
+      //error 需要跳转登录授权
+      t.setState({
+        authOpened: true
+      });
+    });
+  }
+
+  // 授权
+  handleAuth(e) {
+    console.log(e.detail.errMsg)
+    console.log(e.detail.userInfo)
+    console.log(e.detail.rawData)
+    this.setState({
+      authOpened: false
+    });
+    this.checkAuth();
   }
 
   render () {
@@ -118,7 +150,17 @@ class Index extends Component {
             onClick={this.goPage.bind(this,"setting")}
           />
         </AtList>
+
         <BottomBar active={3}/>
+
+        <AtActionSheet isOpened={this.state.authOpened} cancelText='取消' title='获取你的昵称、头像、地区及性别'>
+          <AtActionSheetItem>
+            <Button openType="getUserInfo" lang="zh_CN" onGetUserInfo={this.handleAuth} type='primary'>
+              确认
+            </Button>
+          </AtActionSheetItem>
+        </AtActionSheet>
+
       </View>
     )
   }
