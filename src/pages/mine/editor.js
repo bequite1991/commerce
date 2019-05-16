@@ -58,7 +58,7 @@ class Index extends Component {
   handleChange(e){
     const { defaultStore:{mine_mineEditor} } = this.props;
     // const params = Object.assign(mine_mineEditor,{value:e});
-    if(typeof e == "boolean"){
+    if(e == "true" || e == "false"){
       mine_mineEditor.value = e
       this.setState({
         value:e
@@ -67,8 +67,6 @@ class Index extends Component {
     }else{
       mine_mineEditor.value = e.detail.value;
     }
-    
-    // defaultStore.setMineEditor({value:e});
   }
   submit(){
     const { defaultStore } = this.props;
@@ -96,7 +94,7 @@ class Index extends Component {
         <AtRadio
           className={mine_mineEditor.editorType=="radio"?"":"displayNone"}
           options={mine_mineEditor.options}
-          value={valueBase}
+          value={mine_mineEditor.value}
           onClick={this.handleChange.bind(this)}
         />
         <AtButton className="apply" type='primary' onClick={this.submit.bind(this,'appliedSuccess')}>确定</AtButton>
