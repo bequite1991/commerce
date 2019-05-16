@@ -79,8 +79,7 @@ class Index extends Component {
   }
   submit(){
     const { defaultStore, defaultStore:{mine_userInfo} } = this.props;
-    const cacheUser = wx.getStorageSync("_TY_CurrentInfo");
-    this.state.formData.weixin_id = cacheUser.weixin_id;
+    this.state.formData.weixin_id = wx._TY_opendid;
     defaultStore.submitJoinUs(this.state.formData);
   }
   //填写表单
