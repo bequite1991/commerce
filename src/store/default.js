@@ -234,10 +234,10 @@ const defaultStore = observable({
       },
     }).then((res) => {
       const data = res.data.data.data;
-      const data_list = res.data.data.data_list;
+      const data_list = res.data.data.data_list.list;
       data.photo = data.picture;
       data.time = data.start_time;
-      data.status = res.data.data.data_list.totalRecords + "人";
+      data.status = data_list.length + "人";
       data.rate = data.amount;
       data.origin = data.name;
       data.phone = data.telphone;
