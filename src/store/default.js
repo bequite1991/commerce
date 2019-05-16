@@ -237,7 +237,7 @@ const defaultStore = observable({
       const data_list = res.data.data.data_list;
       data.photo = data.picture;
       data.time = data.start_time;
-      data.status = res.data.data.data_list.length + "人";
+      data.status = res.data.data.data_list.totalRecords + "人";
       data.rate = data.amount;
       data.origin = data.name;
       data.phone = data.telphone;
@@ -992,7 +992,7 @@ const defaultStore = observable({
       const { data, company, honor_list } = res.data.data;
       const result = {
         photo: data.photo || '',
-        gender:data.gender?"男":"女",
+        gender:data.gender,
         name: data.name || '',
         position: Job[data.commerce_job] || '',
         company: company.name || '',
@@ -1019,7 +1019,13 @@ const defaultStore = observable({
       console.log('result:',result);
       t.mine_userinfo = result;
       t.mine_enterpriseData = [{key:"name",label:"公司名称",value:result.companyInfo.name},{key:"address",label:"公司地址",value:result.companyInfo.address},{key:"website",label:"公司网址",value:result.companyInfo.website},{key:"phone",label:"公司电话",value:result.companyInfo.phone},{key:"email",label:"公司邮箱",value:result.companyInfo.email},{key:"companyAbstract",label:"公司介绍",value:result.companyAbstract}];
-      t.mine_userinfo_array = [{key:"name",label:"姓名",value:t.mine_userinfo.name,url:""},{key:"gender",label:"性别",value:t.mine_userinfo.gender,url:""},{key:"telphone",label:"联系方式",value:t.mine_userinfo.phone,url:""},{key:"introduce",label:"个人简介",value:t.mine_userinfo.abstract,url:""},{key:"honor",label:"个人荣誉",value:t.mine_userinfo.honor,url:""},{key:"company",label:"公司信息",value:t.mine_userinfo.companyInfo.name,url:""}];
+      t.mine_userinfo_array = [
+        {key:"name",label:"姓名",value:t.mine_userinfo.name,url:""},
+        {key:"gender",label:"性别",text:t.mine_userinfo.gender?"男":"女",value:t.mine_userinfo.gender + "",url:"",editorType:"radio",options:[{ label: '男', value: "true" },{ label: '女', value: "false" }]},
+        {key:"telphone",label:"联系方式",value:t.mine_userinfo.phone,url:"",editorType:"telphone"},
+        {key:"introduce",label:"个人简介",value:t.mine_userinfo.abstract,url:""},{key:"honor",label:"个人荣誉",value:t.mine_userinfo.honor,url:""},
+        {key:"company",label:"公司信息",value:t.mine_userinfo.companyInfo.name,url:""}
+        ];
     });
   },
   //我 助理信息编辑
@@ -1191,7 +1197,7 @@ const defaultStore = observable({
     }).then((res) => {
       if(!res.data.data){
         wx.showToast({
-          title: res.data.message,
+          title: "修改失败",
           icon: 'none'
         })
         setTimeout(()=>{

@@ -10,13 +10,15 @@
 			font-family:PingFangSC-Regular;
 			font-weight:400;
 			color:rgba(56,56,56,1);
-			line-height:50rpx;
+			line-height:140rpx;
 		}
 		.value{
 			position:relative;
-			width: 150rpx;
+			width: 130rpx;
 			height: 130rpx;
 			text-align: center;
+			background-color: rgba(236,236,236,0.6);
+			border-radius: 50%;
 		}
 		at-image-picker{
 			position: absolute;
@@ -31,7 +33,6 @@
 			width: 130rpx;
 			height: 130rpx;
 			border-radius: 50%;
-
 		}
 	}
 }
