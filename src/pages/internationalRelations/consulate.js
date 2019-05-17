@@ -36,7 +36,7 @@ class Index extends Component {
           {consulateList.map((item,index)=>{
             return <View key={index} className='activitysItem'>
               <View className="itemLeft">
-                <Image src={item.logo} />
+                <Image src={item.logo} lazyLoad={true}/>
               </View>
               <View className='itemRight'>
                 <View className="name">{item.title}</View>

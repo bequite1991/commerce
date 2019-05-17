@@ -38,7 +38,7 @@ class Index extends Component {
         <View className="activitysList">
           {list.map((item,index)=>{
             return <View key={index} className='activitysItem'>
-              <View className="itemLeft"><Image src={item.logo} /></View>
+              <View className="itemLeft"><Image src={item.logo} lazyLoad={true}/></View>
               <View className='itemRight'>
                 <View className="name">{item.title}</View>
                 <View className="descript">{item.description}</View>
