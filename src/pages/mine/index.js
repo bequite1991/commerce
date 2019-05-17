@@ -70,7 +70,7 @@ class Index extends Component {
 
   checkAuth() {
     const t=this;
-    login(()=>{
+    login(t, ()=>{
       // Taro.startPullDownRefresh({});
       Taro.navigateTo({
         url: `/pages/mine/index`

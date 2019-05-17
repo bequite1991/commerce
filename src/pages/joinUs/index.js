@@ -7,6 +7,7 @@ import { AtInput, AtForm,AtActionSheet, AtActionSheetItem,AtRadio,AtButton  } fr
 import Tags from "../../components/tags/index.js";
 
 import './index.scss';
+import login from "../../utils/authLogin";
 
 
 @inject('defaultStore')
@@ -28,7 +29,8 @@ class Index extends Component {
       selectorChecked:"男性",
       isChange:0,
       commerce_job:"会员",
-      positionsArr:["名誉会长","会长","轮值主席","常务副会长","副会长","理事","会员"]
+      positionsArr:["名誉会长","会长","轮值主席","常务副会长","副会长","理事","会员"],
+      authOpened: false
     };
   }
 
@@ -40,6 +42,30 @@ class Index extends Component {
 
   componentDidMount () {
     wx.showShareMenu();
+    this.checkAuth();
+  }
+
+  checkAuth() {
+    const t=this;
+    login(t, ()=>{
+
+    }, () => {
+      //error 需要跳转登录授权
+      t.setState({
+        authOpened: true
+      });
+    });
+  }
+
+  // 授权
+  handleAuth(e) {
+    console.log(e.detail.errMsg)
+    console.log(e.detail.userInfo)
+    console.log(e.detail.rawData)
+    this.setState({
+      authOpened: false
+    });
+    this.checkAuth();
   }
 
   componentWillUnmount () { }
@@ -100,7 +126,7 @@ class Index extends Component {
     return (
       <View className='joinUs'>
         <View className="position"><Tags tags={positionsArr} onChange={this.onTagChange.bind(this)}/></View>
-        
+
         <Card title="入会须知" subTitle="更多" href="pages/joinUs/index">
             一、 会员入会程序： 1. 认真阅读本会章程，填写入会申请表（需加盖公司公章）； 2. 提供贵企业资料（公司和企业家个人简介、公司和个人电子 照片、公司LOGO、营业执照扫描件（加盖公章）、个人身份证复印件、最近一期财务年报）； 3. 联合会秘书处初审； 4. 提交会长会议审议通过； 5. 缴纳会费并注册； 6. 秘书处颁发会员证。
         </Card>
@@ -189,9 +215,18 @@ class Index extends Component {
             </AtForm>
         </Card>
         <View className="submitButton"><AtButton onClick={this.submit.bind(this)} className="button" type='primary'>确认提交</AtButton></View>
+
+        <AtActionSheet isOpened={this.state.authOpened} cancelText='取消' title='获取你的昵称、头像、地区及性别'>
+          <AtActionSheetItem>
+            <Button openType="getUserInfo" lang="zh_CN" onGetUserInfo={this.handleAuth} type='primary'>
+              确认
+            </Button>
+          </AtActionSheetItem>
+        </AtActionSheet>
+
       </View>
     )
   }
 }
 
-export default Index 
+export default Index

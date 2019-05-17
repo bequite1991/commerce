@@ -8,8 +8,11 @@ const showToast = (content = '登录失败，请稍后再试') => {
     icon: 'none'
   })
 }
+let t = undefined;
+const login = (self, callback, error) => {
+  t= self;
+  console.log('this.$router:', t.$router.path);
 
-const login = (callback, error) => {
   wx.showLoading()
   wx.login({
     success (res) {
@@ -94,6 +97,19 @@ const postLogin = (code, iv, encryptedData, userinfo, callback) => {
 }
 
 const initSession = (openId, u, userinfo, callback) => {
+  let path = t.$router.path;
+  const params = t.$router.params;
+  if(params && Object.keys(params) && Object.keys(params).length) {
+    Object.keys(params).forEach((item, index) => {
+      if(index == 0){
+        path = path + '?' + item + '=' + params[item];
+      }else{
+        path = path + '&' + item + '=' + params[item];
+      }
+    })
+  }
+  const back = encodeURIComponent(path);
+
   if(u && u.telphone){
     //已绑定，继续流程
     request('/config/commerce_init_session',{
@@ -113,7 +129,7 @@ const initSession = (openId, u, userinfo, callback) => {
       weixin_id: openId,
     });
     Taro.navigateTo({
-      url: `/pages/bindPhone/index?_r=true`
+      url: `/pages/bindPhone/index?_r=true&back=${back}`
     });
 
 
@@ -130,7 +146,7 @@ const initSession = (openId, u, userinfo, callback) => {
       if(data.ok){
         //初始化session后，跳转到手机授权页面
         Taro.navigateTo({
-          url: `/pages/bindPhone/index`
+          url: `/pages/bindPhone/index?back=${back}`
         })
       }
     })

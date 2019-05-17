@@ -50,7 +50,7 @@ class Index extends Component {
 
   checkAuth() {
     const t=this;
-    login(()=>{
+    login(t, ()=>{
 
     }, () => {
       //error 需要跳转登录授权
@@ -79,6 +79,7 @@ class Index extends Component {
   }
 
   render () {
+    console.log('this.$router:', this.$router.path);
     return (
       <View className="homePage">
         <Image src={Logo} className="logo" />

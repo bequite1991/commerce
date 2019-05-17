@@ -3,9 +3,10 @@ import { View, Button, Text,Swiper, SwiperItem} from '@tarojs/components'
 import { observer, inject } from '@tarojs/mobx'
 import Banner from "./banner.js";
 import Card from "../../components/card/index.js";
-import { AtButton } from 'taro-ui'
+import { AtButton,  AtActionSheet, AtActionSheetItem  } from 'taro-ui';
 
 import './index.scss';
+import login from "../../utils/authLogin";
 
 
 @inject('defaultStore')
@@ -20,7 +21,8 @@ class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activityId: null
+      activityId: null,
+      authOpened: false
     }
   }
 
@@ -30,7 +32,7 @@ class Index extends Component {
     console.log('componentWillReact')
   }
 
-  componentDidMount () { 
+  componentDidMount () {
     const pages = getCurrentPages();
     const activityId = pages[pages.length - 1].options.id;
     const { defaultStore} = this.props;
@@ -38,6 +40,30 @@ class Index extends Component {
     defaultStore.getMessageList();
     this.state.activityId = activityId;
     wx.showShareMenu();
+    this.checkAuth();
+  }
+
+  checkAuth() {
+    const t=this;
+    login(t, ()=>{
+
+    }, () => {
+      //error 需要跳转登录授权
+      t.setState({
+        authOpened: true
+      });
+    });
+  }
+
+  // 授权
+  handleAuth(e) {
+    console.log(e.detail.errMsg)
+    console.log(e.detail.userInfo)
+    console.log(e.detail.rawData)
+    this.setState({
+      authOpened: false
+    });
+    this.checkAuth();
   }
 
   componentWillUnmount () { }
@@ -110,9 +136,18 @@ class Index extends Component {
             <AtButton className="apply" type='primary' onClick={this.goPage.bind(this,`/pages/activityInformationDetail/appliedConfirm?id=${this.state.activityId}`)}>确认报名</AtButton>
           </View>
         </Card>
+
+        <AtActionSheet isOpened={this.state.authOpened} cancelText='取消' title='获取你的昵称、头像、地区及性别'>
+          <AtActionSheetItem>
+            <Button openType="getUserInfo" lang="zh_CN" onGetUserInfo={this.handleAuth} type='primary'>
+              确认
+            </Button>
+          </AtActionSheetItem>
+        </AtActionSheet>
+
       </View>
     )
   }
 }
 
-export default Index 
+export default Index

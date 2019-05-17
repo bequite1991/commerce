@@ -31,6 +31,7 @@ class Index extends Component {
   componentWillMount () {
     console.log(this.$router.params)
     this._r = this.$router.params._r || '';
+    this.back = this.$router.params.back || '';
   }
 
   componentWillReact () {
@@ -102,6 +103,7 @@ class Index extends Component {
 
   // 提交
   handleCommit() {
+    const t=this;
     const { formData } = this.state;
     if(this._r){
       request('/config/commerce_check_binded_wx', {
@@ -125,9 +127,15 @@ class Index extends Component {
               const data = res.data;
               if(data.ok){
                 //初始化session后，跳转到手机授权页面
-                Taro.navigateTo({
-                  url: `/pages/index/index`
-                })
+                if(t.back){
+                  Taro.navigateTo({
+                    url: decodeURIComponent(t.back)
+                  })
+                }else{
+                  Taro.navigateTo({
+                    url: `/pages/index/index`
+                  })
+                }
               }
             })
           }else{
@@ -145,9 +153,15 @@ class Index extends Component {
             }).then((res) => {
               const data = res.data;
               if(data.ok){
-                Taro.navigateTo({
-                  url: `/pages/index/index`
-                })
+                if(t.back){
+                  Taro.navigateTo({
+                    url: decodeURIComponent(t.back)
+                  })
+                }else{
+                  Taro.navigateTo({
+                    url: `/pages/index/index`
+                  })
+                }
               }
             })
           }
@@ -165,9 +179,15 @@ class Index extends Component {
         const data = res.data;
         if(data.ok){
           // 绑定成功 跳转到首页
-          Taro.navigateTo({
-            url: `/pages/index/index`
-          })
+          if(t.back){
+            Taro.navigateTo({
+              url: decodeURIComponent(t.back)
+            })
+          }else{
+            Taro.navigateTo({
+              url: `/pages/index/index`
+            })
+          }
         }
       })
     }
