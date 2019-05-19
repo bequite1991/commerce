@@ -45,7 +45,7 @@ class Index extends Component {
   componentDidHide () { }
 
   goPage(url){
-    Taro.redirectTo({
+    Taro.navigateTo({
       url: url
     });
   }
@@ -79,7 +79,7 @@ class Index extends Component {
     };
     defaultStore.setMineEditor(param);
     setTimeout(()=>{
-      t.goPage("/pages/mine/editor");
+      t.goPage("/pages/mineShare/editor");
     },500);
   }
   upload(t, path){

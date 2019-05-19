@@ -84,7 +84,7 @@ class Index extends Component {
           <AtInput
             clear
             type='text'
-            maxLength='4'
+            maxLength='6'
             placeholder='请输入验证码'
             onChange={this.handleChange.bind(this)}
           >
@@ -93,7 +93,7 @@ class Index extends Component {
           </AtInput>
         </AtForm>
         <View className="info">请查看<View className="phone">+86{this.state.phone || ""}</View>接收到的短信</View>
-        <AtButton disabled={!this.state.newPhone} onClick={this.goPage.bind(this,"changePhone")} className="submit" type='primary' size='normal'>确认</AtButton>
+        <AtButton disabled={!this.state.value} onClick={this.goPage.bind(this,"changePhone")} className="submit" type='primary' size='normal'>确认</AtButton>
       </View>
     )
   }

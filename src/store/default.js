@@ -184,6 +184,10 @@ const defaultStore = observable({
   getActivityInformList (keywords){
     const t =  this;
     // let presidiumList = [{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护,贫困患儿",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png",tags:"环境保护"}];
+    if(keywords){
+      t.activity_activitysListPage = 1;
+      t.activity_activityInformList = [];
+    }
     t.activity_activitysListStatus = "loading";
     request("/config/commerce_hot_activitys",{
       data: {
@@ -659,7 +663,7 @@ const defaultStore = observable({
         id: id
       }
     }).then(res => {
-      const { data, company, honor_list } = res.data.data;
+      const { data, company, honor_list,company_id } = res.data.data;
       const result = {
         photo: data.photo || '',
         name: data.name || '',
@@ -673,7 +677,8 @@ const defaultStore = observable({
           name: company.name || '',
           address: company.address || '',
           phone: company.phone || '',
-          email: company.email || ''
+          email: company.email || '',
+          company_id:company_id
         },
         honor:[]
       };
@@ -965,7 +970,7 @@ const defaultStore = observable({
       if(!res.data.data || !res.data.data.data){
         return ;
       }
-      const { data, company, honor_list } = res.data.data;
+      const { data, company, honor_list,company_id } = res.data.data;
       const result = {
         photo: data.photo || '',
         gender:data.gender?"男":"女",
@@ -980,7 +985,8 @@ const defaultStore = observable({
           name: company.name || '',
           address: company.address || '',
           phone: company.phone || '',
-          email: company.email || ''
+          email: company.email || '',
+          company_id:company_id
         },
         honor:[]
       };
@@ -994,7 +1000,7 @@ const defaultStore = observable({
       }
       console.log('result:',result);
       t.mine_userinfo = result;
-      t.mine_enterpriseData = [{key:"name",label:"公司名称",value:result.companyInfo.name},{key:"address",label:"公司地址",value:result.companyInfo.address},{key:"website",label:"公司网址",value:result.companyInfo.website},{key:"phone",label:"公司电话",value:result.companyInfo.phone},{key:"email",label:"公司邮箱",value:result.companyInfo.email},{key:"companyAbstract",label:"公司介绍",value:result.companyAbstract}];
+      t.mine_enterpriseData = [{key:"name",label:"公司名称",value:result.companyInfo.name},{key:"address",label:"公司地址",value:result.companyInfo.address},{key:"website",label:"公司网址",value:result.companyInfo.website},{key:"phone",label:"公司电话",value:result.companyInfo.phone},{key:"email",label:"公司邮箱",value:result.companyInfo.email},{key:"introduce",label:"公司介绍",value:result.companyAbstract}];
     });
   },
   //我 个人信息编辑
@@ -1005,7 +1011,7 @@ const defaultStore = observable({
       if(!res.data.data.data){
         return ;
       }
-      const { data, company, honor_list } = res.data.data;
+      const { data, company, honor_list,company_id } = res.data.data;
       const result = {
         photo: data.photo || '',
         gender:data.gender,
@@ -1020,7 +1026,8 @@ const defaultStore = observable({
           name: company.name || '',
           address: company.address || '',
           phone: company.phone || '',
-          email: company.email || ''
+          email: company.email || '',
+          company_id:company_id
         },
         honor:[]
       };
@@ -1202,11 +1209,21 @@ const defaultStore = observable({
   },
   submitMineEditorValue(){
     const t = this;
+
+    let param = {};
+    if( t.mine_mineEditor.url == "/config/commerce_update_company"){
+      param = {
+        id:t.mine_userinfo.companyInfo.company_id,
+        [t.mine_mineEditor.key]:t.mine_mineEditor.value
+      }
+    }else{
+      param = {
+        [t.mine_mineEditor.key]:t.mine_mineEditor.value
+      }
+    }
     request(t.mine_mineEditor.url,{
       method:"post",
-      data: {
-        [t.mine_mineEditor.key]:t.mine_mineEditor.value
-      },
+      data:param
       // header: {
       //   'content-type': 'application/json'
       // }
@@ -1274,17 +1291,11 @@ const defaultStore = observable({
           title: res.data.message,
           icon: 'none'
         })
-        setTimeout(()=>{
-          wx.navigateBack()
-        },2000)
       }else{
         wx.showToast({
-          title: "修改成功！",
+          title: "发送成功！",
           icon: 'none'
         });
-        setTimeout(()=>{
-          wx.navigateBack()
-        },2000)
       }
     });
   },
@@ -1303,16 +1314,16 @@ const defaultStore = observable({
           title: res.data.message,
           icon: 'none'
         })
-        setTimeout(()=>{
-          wx.navigateBack()
-        },2000)
       }else{
         wx.showToast({
           title: "修改成功！",
           icon: 'none'
         });
         setTimeout(()=>{
-          wx.navigateBack()
+          Taro.navigateTo({
+            // url: '/pages/joinUs/index'
+            url: `/pages/mineShare/index`
+          });
         },2000)
       }
     });

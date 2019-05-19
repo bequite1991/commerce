@@ -61,7 +61,7 @@ class Index extends Component {
     let warring = false;
     const formData = this.state;
     formData.government_id = options.id;
-    formData.user_id = userinfo.id;
+    formData.user_id = wx._TY_opendid;
     const t = this;
     const formName = {
       company_name:"企业名称",

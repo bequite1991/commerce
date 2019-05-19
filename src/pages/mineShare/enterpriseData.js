@@ -55,7 +55,7 @@ class Index extends Component {
     }
     defaultStore.setMineEditor(param);
     setTimeout(()=>{
-      t.goPage("/pages/mine/editor")
+      t.goPage("/pages/mineShare/editor")
     },500);
   }
 

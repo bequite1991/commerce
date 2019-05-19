@@ -83,46 +83,46 @@ class Memebers extends Component {
           <Text onClick={this.goAnchor.bind(this,"rotatingChairman")} className={this.state.toView == "rotatingChairman"?"active":""} data-opt="rotatingChairman">轮值主席</Text>
           <Text onClick={this.goAnchor.bind(this,"committeeExperts")} className={this.state.toView == "committeeExperts"?"active":""} data-opt="committeeExperts">专家委员会</Text>
         </View>
-        <scroll-view  scroll-into-view={this.state.toView}  scroll-y="true"  scroll-with-animation="true" className="scr">
-          <View className="title" data-id="honoraryPresident">名誉会长</View>
+        <ScrollView scrollIntoView={this.state.toView}  scrollY={true} scrollWithAnimation={true} className="scr">
+          <View className="title" id="honoraryPresident">名誉会长</View>
           <View className="wisdomMembers">
             {honoraryPresident.map((item,index)=>{
               return <View key={index} className='member' onClick={()=>{this.goPage(item.id)}}>
-                <View className="photo"><Image src={item.photo} /></View>
+                <View className="photo"><Image src={item.photo} lazyLoad={true}/></View>
                 <View className="position">{Job[item.commerce_job]}</View>
                 <View className="name">{item.name}</View>
                 <View className="descript">{item.company_name || item.company_info || ''}<Text className="p10">{item.job_title||''}</Text></View>
               </View>
             })}
           </View>
-          <View className="title" data-id="president">会长</View>
+          <View className="title" id="president">会长</View>
           <View className="wisdomMembers">
             {president.map((item,index)=>{
               return <View key={index} className='member' onClick={()=>this.goPage(item.id)}>
-                <View className="photo"><Image src={item.photo} /></View><View className="position">{Job[item.commerce_job]}</View>
+                <View className="photo"><Image src={item.photo} lazyLoad={true}/></View><View className="position">{Job[item.commerce_job]}</View>
                 <View className="name">{item.name}</View><View className="descript">{item.company_name || item.company_info ||''}<Text className="p10">{item.job_title||''}</Text></View>
               </View>
             })}
           </View>
-          <View className="title" data-id="rotatingChairman">轮值主席</View>
+          <View className="title" id="rotatingChairman">轮值主席</View>
           <View className="wisdomMembers">
             {rotatingChairman.map((item,index)=>{
               return <View key={index} className='member' onClick={()=>this.goPage(item.id)}>
-                <View className="photo"><Image src={item.photo} /></View><View className="position">{Job[item.commerce_job]}</View>
+                <View className="photo"><Image src={item.photo} lazyLoad={true}/></View><View className="position">{Job[item.commerce_job]}</View>
                 <View className="name">{item.name}</View><View className="descript">{item.company_name || item.company_info ||''}<Text className="p10">{item.job_title||''}</Text></View>
               </View>
             })}
           </View>
-          <View className="title" data-id="committeeExperts">专家委员会</View>
+          <View className="title" id="committeeExperts">专家委员会</View>
           <View className="wisdomMembers">
             {committeeExperts.map((item,index)=>{
               return <View key={index} className='member' onClick={()=>this.goPage(item.id)}>
-                <View className="photo"><Image src={item.photo} /></View><View className="position">{Job['expert']}</View>
+                <View className="photo"><Image src={item.photo} lazyLoad={true}/></View><View className="position">{Job['expert']}</View>
                 <View className="name">{item.name}</View><View className="descript">{item.company_name || item.company_info ||''} <Text className="p10">{item.job_title||''}</Text></View>
               </View>
             })}
           </View>
-        </scroll-view>
+        </ScrollView>
         {/*<AtLoadMore*/}
           {/*onClick={this.handleClick.bind(this)}*/}
           {/*status={this.state.status}*/}

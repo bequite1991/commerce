@@ -41,7 +41,7 @@ class Banner extends Component {
         {bannerLsit.map ((item, index) => {
           return (
             <SwiperItem key={item.name} className="bannerItem">
-              <View><Image src={item.url} /></View>
+              <View><Image src={item.url} lazyLoad={true}/></View>
             </SwiperItem>
           );
         })}

@@ -39,7 +39,7 @@ class Index extends Component {
   goPage(url){
     Taro.navigateTo({
       // url: '/pages/joinUs/index'
-      url: `/pages/mine/${url}`
+      url: `/pages/mineShare/${url}`
     });
   }
   showSexAction(){

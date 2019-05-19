@@ -1,4 +1,7 @@
 .wisdomMembersList{
+	.scr{
+		height: calc(100vh - 548rpx);
+	}
 	.anchor{
 		display: flex;
 		justify-content: space-between;
@@ -69,8 +72,8 @@
 		font-weight:500;
 		color:rgba(65,65,65,1);
 		line-height:36rpx;
-    .p10{
-      padding-right:10rpx;
-    }
+	    .p10{
+	      padding-right:10rpx;
+	    }
 	}
 }

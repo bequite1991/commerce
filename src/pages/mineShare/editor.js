@@ -24,16 +24,7 @@ class Index extends Component {
   }
 
   componentWillMount () {
-    const { defaultStore:{mine_mineEditor} } = this.props;
-    if(mine_mineEditor.editorType == "telphone"){
-      Taro.redirectTo({
-        // url: '/pages/joinUs/index'
-        url: `/pages/mine/settingPhone`
-      })
-    }
-    this.setState({
-      value:mine_mineEditor.value
-    })
+    
   }
 
   componentWillReact () {
@@ -50,15 +41,15 @@ class Index extends Component {
   componentDidHide () { }
 
   goPage(url){
-    Taro.redirectTo({
+    Taro.navigateTo({
       // url: '/pages/joinUs/index'
-      url: `/pages/mine/${url}`
+      url: `/pages/mineShare/${url}`
     });
   }
   handleChange(e){
     const { defaultStore:{mine_mineEditor} } = this.props;
     // const params = Object.assign(mine_mineEditor,{value:e});
-    if(typeof e == "boolean"){
+    if(e == "true" || e == "false"){
       mine_mineEditor.value = e
       this.setState({
         value:e
@@ -67,8 +58,6 @@ class Index extends Component {
     }else{
       mine_mineEditor.value = e.detail.value;
     }
-    
-    // defaultStore.setMineEditor({value:e});
   }
   submit(){
     const { defaultStore } = this.props;
@@ -78,6 +67,15 @@ class Index extends Component {
   render () {
     const { defaultStore:{mine_mineEditor} } = this.props;
     const valueBase = mine_mineEditor?mine_mineEditor.value+"":"";
+
+    if(mine_mineEditor.editorType == "telphone"){
+      Taro.navigateTo({
+        // url: '/pages/joinUs/index'
+        url: `/pages/mineShare/settingPhone`
+      })
+    }
+
+
     return (
       <View className="minEditor">
         <AtInput
@@ -96,7 +94,7 @@ class Index extends Component {
         <AtRadio
           className={mine_mineEditor.editorType=="radio"?"":"displayNone"}
           options={mine_mineEditor.options}
-          value={valueBase}
+          value={mine_mineEditor.value}
           onClick={this.handleChange.bind(this)}
         />
         <AtButton className="apply" type='primary' onClick={this.submit.bind(this,'appliedSuccess')}>确定</AtButton>
