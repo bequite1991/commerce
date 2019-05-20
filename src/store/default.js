@@ -980,6 +980,7 @@ const defaultStore = observable({
         phone: data.telphone || '',
         abstract: data.introduce || '',
         companyAbstract: company.introduce || '',
+        integral:data.integral,
         companyInfo:{
           website: company.website || '',
           name: company.name || '',
@@ -1021,6 +1022,7 @@ const defaultStore = observable({
         phone: data.telphone || '',
         abstract: data.introduce || '',
         companyAbstract: company.introduce || '',
+        integral:data.integral,
         companyInfo:{
           website: company.website || '',
           name: company.name || '',
@@ -1049,6 +1051,14 @@ const defaultStore = observable({
         {key:"introduce",label:"个人简介",value:t.mine_userinfo.abstract,url:""},{key:"honor",label:"个人荣誉",value:t.mine_userinfo.honor,url:""},
         {key:"company",label:"公司信息",value:t.mine_userinfo.companyInfo.name,url:""}
         ];
+      //获取个人隐私设置
+      t.mine_settingPrivacy = {
+        hide_phone:!data.hide_phone,
+        hide_personal_introduce:!data.hide_personal_introduce,
+        hide_honor:!data.hide_honor,
+        hide_company_introduce:!data.hide_company_introduce,
+        hide_company:!data.hide_company
+     }
     });
   },
   //我 助理信息编辑
@@ -1087,7 +1097,6 @@ const defaultStore = observable({
     request('/config/commerce_integral_log',{
       data: {},
     }).then((res) => {
-      debugger
       if(!res.data.data){
         wx.showToast({
           title: res.data.message,
@@ -1097,10 +1106,8 @@ const defaultStore = observable({
           wx.navigateBack()
         },2000)
       }else{
-        t.mine_myScore = {
-          score:2000,
-          list:[{name:"客服充值",time:"04-13 16:24",value:"+20000"},{name:"客服充值",time:"04-15 16:24",value:"-1000"}]
-        }
+        t.mine_myScore = res.data.data.data_list.list;
+          // list:res.data.data.data_list || [{name:"客服充值",time:"04-13 16:24",value:"+20000"},{name:"客服充值",time:"04-15 16:24",value:"-1000"}]
       }
     });
   },
@@ -1110,13 +1117,13 @@ const defaultStore = observable({
   },
   //我 设置 获取隐私设置
   getSettingPrivacy(){
-     this.mine_settingPrivacy = {
-        hide_phone:true,
-        hide_personal_introduce:true,
-        hide_honor:false,
-        hide_company_introduce:true,
-        hide_company:false
-     }
+     // this.mine_settingPrivacy = {
+     //    hide_phone:true,
+     //    hide_personal_introduce:true,
+     //    hide_honor:false,
+     //    hide_company_introduce:true,
+     //    hide_company:false
+     // }
   },
   //我 设置 设置隐私
   settingPrivacy(params){
@@ -1125,7 +1132,7 @@ const defaultStore = observable({
       method:"post",
       data: params,
     }).then((res) => {
-      if(!res.data.data){
+      if(res.data.code != 200){
         wx.showToast({
           title: res.data.message,
           icon: 'none'
@@ -1135,7 +1142,7 @@ const defaultStore = observable({
         },2000)
       }else{
         wx.showToast({
-          title: "提交成功！",
+          title: "修改成功！",
           icon: 'none'
         });
         setTimeout(()=>{
@@ -1211,7 +1218,7 @@ const defaultStore = observable({
     const t = this;
 
     let param = {};
-    if( t.mine_mineEditor.url == "/config/commerce_update_company"){
+    if( t.mine_mineEditor.url == "/config/commerce_update_add_company"){
       param = {
         id:t.mine_userinfo.companyInfo.company_id,
         [t.mine_mineEditor.key]:t.mine_mineEditor.value

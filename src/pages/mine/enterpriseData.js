@@ -48,7 +48,7 @@ class Index extends Component {
     const t = this;
     const {defaultStore} = this.props;
     const param = {
-      url:"/config/commerce_update_company",
+      url:"/config/commerce_update_add_company",
       key:item.key,
       value:item.value,
       editorType:item.editorType || "textarea"

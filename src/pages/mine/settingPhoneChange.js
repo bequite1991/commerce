@@ -41,18 +41,21 @@ class Index extends Component {
 
   goPage(url){
     const t = this;
+    const { defaultStore } = this.props;
+    const { newPhone } = this.state
+    defaultStore.commerceSendVc(newPhone);
     Taro.navigateTo({
       // url: '/pages/joinUs/index'
       url: `/pages/mine/${url}?phone=${t.state.newPhone}`
     });
   }
   handleChange(e){
-    const { defaultStore } = this.props;
-    defaultStore.commerceSendVc(e);
     this.setState({
       newPhone:e
     });
   }
+
+
 
   render () {
     return (

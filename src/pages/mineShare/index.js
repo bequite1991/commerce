@@ -22,7 +22,6 @@ class Index extends Component {
   constructor (props) {
     super (props);
     this.state = {
-      pic: '',
       formData: {
         birthday:"1950-01-01"
       },
@@ -44,8 +43,10 @@ class Index extends Component {
   componentDidMount () {
     const { defaultStore } = this.props;
     defaultStore.getMineDetail();
-    this.checkAuth();
-    wx.showShareMenu();
+    const u = wx.getStorageSync("_TY_U");
+    if(!u){
+      this.checkAuth();
+    }
   }
 
   componentWillUnmount () { }
@@ -61,21 +62,24 @@ class Index extends Component {
     });
   }
 
+  goMineShare(){
+    Taro.navigateTo({
+      url: `/pages/mineShare/index`
+    });
+  }
+  goPageJoinUs(){
+    Taro.navigateTo({
+      url: `/pages/joinUs/index`
+    });
+  }
+
   checkAuth() {
     const t=this;
     login(t, ()=>{
       // Taro.startPullDownRefresh({});
-      // Taro.navigateTo({
-      //   url: `/pages/mine/index`
-      // });
-      const { defaultStore} = this.props;
-      // defaultStore.getMineDetail();
-      defaultStore.getPersonalData();
-      setTimeout(function(){
-        t.setState({
-          pic: (defaultStore.mine_userinfo && defaultStore.mine_userinfo.photo)
-        })
-      },1000);
+      Taro.navigateTo({
+        url: `/pages/mineShare/index`
+      });
     }, () => {
       //error 需要跳转登录授权
       t.setState({
@@ -103,7 +107,7 @@ class Index extends Component {
       <View className='memberDetail'>
         <View className="memberBase" onClick={this.goPage.bind(this,"personalDetails")}>
           <View className="photo">
-            <Image src={this.state.pic || mine_userinfo.photo} />
+            <Image src={mine_userinfo.photo} />
           </View>
           <View className="info">
             <View className="name">{mine_userinfo.name}</View>
@@ -156,9 +160,23 @@ class Index extends Component {
             thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
             onClick={this.goPage.bind(this,"setting")}
           />
+
+          <AtListItem
+            title='我的分享'
+            arrow='right'
+            thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
+            onClick={this.goMineShare.bind(this)}
+          />
+
+          <AtListItem
+            title='加入我们'
+            arrow='right'
+            thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
+            onClick={this.goPageJoinUs.bind(this)}
+          />
         </AtList>
 
-        {/*<BottomBar active={3}/>*/}
+        // <BottomBar active={3}/>
 
         <AtActionSheet isOpened={this.state.authOpened} cancelText='取消' title='获取你的昵称、头像、地区及性别'>
           <AtActionSheetItem>

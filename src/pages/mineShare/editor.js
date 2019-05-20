@@ -68,7 +68,7 @@ class Index extends Component {
     const { defaultStore:{mine_mineEditor} } = this.props;
     const valueBase = mine_mineEditor?mine_mineEditor.value+"":"";
 
-    if(mine_mineEditor.editorType == "telphone"){
+    if(mine_mineEditor && mine_mineEditor.editorType == "telphone"){
       Taro.navigateTo({
         // url: '/pages/joinUs/index'
         url: `/pages/mineShare/settingPhone`

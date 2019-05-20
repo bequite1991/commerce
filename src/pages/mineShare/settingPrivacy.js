@@ -34,7 +34,7 @@ class Index extends Component {
 
   componentDidMount () { 
     const { defaultStore } = this.props;
-    defaultStore.getSettingPrivacy();
+    defaultStore.getPersonalData();
   }
 
   componentWillUnmount () { }
@@ -53,12 +53,18 @@ class Index extends Component {
     const { defaultStore,defaultStore:{mine_settingPrivacy}  } = this.props;
     const formData = mine_settingPrivacy;
     formData[key] = value.detail.value;
-    defaultStore.settingPrivacy(formData);
+    const keys = Object.keys(formData);
+    keys.forEach((key,index)=>{
+      formData[key] = !formData[key];
+      if(key = keys.length - 1){
+        defaultStore.settingPrivacy(formData);
+      }
+    });
   }
 
   render () {
     const { defaultStore:{mine_settingPrivacy} } = this.props;
-
+    const settingPrivacy = mine_settingPrivacy;
     return (
       <View className='settingPrivacy'>
         <AtList>
@@ -66,35 +72,35 @@ class Index extends Component {
             title='公开手机号码'
             isSwitch
             switchColor="#003A80"
-            switchIsCheck={mine_settingPrivacy.hide_phone}
+            switchIsCheck={settingPrivacy.hide_phone}
             onSwitchChange={this.handleChange.bind(this,"hide_phone")}
           />
           <AtListItem
             title='展示个人简介'
             isSwitch
             switchColor="#003A80"
-            switchIsCheck={mine_settingPrivacy.hide_personal_introduce}
+            switchIsCheck={settingPrivacy.hide_personal_introduce}
             onSwitchChange={this.handleChange.bind(this,"hide_personal_introduce")}
           />
           <AtListItem
             title='展示个人荣誉'
             isSwitch
             switchColor="#003A80"
-            switchIsCheck={mine_settingPrivacy.hide_honor}
+            switchIsCheck={settingPrivacy.hide_honor}
             onSwitchChange={this.handleChange.bind(this,"hide_honor")}
           />
           <AtListItem
             title='展示公司介绍'
             isSwitch
             switchColor="#003A80"
-            switchIsCheck={mine_settingPrivacy.hide_company_introduce}
+            switchIsCheck={settingPrivacy.hide_company_introduce}
             onSwitchChange={this.handleChange.bind(this,"hide_company_introduce")}
           />
           <AtListItem
             title='展示公司信息'
             isSwitch
             switchColor="#003A80"
-            switchIsCheck={mine_settingPrivacy.hide_company}
+            switchIsCheck={settingPrivacy.hide_company}
             onSwitchChange={this.handleChange.bind(this,"hide_company")}
           />
         </AtList>

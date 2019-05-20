@@ -23,15 +23,18 @@ class Index extends Component {
   }
 
   componentWillMount () {
-    const { defaultStore } = this.props;
-    defaultStore.getMyScore();
+    
   }
 
   componentWillReact () {
     console.log('componentWillReact')
   }
 
-  componentDidMount () { }
+  componentDidMount () {
+    const { defaultStore } = this.props;
+
+    defaultStore.getMyScore();
+  }
 
   componentWillUnmount () { }
 
@@ -42,7 +45,7 @@ class Index extends Component {
   goPage(url){
     Taro.navigateTo({
       // url: '/pages/joinUs/index'
-      url: `/pages/mine/${url}`
+      url: `/pages/mineShare/${url}`
     });
   }
 
@@ -53,14 +56,13 @@ class Index extends Component {
   }
 
   render () {
-    const { defaultStore:{mine_myScore} } = this.props;
-    const list  = mine_myScore.list?mine_myScore.list.$mobx.values:[];
-
+    const { defaultStore:{mine_myScore,mine_userinfo} } = this.props;
+    const list  = mine_myScore.$mobx.values;
     return (
       <View className='myScore'>
         <View className="header">
           <View className="score">
-            {mine_myScore.score}
+            {mine_userinfo.integral}
           </View>
           <View className="subtitle">账户余额积分</View>
         </View>
