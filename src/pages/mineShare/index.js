@@ -30,8 +30,10 @@ class Index extends Component {
       isChange:0,
       position:"会员",
       positionsArr:["名誉会长","会长","轮值主席","常务副会长","副会长","理事","会员"],
-      authOpened: false
+      authOpened: false,
+      update:0
     };
+
   }
 
   componentWillMount () { }
@@ -69,7 +71,7 @@ class Index extends Component {
   }
   goPageJoinUs(){
     Taro.navigateTo({
-      url: `/pages/joinUs/index`
+      url: `/pages/commerceIntroduce/index`
     });
   }
 
@@ -77,9 +79,17 @@ class Index extends Component {
     const t=this;
     login(t, ()=>{
       // Taro.startPullDownRefresh({});
-      Taro.navigateTo({
-        url: `/pages/mineShare/index`
-      });
+      // Taro.navigateTo({
+      //   url: `/pages/mineShare/index`
+      // });
+      const { defaultStore } = this.props;
+      defaultStore.getMineDetail();
+      setTimeout(()=>{
+        t.setState({
+          update: t.state.update+1
+        });
+      },500);
+      
     }, () => {
       //error 需要跳转登录授权
       t.setState({
@@ -101,8 +111,8 @@ class Index extends Component {
 
   render () {
     const { defaultStore:{mine_userinfo} } = this.props;
-    let {formData,sexOpen,positionsArr} = this.state;
-
+    let {formData,sexOpen,positionsArr,update} = this.state;
+    debugger
     return (
       <View className='memberDetail'>
         <View className="memberBase" onClick={this.goPage.bind(this,"personalDetails")}>
@@ -176,7 +186,7 @@ class Index extends Component {
           />
         </AtList>
 
-        // <BottomBar active={3}/>
+        {/*<BottomBar active={3}/>*/}
 
         <AtActionSheet isOpened={this.state.authOpened} cancelText='取消' title='获取你的昵称、头像、地区及性别'>
           <AtActionSheetItem>

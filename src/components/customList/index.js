@@ -32,7 +32,7 @@ class Index extends Component {
   componentDidHide () { }
 
   goPage(url){
-    Taro.redirectTo({
+    Taro.navigateTo({
       url: url
     });
   }

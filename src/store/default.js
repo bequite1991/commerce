@@ -965,7 +965,6 @@ const defaultStore = observable({
     // };
 
     const t = this;
-    t.mine_userinfo ={};
     request('/config/commerce_get_userinfo').then(res => {
       if(!res.data.data || !res.data.data.data){
         return ;
@@ -1000,7 +999,7 @@ const defaultStore = observable({
         });
       }
       console.log('result:',result);
-      t.mine_userinfo = result;
+      t.mine_userinfo = Object.assign({},result);
       t.mine_enterpriseData = [{key:"name",label:"公司名称",value:result.companyInfo.name},{key:"address",label:"公司地址",value:result.companyInfo.address},{key:"website",label:"公司网址",value:result.companyInfo.website},{key:"phone",label:"公司电话",value:result.companyInfo.phone},{key:"email",label:"公司邮箱",value:result.companyInfo.email},{key:"introduce",label:"公司介绍",value:result.companyAbstract}];
     });
   },
@@ -1219,10 +1218,17 @@ const defaultStore = observable({
 
     let param = {};
     if( t.mine_mineEditor.url == "/config/commerce_update_add_company"){
-      param = {
-        id:t.mine_userinfo.companyInfo.company_id,
-        [t.mine_mineEditor.key]:t.mine_mineEditor.value
+      if(t.mine_userinfo.companyInfo.company_id){
+        param = {
+          id:t.mine_userinfo.companyInfo.company_id,
+          [t.mine_mineEditor.key]:t.mine_mineEditor.value
+        }
+      }else{
+        param = {
+          [t.mine_mineEditor.key]:t.mine_mineEditor.value
+        }
       }
+      
     }else{
       param = {
         [t.mine_mineEditor.key]:t.mine_mineEditor.value
@@ -1236,10 +1242,10 @@ const defaultStore = observable({
       // }
     }).then((res) => {
       if(!res.data.ok){
-        wx.showToast({
-          title: "修改失败",
-          icon: 'none'
-        })
+        // wx.showToast({
+        //   title: "修改失败",
+        //   icon: 'none'
+        // })
         setTimeout(()=>{
           t.getPersonalData();
           wx.navigateBack();

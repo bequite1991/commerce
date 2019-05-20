@@ -26,7 +26,7 @@ class Index extends Component {
   componentWillMount () {
     const { defaultStore:{mine_mineEditor} } = this.props;
     if(mine_mineEditor && mine_mineEditor.editorType == "telphone"){
-      Taro.redirectTo({
+      Taro.navigateTo({
         // url: '/pages/joinUs/index'
         url: `/pages/mine/settingPhone`
       })
@@ -50,7 +50,7 @@ class Index extends Component {
   componentDidHide () { }
 
   goPage(url){
-    Taro.redirectTo({
+    Taro.navigateTo({
       // url: '/pages/joinUs/index'
       url: `/pages/mine/${url}`
     });

@@ -32,6 +32,8 @@ class Index extends Component {
       positionsArr:["名誉会长","会长","轮值主席","常务副会长","副会长","理事","会员"],
       authOpened: false
     };
+    const { defaultStore } = this.props;
+    // defaultStore.getMineDetail();
   }
 
   componentWillMount () { }
@@ -42,7 +44,7 @@ class Index extends Component {
 
   componentDidMount () {
     const { defaultStore } = this.props;
-    defaultStore.getMineDetail();
+    // defaultStore.getMineDetail();
     const u = wx.getStorageSync("_TY_U");
     if(!u){
       this.checkAuth();
@@ -97,7 +99,6 @@ class Index extends Component {
   render () {
     const { defaultStore:{mine_userinfo} } = this.props;
     let {formData,sexOpen,positionsArr} = this.state;
-
     return (
       <View className='memberDetail'>
         <View className="memberBase" onClick={this.goPage.bind(this,"personalDetails")}>

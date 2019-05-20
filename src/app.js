@@ -27,14 +27,15 @@ class App extends Component {
 
   config = {
     pages: [
+
       'pages/index/index',
-      'pages/commerceIntroduce/index',
       'pages/activityInformationDetail/appliedConfirm',
       'pages/largeProjects/index',
       'pages/registerCompany/index',
       'pages/activityInformation/index',
       'pages/directTrain/index',
       'pages/directTrainDetail/index',
+      'pages/bindPhone/index',
 
       'pages/mineShare/index',
       'pages/mineShare/personalDetails',
@@ -94,7 +95,8 @@ class App extends Component {
       'pages/governmentCounsel/index',
       'pages/governmentDocking/index',
       'pages/joinUs/index',
-      'pages/bindPhone/index',
+      'pages/commerceIntroduce/index',
+      
     ],
     window: {
       backgroundTextStyle: 'light',
