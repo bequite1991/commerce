@@ -965,6 +965,7 @@ const defaultStore = observable({
     // };
 
     const t = this;
+    t.mine_userinfo = {};
     request('/config/commerce_get_userinfo').then(res => {
       if(!res.data.data || !res.data.data.data){
         return ;

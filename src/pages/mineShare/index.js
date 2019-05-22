@@ -17,6 +17,7 @@ class Index extends Component {
   config = {
     navigationBarTitleText: '我',
     navigationBarTextStyle: "black",
+    enablePullDownRefresh: true
   }
 
   constructor (props) {
@@ -31,24 +32,39 @@ class Index extends Component {
       position:"会员",
       positionsArr:["名誉会长","会长","轮值主席","常务副会长","副会长","理事","会员"],
       authOpened: false,
-      update:0
+      update:0,
+      reLaunch:true
     };
 
   }
 
-  componentWillMount () { }
+  componentWillMount () {
+    wx.showShareMenu();
+  }
 
   componentWillReact () {
     console.log('componentWillReact')
   }
 
   componentDidMount () {
-    const { defaultStore } = this.props;
-    defaultStore.getMineDetail();
-    const u = wx.getStorageSync("_TY_U");
-    if(!u){
-      this.checkAuth();
+    const t = this;
+    const { defaultStore,defaultStore:{mine_userinfo} } = this.props;
+    if(t.state.reLaunch){
+      setTimeout(()=>{
+        
+        // t.setState({reLaunch:false})
+        defaultStore.getMineDetail();
+      },2000);
     }
+
+
+    setTimeout(()=>{
+      t.setState({
+        update: t.state.update+1
+      });
+    },500);
+    const u = wx.getStorageSync("_TY_U");
+    this.checkAuth();
   }
 
   componentWillUnmount () { }
@@ -112,7 +128,6 @@ class Index extends Component {
   render () {
     const { defaultStore:{mine_userinfo} } = this.props;
     let {formData,sexOpen,positionsArr,update} = this.state;
-    debugger
     return (
       <View className='memberDetail'>
         <View className="memberBase" onClick={this.goPage.bind(this,"personalDetails")}>
