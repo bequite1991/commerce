@@ -133,11 +133,6 @@ class Index extends Component {
                   Taro.navigateTo({
                     url: decodeURIComponent(t.back)
                   })
-                  setTimeout(()=>{
-                    Taro.navigateTo({
-                      url: `/pages/index/index`
-                    })
-                  },1000);
                 }else{
                   Taro.navigateTo({
                     url: `/pages/index/index`
