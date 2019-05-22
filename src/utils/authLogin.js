@@ -14,20 +14,33 @@ const login = (self, callback, error) => {
   console.log('this.$router:', t.$router.path);
 
   wx.showLoading()
-  wx.login({
-    success (res) {
-      if (res.code) {
-        // 登录成功，获取用户信息
-        getUserInfo(res.code, callback, error)
-      } else {
-        // 否则弹窗显示，showToast需要封装
-        showToast()
-      }
-    },
-    fail () {
-      showToast()
+
+  request('/config/ty_c_auth_check',{
+    method: 'POST'
+  }).then((res) => {
+    const data = res.data;
+    if(!data.ok && data.code === -420){
+      // 没有session 重新登录授权
+      wx.login({
+        success (res) {
+          if (res.code) {
+            // 登录成功，获取用户信息
+            getUserInfo(res.code, callback, error)
+          } else {
+            // 否则弹窗显示，showToast需要封装
+            showToast()
+          }
+        },
+        fail () {
+          showToast()
+        }
+      })
+    }else{
+      callback && callback();
+      wx.hideLoading();
     }
   })
+
 }
 
 // 获取用户信息
