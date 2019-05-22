@@ -51,7 +51,7 @@ class Index extends Component {
     const { defaultStore,defaultStore:{mine_userinfo} } = this.props;
     if(t.state.reLaunch){
       setTimeout(()=>{
-        
+
         // t.setState({reLaunch:false})
         defaultStore.getMineDetail();
       },2000);
@@ -63,7 +63,7 @@ class Index extends Component {
         update: t.state.update+1
       });
     },500);
-    const u = wx.getStorageSync("_TY_U");
+    // const u = wx.getStorageSync("_TY_U");
     this.checkAuth();
   }
 
@@ -105,7 +105,7 @@ class Index extends Component {
           update: t.state.update+1
         });
       },500);
-      
+
     }, () => {
       //error 需要跳转登录授权
       t.setState({

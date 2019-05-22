@@ -105,15 +105,7 @@ class Index extends Component {
   handleCommit() {
     const t=this;
     const { formData } = this.state;
-    wx.showToast({
-      title: '正在提交验证码。。。。',
-      icon: 'none'
-    })
     if(this._r){
-      wx.showToast({
-        title: '注册配置 查询注册状态。。。。',
-        icon: 'none'
-      })
       request('/config/commerce_check_binded_wx', {
         method: 'GET',
         data: {
@@ -124,30 +116,20 @@ class Index extends Component {
         if(data.ok){
           const cacheUser = wx.getStorageSync("_TY_CurrentInfo");
           if(data.data.data && data.data.data.id){
-            wx.showToast({
-              title: '之前有信息，现在绑定微信中',
-              icon: 'none'
-            })
             // 有 这个人只是没有绑定微信
             request('/config/commerce_bind_phone_init_session',{
-              method: 'GET',
+              method: 'POST',
               data: {
                 id: data.data.data.id,
+                telphone: formData.telphone,
+                vc_code: formData.vc,
                 weixin_id: cacheUser.weixin_id,
               }
             }).then((res) => {
-              wx.showToast({
-                title: '之前有信息，现在绑定微信成功',
-                icon: 'none'
-              })
               const data = res.data;
               if(data.ok){
                 //初始化session后，跳转到手机授权页面
                 if(t.back){
-                  wx.showToast({
-                    title: decodeURIComponent(t.back),
-                    icon: 'none'
-                  })
                   Taro.navigateTo({
                     url: decodeURIComponent(t.back)
                   })
@@ -164,19 +146,11 @@ class Index extends Component {
               }
             }).catch((err)=>{
               wx.showToast({
-                title: '之前有信息，现在绑定微信失败',
-                icon: 'none'
-              })
-              wx.showToast({
                 title: err.message,
                 icon: 'none'
               })
             })
           }else{
-            wx.showToast({
-              title: '之前无信息，现在用微信注册用户中',
-              icon: 'none'
-            })
             // 注册 手机验证码一起
             request('/config/commerce_register_user',{
               method: 'POST',
@@ -190,10 +164,6 @@ class Index extends Component {
               }
             }).then((res) => {
               const data = res.data;
-               wx.showToast({
-              title: '之前无信息，现在用微信注册用户成功',
-              icon: 'none'
-            })
               if(data.ok){
                 if(t.back){
                   Taro.navigateTo({
@@ -207,10 +177,6 @@ class Index extends Component {
               }
             }).catch((err)=>{
               wx.showToast({
-                title: '之前无信息，现在用微信注册用户成功',
-                icon: 'none'
-              })
-              wx.showToast({
                 title: err.message,
                 icon: 'none'
               })
@@ -219,19 +185,11 @@ class Index extends Component {
         }
       }).catch((err)=>{
         wx.showToast({
-          title: '查询绑定失败',
-          icon: 'none'
-        })
-        wx.showToast({
           title: err.message,
           icon: 'none'
         })
       });
     }else{
-      wx.showToast({
-        title: '手机修改配置 修改手机。。。。',
-        icon: 'none'
-      })
       // 发送短信
       request('/config/commerce_update_telphone',{
         method: 'POST',
@@ -241,10 +199,6 @@ class Index extends Component {
         }
       }).then((res) => {
         const data = res.data;
-        wx.showToast({
-          title: '手机修改成功。。。。',
-          icon: 'none'
-        })
         if(data.ok){
           // 绑定成功 跳转到首页
           if(t.back){
@@ -258,10 +212,6 @@ class Index extends Component {
           }
         }
       }).catch((err)=>{
-        wx.showToast({
-          title: '手机修改失败',
-          icon: 'none'
-        })
         wx.showToast({
           title: err.message,
           icon: 'none'
