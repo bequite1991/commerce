@@ -35,7 +35,7 @@ class App extends Component {
       'pages/activityInformation/index',
       'pages/directTrain/index',
       'pages/directTrainDetail/index',
-      'pages/bindPhone/index',
+      
 
       'pages/mineShare/index',
       'pages/mineShare/personalDetails',
@@ -56,6 +56,7 @@ class App extends Component {
       'pages/mineShare/assistant',
       'pages/mineShare/enterpriseData',
       'pages/mineShare/activitys',
+      'pages/bindPhone/index',
 
       'pages/mine/index',
       'pages/mine/personalDetails',
@@ -95,14 +96,14 @@ class App extends Component {
       'pages/governmentCounsel/index',
       'pages/governmentDocking/index',
       'pages/joinUs/index',
-      'pages/commerceIntroduce/index',
-      
+      'pages/commerceIntroduce/index'
     ],
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',
       navigationBarTitleText: 'WeChat',
-      navigationBarTextStyle: 'black'
+      navigationBarTextStyle: 'black',
+      enablePullDownRefresh: true
     }
   }
 

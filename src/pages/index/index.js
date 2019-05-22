@@ -83,7 +83,7 @@ class Index extends Component {
     return (
       <View className="homePage">
         <Image src={Logo} className="logo" />
-        <View onClick={this.goPage.bind(this,"joinUs")} className="joinUsButton">加入我们</View>
+        <View onClick={this.goPage.bind(this,"commerceIntroduce")} className="joinUsButton">加入我们</View>
         <Banner />
         <Entrance />
         <Presidium />

@@ -84,7 +84,7 @@ class Index extends Component {
           <AtInput
             clear
             type='text'
-            maxLength='4'
+            maxLength='6'
             placeholder='请输入验证码'
             onChange={this.handleChange.bind(this)}
           >

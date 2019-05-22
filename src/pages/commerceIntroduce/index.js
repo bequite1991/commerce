@@ -48,6 +48,13 @@ class Index extends Component {
     const parntersData = internation_commerce.$mobx.values;
     const brandsData = home_activitysList.$mobx.values;
     parntersData.length = 6;
+    let isJoined = true;
+    if(!wx.getStorageSync("_TY_U")){
+      isJoined = false
+    }
+    if(wx.getStorageSync("_TY_U") && wx.getStorageSync("_TY_U") == "user"){
+      isJoined = false
+    }
     return (
       <View className='introdeuce'>
         <Banner />
@@ -66,7 +73,7 @@ class Index extends Component {
               })}
             </View>
         </Card>
-        <AtButton className="apply" type='primary' onClick={this.goPage}>申请</AtButton>
+        <AtButton className={isJoined?"displayNone":"apply"} type='primary' onClick={this.goPage}>申请</AtButton>
       </View>
     )
   }
