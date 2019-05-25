@@ -121,6 +121,7 @@ class Index extends Component {
               method: 'POST',
               data: {
                 id: data.data.data.id,
+                photo: cacheUser.photo,
                 telphone: formData.telphone,
                 vc_code: formData.vc,
                 weixin_id: cacheUser.weixin_id,
