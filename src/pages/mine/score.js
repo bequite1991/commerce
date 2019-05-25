@@ -45,7 +45,7 @@ class Index extends Component {
   goPage(url){
     Taro.navigateTo({
       // url: '/pages/joinUs/index'
-      url: `/pages/mineShare/${url}`
+      url: `/pages/mine/${url}`
     });
   }
 

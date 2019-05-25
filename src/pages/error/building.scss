@@ -1,0 +1,16 @@
+page {
+  background-color: #ffffff;
+} 
+.building{
+	text-align: center;
+	line-height:100vh;
+	.icon{
+		display: block;
+		font-size: 160rpx;
+		position: absolute;
+		top:30vh;
+		margin:auto;
+		width:100%;
+		color: #003A80;
+	}
+}

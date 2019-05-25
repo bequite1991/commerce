@@ -20,7 +20,7 @@ class Memebers extends Component {
     super (props);
     this.state = {
       status: 'more',
-      toView:"honoraryPresident",
+      toView:"president",
       scroll:true
     };
   }
@@ -78,12 +78,23 @@ class Memebers extends Component {
     return (
       <View className='wisdomMembersList'>
         <View className="anchor">
-          <Text onClick={this.goAnchor.bind(this,"honoraryPresident")} className={this.state.toView == "honoraryPresident"?"active":""} data-opt="honoraryPresident">名誉会长</Text>
           <Text onClick={this.goAnchor.bind(this,"president")} className={this.state.toView == "president"?"active":""} data-opt="president">会长</Text>
+          <Text onClick={this.goAnchor.bind(this,"honoraryPresident")} className={this.state.toView == "honoraryPresident"?"active":""} data-opt="honoraryPresident">名誉会长</Text>
           <Text onClick={this.goAnchor.bind(this,"rotatingChairman")} className={this.state.toView == "rotatingChairman"?"active":""} data-opt="rotatingChairman">轮值主席</Text>
-          <Text onClick={this.goAnchor.bind(this,"committeeExperts")} className={this.state.toView == "committeeExperts"?"active":""} data-opt="committeeExperts">专家委员会</Text>
+          <Text onClick={this.goAnchor.bind(this,"committeeExperts")} className={this.state.toView == "committeeExperts"?"active displayNone":"displayNone"} data-opt="committeeExperts">专家委员会</Text>
         </View>
         <ScrollView scrollIntoView={this.state.toView}  scrollY={true} scrollWithAnimation={true} className="scr">
+    
+          <View className="title" id="president">会长</View>
+          <View className="wisdomMembers">
+            {president.map((item,index)=>{
+              return <View key={index} className='member' onClick={()=>this.goPage(item.id)}>
+                <View className="photo"><Image src={item.photo} lazyLoad={true}/></View><View className="position">{Job[item.commerce_job]}</View>
+                <View className="name">{item.name}</View><View className="descript">{item.company_name || item.company_info ||''}<Text className="p10">{item.job_title||''}</Text></View>
+              </View>
+            })}
+          </View>
+
           <View className="title" id="honoraryPresident">名誉会长</View>
           <View className="wisdomMembers">
             {honoraryPresident.map((item,index)=>{
@@ -95,15 +106,7 @@ class Memebers extends Component {
               </View>
             })}
           </View>
-          <View className="title" id="president">会长</View>
-          <View className="wisdomMembers">
-            {president.map((item,index)=>{
-              return <View key={index} className='member' onClick={()=>this.goPage(item.id)}>
-                <View className="photo"><Image src={item.photo} lazyLoad={true}/></View><View className="position">{Job[item.commerce_job]}</View>
-                <View className="name">{item.name}</View><View className="descript">{item.company_name || item.company_info ||''}<Text className="p10">{item.job_title||''}</Text></View>
-              </View>
-            })}
-          </View>
+          
           <View className="title" id="rotatingChairman">轮值主席</View>
           <View className="wisdomMembers">
             {rotatingChairman.map((item,index)=>{
@@ -113,8 +116,8 @@ class Memebers extends Component {
               </View>
             })}
           </View>
-          <View className="title" id="committeeExperts">专家委员会</View>
-          <View className="wisdomMembers">
+          <View className="title displayNone" id="committeeExperts">专家委员会</View>
+          <View className="wisdomMembers displayNone">
             {committeeExperts.map((item,index)=>{
               return <View key={index} className='member' onClick={()=>this.goPage(item.id)}>
                 <View className="photo"><Image src={item.photo} lazyLoad={true}/></View><View className="position">{Job['expert']}</View>

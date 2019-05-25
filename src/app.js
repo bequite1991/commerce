@@ -27,7 +27,6 @@ class App extends Component {
 
   config = {
     pages: [
-
       'pages/index/index',
       'pages/activityInformationDetail/appliedConfirm',
       'pages/largeProjects/index',
@@ -36,7 +35,6 @@ class App extends Component {
       'pages/directTrain/index',
       'pages/directTrainDetail/index',
       
-
       'pages/mineShare/index',
       'pages/mineShare/personalDetails',
       'pages/mineShare/editor',
@@ -96,7 +94,12 @@ class App extends Component {
       'pages/governmentCounsel/index',
       'pages/governmentDocking/index',
       'pages/joinUs/index',
-      'pages/commerceIntroduce/index'
+      'pages/commerceIntroduce/index',
+
+      'pages/error/building',
+
+
+
     ],
     window: {
       backgroundTextStyle: 'light',

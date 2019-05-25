@@ -93,7 +93,7 @@ class Index extends Component {
           </AtInput>
         </AtForm>
         <View className="info">请查看<View className="phone">+86{this.state.phone || ""}</View>接收到的短信</View>
-        <AtButton disabled={!this.state.newPhone} onClick={this.goPage.bind(this,"changePhone")} className="submit" type='primary' size='normal'>确认</AtButton>
+        <AtButton disabled={!this.state.value} onClick={this.goPage.bind(this,"changePhone")} className="submit" type='primary' size='normal'>确认</AtButton>
       </View>
     )
   }

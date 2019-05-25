@@ -56,7 +56,7 @@ class Index extends Component {
             <View>MEMBERS</View>
           </View>
           <View className="line"></View>
-          <View className="subtitle">中国企业家俱乐部理事是中国市场经济的代表人物，他们有着独特的创业经验和管理思想，富有远见和创新见解；他们承载企业家精神并承担社会责任，具有高度的责任心和使命感</View>
+          <View className="subtitle">新沪商联合会凝聚了长三角乃至全球在中国改革开放进程中最有活力最能创造商业价值的精英企业家，能共同乘风破浪于商海，带领会员驶向远方。</View>
         </View>
         <Memebers />
       </View>

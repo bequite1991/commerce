@@ -24,16 +24,7 @@ class Index extends Component {
   }
 
   componentWillMount () {
-    const { defaultStore:{mine_mineEditor} } = this.props;
-    if(mine_mineEditor && mine_mineEditor.editorType == "telphone"){
-      Taro.navigateTo({
-        // url: '/pages/joinUs/index'
-        url: `/pages/mine/settingPhone`
-      })
-    }
-    this.setState({
-      value:mine_mineEditor.value
-    })
+    
   }
 
   componentWillReact () {
@@ -76,6 +67,15 @@ class Index extends Component {
   render () {
     const { defaultStore:{mine_mineEditor} } = this.props;
     const valueBase = mine_mineEditor?mine_mineEditor.value+"":"";
+
+    if(mine_mineEditor && mine_mineEditor.editorType == "telphone"){
+      Taro.navigateTo({
+        // url: '/pages/joinUs/index'
+        url: `/pages/mineShare/settingPhone`
+      })
+    }
+
+
     return (
       <View className="minEditor">
         <AtInput
