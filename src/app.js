@@ -27,6 +27,7 @@ class App extends Component {
 
   config = {
     pages: [
+      
       'pages/index/index',
       'pages/activityInformationDetail/appliedConfirm',
       'pages/largeProjects/index',
@@ -98,8 +99,6 @@ class App extends Component {
 
       'pages/error/building',
 
-
-
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -107,6 +106,33 @@ class App extends Component {
       navigationBarTitleText: 'WeChat',
       navigationBarTextStyle: 'black',
       enablePullDownRefresh: true
+    },
+    tabBar: {    //  
+      color: '#2E2E35',
+      selectedColor: '#003A80',
+      backgroundColor: '#fff',
+      borderStyle: 'black',
+      list: [{
+        pagePath: 'pages/index/index',
+        selectedIconPath: './public/images/tabsIcon/index1.png',
+        iconPath: './public/images/tabsIcon/index0.png',
+        text: '首页'
+      },{
+        pagePath: 'pages/organizationRegister/index',
+        selectedIconPath: './public/images/tabsIcon/zuzhi1.png',
+        iconPath: './public/images/tabsIcon/zuzhi0.png',
+        text: '组织'
+      },{
+        pagePath: 'pages/connection/index',
+        selectedIconPath: './public/images/tabsIcon/connect1.png',
+        iconPath: './public/images/tabsIcon/connect0.png',
+        text: '人脉'
+      },{
+        pagePath: 'pages/mine/index',
+        selectedIconPath: './public/images/tabsIcon/me1.png',
+        iconPath: './public/images/tabsIcon/me0.png',
+        text: '我'
+      }]
     }
   }
 

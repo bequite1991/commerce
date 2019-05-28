@@ -26,14 +26,18 @@ class Index extends Component {
 
   goPage(){
     const { href } = this.props;
-    Taro.navigateTo({
-      // url: '/pages/joinUs/index'
-      url: href
+    Taro.downloadFile({url:href}).then((res)=>{
+      console.log('下载成功');
+      Taro.saveFile({tempFilePath:res.tempFilePath}).then((resp2)=>{
+        Taro.openDocument({filePath:resp2.savedFilePath,success: function (res) {
+          console.log('打开文档成功')
+        }})
+      })
     });
   }
 
   render () {
-    const { title,subTitle } = this.props;
+    const { title,subTitle,href } = this.props;
     return (
       <View className='card'>
         <View className='cardHeader'>

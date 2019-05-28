@@ -35,6 +35,7 @@ class Index extends Component {
 
   componentDidMount () {
     wx.showShareMenu();
+    wx.showTabBar();
   }
 
   componentWillUnmount () { }
@@ -64,6 +65,8 @@ class Index extends Component {
     })
   }
 
+  // <View className={this.state.current == 1?"tabButton activity":"tabButton"} onClick={this.handleClick.bind(this,1)}>专家委员会</View>
+
   render () {
     const { defaultStore: { counter } } = this.props
     const tabList = [{ title: '会员' }, { title: '专家委员会' }];
@@ -77,7 +80,7 @@ class Index extends Component {
           onActionClick={this.search.bind(this)}
         />
         <View className={this.state.current == 0?"tabButton activity":"tabButton"} onClick={this.handleClick.bind(this,0)}>会员</View>
-        <View className={this.state.current == 1?"tabButton activity":"tabButton"} onClick={this.handleClick.bind(this,1)}>专家委员会</View>
+        
         <View className={this.state.current == 0?"":"displayNone"}>
           <Member ref="member" id="member" keywords={this.state.searchKey} />
         </View>
@@ -85,7 +88,6 @@ class Index extends Component {
           <Facc ref="facc" keywords={this.state.searchKey} />
         </View>
 
-        <BottomBar active={2}/>
       </View>
     )
   }

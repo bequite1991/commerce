@@ -61,10 +61,10 @@ class Entrance extends Component {
           <View><text class="icon iconfont iconhuodongzixun"></text></View>
           <text>活动资讯</text>
         </View>
-        <View className='entrance' onClick={this.goBuilding.bind(this,'directTrain')}>
+        <View className='entrance' onClick={this.goPage.bind(this,'commerceIntroduce')}>
           <View className='tips'></View>
           <View><text class="icon iconfont iconzhengqizhitong"></text></View>
-          <text>政企直通</text>
+          <text>加入我们</text>
         </View>
         <View className='entrance' onClick={this.goPage.bind(this,'internationalRelations')}>
           <View className='tips'></View>

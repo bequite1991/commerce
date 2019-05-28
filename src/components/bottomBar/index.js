@@ -38,10 +38,16 @@ class Index extends Component {
   componentDidHide () { }
 
   goPage(url){
-    Taro.navigateTo({
+    Taro.switchTab({
       // url: '/pages/joinUs/index'
       url: `/pages/${url}/index`
+    }).then((resp)=>{
+      debugger
     })
+    // Taro.navigateTo({
+    //   // url: '/pages/joinUs/index'
+    //   url: `/pages/${url}/index`
+    // })
   }
 
   render () {

@@ -43,6 +43,7 @@ class Index extends Component {
 
   componentDidMount () {
     wx.showShareMenu();
+    wx.showTabBar();
   }
 
   componentWillUnmount () { }
@@ -104,7 +105,7 @@ class Index extends Component {
         <AtFab style="display:none;" onClick={this.goPage.bind(this,'organizationRegister')}>
           <Text className='at-fab__icon at-icon at-icon-add'></Text>
         </AtFab>
-        <BottomBar active={1} />
+        {/*<BottomBar active={1} />*/}
       </View>
     )
   }

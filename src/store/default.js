@@ -92,6 +92,8 @@ const defaultStore = observable({
   directTrainStatus:"more",
   //政企直通车详情
   directTrainDetail:[],
+  //商会介绍 活动品牌
+  commerceIntroduceActivitysBrands:[],
 
 
   //首页 banner
@@ -155,6 +157,38 @@ const defaultStore = observable({
     // this.activitysList = [{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护,贫困患儿",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png",tags:"环境保护"}];
     t.home_activitysListStatus = "loading";
     request("/config/commerce_hot_activitys",{
+      data: {
+        page:t.home_activitysListPage,
+        pageSize:t.home_activitysListPageSize
+      },
+    }).then((res) => {
+      const data = res.data.data.data;
+      if(t.home_activitysListPage == 1){
+        t.home_activitysList = [];
+      }
+      if(data.currentRecords.length){
+        data.currentRecords.forEach((item,key)=>{
+            item.descript = item.description;
+            item.tags = item.tag;
+            item.name = item.title;
+            item.photo = item.picture;
+            item.status = item.num + "人参与";
+            if(key == data.currentRecords.length -1){
+              t.home_activitysList = t.home_activitysList.concat(data.currentRecords);
+            }
+        });
+        t.home_activitysListStatus = "more";
+      }else{
+        t.home_activitysListStatus = "noMore";
+      }
+      t.home_activitysListPage++;
+    });
+    // return t.activitysList;
+  },//首页活动品牌列表
+  getActivitysBrands (params){
+    const t = this;
+    t.home_activitysListStatus = "loading";
+    request("/config/commerce_page_activity_group",{
       data: {
         page:1,
         pageSize:4
@@ -732,6 +766,7 @@ const defaultStore = observable({
             items: []
           })
         })
+        t.memberPage = [];
          data.currentRecords.map( (item,key2) => {
             item.phone = item.telphone || '';
             item.position = Job[item.commerce_job] || '';
@@ -741,7 +776,11 @@ const defaultStore = observable({
             const _index = words[item.sort] || 26;
             arr[_index].items.push(item);
             if(key2 == data.currentRecords.length - 1){
-              t.memberPage = arr;
+              arr.forEach((ar,key3)=>{
+                if(ar.items.length){
+                  t.memberPage.push(ar);
+                }
+              })
             }
         });
         t.memberPageStatus = "more";
@@ -788,6 +827,7 @@ const defaultStore = observable({
             items: []
           })
         })
+        t.faccPage = [];
          data.currentRecords.map( (item,key2) => {
             item.phone = item.telphone || '';
             item.position = Job[item.commerce_job] || '';
@@ -797,7 +837,11 @@ const defaultStore = observable({
             const _index = words[item.sort] || 26;
             arr[_index].items.push(item);
             if(key2 == data.currentRecords.length - 1){
-              t.faccPage = arr;
+              arr.forEach((ar,key3)=>{
+                if(ar.items.length){
+                  t.faccPage.push(ar);
+                }
+              })
             }
         });
         t.faccPageStatus = "more";

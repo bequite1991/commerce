@@ -40,6 +40,7 @@ class Index extends Component {
 
   componentWillMount () {
     wx.showShareMenu();
+    wx.showTabBar();
   }
 
   componentWillReact () {
@@ -200,8 +201,6 @@ class Index extends Component {
             onClick={this.goPageJoinUs.bind(this)}
           />
         </AtList>
-
-        {/*<BottomBar active={3}/>*/}
 
         <AtActionSheet isOpened={this.state.authOpened} cancelText='取消' title='获取你的昵称、头像、地区及性别'>
           <AtActionSheetItem>
