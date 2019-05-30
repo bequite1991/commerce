@@ -100,7 +100,7 @@ class Index extends Component {
         <Card title="个人简介">
             {introduce.abstract}
         </Card>
-        <Card title="个人荣誉">
+        <Card title="社会职务与荣誉">
             <AtTimeline
               items={introduce.honor}
             >

@@ -69,7 +69,6 @@ class Index extends Component {
     const memberPage = defaultStore.memberPage.$mobx.values;
     const memberPageStatus = defaultStore.memberPageStatus;
 
-
     return (
         <View style='height:100vh'>
           <CustomAtIndexes

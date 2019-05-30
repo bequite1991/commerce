@@ -5,7 +5,7 @@ import Facc from "./facc.js";
 import Member from "./member.js";
 import BottomBar from "../../components/bottomBar/index.js";
 
-import { AtFab,AtSearchBar,AtTabs, AtTabsPane} from 'taro-ui';
+import { AtFab,AtSearchBar,AtTabs, AtTabsPane,AtButton} from 'taro-ui';
 
 import './index.scss';
 
@@ -65,11 +65,26 @@ class Index extends Component {
     })
   }
 
+  goPage(url){
+    Taro.navigateTo({
+      // url: '/pages/joinUs/index'
+      url: `/pages/${url}/index`
+    })
+  }
+
   // <View className={this.state.current == 1?"tabButton activity":"tabButton"} onClick={this.handleClick.bind(this,1)}>专家委员会</View>
 
   render () {
     const { defaultStore: { counter } } = this.props
     const tabList = [{ title: '会员' }, { title: '专家委员会' }];
+
+    let isJoined = true;
+    if(!wx.getStorageSync("_TY_U")){
+      isJoined = false
+    }
+    if(wx.getStorageSync("_TY_U") && wx.getStorageSync("_TY_U") == "user"){
+      isJoined = false
+    }
     return (
       <View className='internationalRelations'>
         <AtSearchBar
@@ -81,12 +96,15 @@ class Index extends Component {
         />
         <View className={this.state.current == 0?"tabButton activity":"tabButton"} onClick={this.handleClick.bind(this,0)}>会员</View>
         
-        <View className={this.state.current == 0?"":"displayNone"}>
-          <Member ref="member" id="member" keywords={this.state.searchKey} />
+        <View className={this.state.current == 0 && isJoined ?"":"displayNone"}>
+          <Member ref="member" id="member" keywords={this.state.searchKey}/>
         </View>
-        <View className={this.state.current == 1?"":"displayNone"}>
-          <Facc ref="facc" keywords={this.state.searchKey} />
+        <View className={this.state.current == 1 && isJoined ?"":"displayNone"}>
+          <Facc ref="facc" keywords={this.state.searchKey}/>
         </View>
+
+        <AtButton type='primary' className={isJoined?"displayNone":"apply"} onClick={this.goPage.bind(this,'commerceIntroduce')}>申请加入会员后可查看</AtButton>
+
 
       </View>
     )

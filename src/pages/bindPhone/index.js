@@ -134,8 +134,14 @@ class Index extends Component {
                   Taro.navigateTo({
                     url: decodeURIComponent(t.back)
                   })
+                  Taro.switchTab({
+                    url: decodeURIComponent(t.back)
+                  })
                 }else{
                   Taro.navigateTo({
+                    url: `/pages/index/index`
+                  })
+                  Taro.switchTab({
                     url: `/pages/index/index`
                   })
                 }
@@ -161,12 +167,20 @@ class Index extends Component {
             }).then((res) => {
               const data = res.data;
               if(data.ok){
+                debugger
                 if(t.back){
+                  debugger
                   Taro.navigateTo({
+                    url: decodeURIComponent(t.back)
+                  })
+                  Taro.switchTab({
                     url: decodeURIComponent(t.back)
                   })
                 }else{
                   Taro.navigateTo({
+                    url: `/pages/index/index`
+                  })
+                  Taro.switchTab({
                     url: `/pages/index/index`
                   })
                 }
