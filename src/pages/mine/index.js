@@ -91,6 +91,16 @@ class Index extends Component {
       url: `/pages/commerceIntroduce/index`
     });
   }
+  goMineOrg(){
+    Taro.navigateTo({
+      url: `/pages/organization/mineOrg`
+    });
+  }
+  goMineActivitys(){
+    Taro.navigateTo({
+      url: `/pages/activityInformation/mineActivitys`
+    });
+  }
 
   checkAuth() {
     const t=this;
@@ -172,7 +182,7 @@ class Index extends Component {
             title='我的活动'
             arrow='right'
             thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
-            onClick={this.goPage.bind(this,"myActivitys")}
+            onClick={this.goMineActivitys.bind(this,"myActivitys")}
           />
           <AtListItem
             title='联系我们'
@@ -199,6 +209,18 @@ class Index extends Component {
             arrow='right'
             thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
             onClick={this.goPageJoinUs.bind(this)}
+          />
+          <AtListItem
+            title='我的组织'
+            arrow='right'
+            thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
+            onClick={this.goMineOrg.bind(this)}
+          />
+          <AtListItem
+            title='秘书处'
+            arrow='right'
+            thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
+            onClick={this.goMineOrg.bind(this)}
           />
         </AtList>
 

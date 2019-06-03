@@ -30,7 +30,7 @@ const defaultStore = observable({
   activity_activitysListPage:1,
   activity_activitysListPageSize:10,
   //活动模块 活动详情
-  activityDetail:[],
+  activityDetail:{},
   //活动模块 活动详情 留言列表
   activity_messageList:[],
   //活动模块 活动详情 已报名
@@ -39,6 +39,22 @@ const defaultStore = observable({
   activity_messageDetail:{},
   //活动模块 活动详情 申请加入确认
   activity_appliedConfirm:{},
+
+  activity_info_array:{},
+  //我创建的活动
+  activity_mine_create:[],
+  //我加入的活动
+  activity_mine_join:[],
+  //活动模块 非会员申请表单
+  activity_applied_custom:{},
+  //活动 编辑器配置
+  activity_editor:{},
+  //活动 编辑器内容
+  activity_editor_form:{},
+
+
+
+
   //我模块 近期活动
   mine_recentActivitys:{},
   //我模块 我的积分
@@ -55,6 +71,8 @@ const defaultStore = observable({
   mine_messageReply:[],
   //我模块 收到的留言
   mine_messageComment:[],
+  //我模块 消息首页
+  mine_messageInfo:[],
   //我模块 系统消息
   mine_messageSystem:[],
   //我模块 编辑信息
@@ -84,7 +102,24 @@ const defaultStore = observable({
   faccPagePageSize: 100000,
   // 组织列表
   org_type_list: {},
-  org_detail: {},
+  //组织信息详情（值）
+  org_detail: {header:{}},
+  //组织信息 包含的内容（label）
+  org_info_array:[],
+  //我的组织 我创建的组织
+  org_mine_create:[],
+  //我的组织 我加入的组织
+  org_mine_join:[],
+  //组织 申请加入组织
+  org_applied:{},
+  //组织 成员
+  org_users:{},
+  //组织 活动
+  org_activitys:{},
+  //组织 编辑器配置
+  org_editor:{},
+  //组织 编辑器内容
+  org_editor_form:{},
   //政企直通车列表
   directTrain:[],
   directTrainPage:1,
@@ -94,6 +129,17 @@ const defaultStore = observable({
   directTrainDetail:[],
   //商会介绍 活动品牌
   commerceIntroduceActivitysBrands:[],
+  //秘书处 自组织审核列表
+  secretary_organization_custom_audit:[],
+  //秘书处 自组织活动审核列表
+  secretary_organization_custom_activitys_audit:[],
+  //秘书处 自组织详情
+  secretary_organization_custom_info:{},
+  //秘书处 自组织活动详情
+  secretary_organization_custom_activitys_info:{},
+
+
+
 
 
   //首页 banner
@@ -249,8 +295,64 @@ const defaultStore = observable({
       }
     });
   },
+  //活动模块  我创建的活动列表
+  getActivitysMineCreate (keywords){
+    const t =  this;
+    // let presidiumList = [{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护,贫困患儿",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png",tags:"环境保护"}];
+    if(keywords){
+      t.activity_activitysListPage = 1;
+      t.activity_activityInformList = [];
+    }
+    t.activity_activitysListStatus = "loading";
+    request("/config/commerce_hot_activitys",{
+      data: {
+        page:t.activity_activitysListPage,
+        pageSize:t.activity_activitysListPageSize,
+        keywords: (keywords || ''),
+      },
+    }).then((res) => {
+      const data = res.data.data.data;
+      if(data.currentRecords.length){
+        data.currentRecords.forEach((item,key)=>{
+            item.descript = item.description;
+            item.tags = item.tag;
+            item.name = item.title;
+            item.photo = item.picture;
+            item.status = item.num + "人参与";
+            if(key == data.currentRecords.length -1){
+              t.activity_mine_create = t.activity_activityInformList.concat(data.currentRecords);
+            }
+        });
+        t.activity_activitysListPage ++ ;
+        t.activity_activitysListStatus = "more";
+      }else{
+        t.activity_activitysListStatus = "noMore";
+      }
+    });
+  },
+  //活动模块  我参加的活动列表
+  getActivitysMineJoin (){
+    const t =  this;
+    // let presidiumList = [{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护,贫困患儿",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",tags:"环境保护",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png"},{descript:"让孩子在山野、在大自然中找回自我乐趣，远离自然缺失症",status:"300人参与",name:"让孩子回归大自然",photo:"https://taro-ui.aotu.io/img/logo-taro.png",tags:"环境保护"}];
+    t.activity_activitysListStatus = "loading";
+    request("/config/commerce_my_activity").then((res) => {
+      const data = res.data.data.data_list;
+      if(data.list.length){
+        data.list.forEach((item,key)=>{
+            item.descript = item.description;
+            item.tags = item.tag;
+            item.name = item.title;
+            item.photo = item.picture;
+            item.status = item.num + "人参与";
+            if(key == data.list.length -1){
+              t.activity_mine_join = t.activity_activityInformList.concat(data.list);
+            }
+        });
+      }
+    });
+  },
   //首页活动、活动模块 活动详情
-  getActivityDetail(){
+  getActivityDetail(id){
     // this.activityDetail = {
     //   photo:"https://taro-ui.aotu.io/img/logo-taro.png",
     //   title:"玩转地球天河汇123健康俱乐部",
@@ -264,11 +366,27 @@ const defaultStore = observable({
     //   detailPhotos:"https://img.zcool.cn/community/01f49a5c9b403aa801208f8b35c9e4.jpg@1280w_1l_2o_100sh.jpg"
     // };
     const t =  this;
+    t.activity_info_array = [
+        {key:"title",label:"活动名称",value:t.activityDetail.title || "请填写活动名称",url:""},
+        
+        {key:'subtitle', label: '活动简介', value: t.activityDetail.subtitle || "活动简介"},
+        {key:"start_time",label:"时间",value:t.activityDetail.phone || "请填写活动时间"},
+        {key:"address",label:"地点",value:t.activityDetail.abstract || "请填写活动地点"},
+        {key:"amount",label:"积分",value:t.activityDetail.honor || "请填写所需积分"},
+        
+        {key:"master_id",label:"发起人",text:wx.getStorageSync("_TY_CurrentInfo").name,value:wx.getStorageSync("_TY_CurrentInfo").weixin_id},
+        {key:"phone",label:"联系方式",value:t.activityDetail.target_peoples || "请填写联系人电话"},
+        {key:"description",label:"活动详情",value:t.activityDetail.target_peoples || "请填写活动详情"},
+      ];
+    if(id == undefined){
+      return;
+    }
+    
     const pages = getCurrentPages();
     const options = pages[pages.length - 1].options;
     request("/config/commerce_activity_detail_app",{
       data: {
-        id:pages[pages.length - 1].options.id
+        id:id || pages[pages.length - 1].options.id
       },
     }).then((res) => {
       const data = res.data.data.data;
@@ -283,6 +401,18 @@ const defaultStore = observable({
       data.data_list = data_list;
       t.activityDetail = data;
       const commentList = res.data.data.page_data.currentRecords;
+      t.activity_info_array = [
+        {key:"title",label:"活动名称",value:t.org_detail.title || "请填写活动名称",url:""},
+        
+        {key:'subtitle', label: '活动简介', value: t.activityDetail.subtitle || "活动简介"},
+        {key:"start_time",label:"时间",value:t.activityDetail.phone || "请填写活动时间"},
+        {key:"address",label:"地点",value:t.activityDetail.abstract || "请填写活动地点"},
+        {key:"amount",label:"积分",value:t.activityDetail.honor || "请填写所需积分"},
+        
+        {key:"master_id",label:"发起人",text:wx.getStorageSync("_TY_CurrentInfo").name,value:wx.getStorageSync("_TY_CurrentInfo").weixin_id},
+        {key:"phone",label:"联系方式",value:t.activityDetail.target_peoples || "请填写联系人电话"},
+        {key:"description",label:"活动详情",value:t.activityDetail.target_peoples || "请填写活动详情"},
+      ];
 
       commentList.forEach((ele,key)=>{
         ele.time = ele.create_time || "";
@@ -292,6 +422,7 @@ const defaultStore = observable({
         ele.name = ele.user_name || "";
         if(key == (commentList.length - 1)){
           t.activity_messageList = commentList;
+
         }
       });
 
@@ -898,9 +1029,107 @@ const defaultStore = observable({
 
     });
   },
+  //组织列表-当前登录人创建
+  getOrganizationMineCreate(type, keywords){
+    //type 列表请求参数
+    // const list = [{photo:"https://taro-ui.aotu.io/img/logo-taro.png",title:"红酒会俱乐部",subtitle:"一份静谧的高贵，一种脱俗的气质",members:"12",activitys:[{photo:"https://taro-ui.aotu.io/img/logo-taro.png",title:"红酒品鉴大会",time:"04-02",address:"某某酒店"},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",title:"红酒品鉴大会",time:"04-02",address:"某某酒店"}]}];
+    // return list;
+    const t = this;
+    request('/config/commerce_org_list').then(res => {
+      const { data, activity_list } = res.data.data;
+      const list = data.list;
+      const activityList = activity_list.list;
+
+      const result = list.map(item => {
+        const tmp = {
+          id: item.id,
+          photo: item.logo || '',
+          title: item.name || '',
+          subtitle: item.description || '',
+          members: item.num || 0,
+          activitys: []
+        }
+        const tmpA = activityList.filter(one => {
+          return one.org_id === item.id;
+        });
+        tmp.activitys = tmpA.map( two => {
+          return {
+            id: two.id,
+            photo: two.picture || '',
+            title: two.title || '',
+            time: two.start_time || '',
+            address: two.address || ''
+          }
+        });
+        return tmp;
+      });
+
+      const tmpObj = t.org_type_list;
+      tmpObj[type] = result;
+      // t.org_type_list = Object.assign({},tmpObj);
+      t.org_mine_create = result
+
+    });
+  },
+  //组织列表-当前登录人参加
+  getOrganizationMineJoin(type, keywords){
+    //type 列表请求参数
+    // const list = [{photo:"https://taro-ui.aotu.io/img/logo-taro.png",title:"红酒会俱乐部",subtitle:"一份静谧的高贵，一种脱俗的气质",members:"12",activitys:[{photo:"https://taro-ui.aotu.io/img/logo-taro.png",title:"红酒品鉴大会",time:"04-02",address:"某某酒店"},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",title:"红酒品鉴大会",time:"04-02",address:"某某酒店"}]}];
+    // return list;
+    const t = this;
+    request('/config/commerce_org_list').then(res => {
+      const { data, activity_list } = res.data.data;
+      const list = data.list;
+      const activityList = activity_list.list;
+
+      const result = list.map(item => {
+        const tmp = {
+          id: item.id,
+          photo: item.logo || '',
+          title: item.name || '',
+          subtitle: item.description || '',
+          members: item.num || 0,
+          activitys: []
+        }
+        const tmpA = activityList.filter(one => {
+          return one.org_id === item.id;
+        });
+        tmp.activitys = tmpA.map( two => {
+          return {
+            id: two.id,
+            photo: two.picture || '',
+            title: two.title || '',
+            time: two.start_time || '',
+            address: two.address || ''
+          }
+        });
+        return tmp;
+      });
+
+      const tmpObj = t.org_type_list;
+      tmpObj[type] = result;
+      // t.org_type_list = Object.assign({},tmpObj);
+      t.org_mine_join = result;
+
+    });
+  },
   //组织详情
   getOrganizationDetail(id, user){
     const t=this;
+    const currentInfo = wx.getStorageSync("_TY_CurrentInfo");
+
+    t.org_info_array = [
+        {key:"name",label:"组织名称",value:t.org_detail.header.name || "请填写组织名称",url:""},
+        {key:"apply_user_id",label:"发起人",text:wx.getStorageSync("_TY_CurrentInfo").name,value:wx.getStorageSync("_TY_CurrentInfo").weixin_id},
+        {key:'description', label: '愿景', value: t.org_detail.header.description || "请填写愿景"},
+        {key:"telphone",label:"章程",value:t.org_detail.header.phone || "请填写章程"},
+        {key:"introduce",label:"日常活动内容",value:t.org_detail.header.abstract || "请填写日常内容"},
+        {key:"honor",label:"组织架构",value:t.org_detail.header.honor || "请填写组织架构"},
+        {key:"target_peoples",label:"目标参与人",value:t.org_detail.header.target_peoples || "请填写目标参与人"}
+      ];
+    if(id == undefined){
+      return;
+    }
     request('/config/commerce_org_detail',{
       data: {
         id
@@ -973,6 +1202,15 @@ const defaultStore = observable({
       console.log('result:',result);
 
       t.org_detail = result;
+      t.org_info_array = [
+        {key:"name",label:"组织名称",value:t.org_detail.header.title,url:""},
+        {key:"apply_user_id",label:"发起人",text:wx.getStorageSync("_TY_CurrentInfo").name,value:wx.getStorageSync("_TY_CurrentInfo").weixin_id},
+        {key:'description', label: '愿景', value: t.org_detail.header.subtitle},
+        {key:"telphone",label:"章程",value:t.org_detail.header.phone,url:"",editorType:"telphone"},
+        {key:"introduce",label:"日常活动内容",value:t.org_detail.header.abstract,url:""},
+        {key:"honor",label:"组织架构",value:t.org_detail.header.honor,url:""},
+        {key:"target_peoples",label:"目标参与人",value:t.org_detail.header.target_peoples,url:""}
+      ];
     })
   },
 
@@ -1415,6 +1653,180 @@ const defaultStore = observable({
       }
     });
   },
+  setOrgEditor(params){
+    const pages = getCurrentPages();
+    const page = pages[pages.length - 1]
+    this.org_editor = params;
+    this.org_editor.formPage = page.route;
+    debugger
+  },
+  submitOrgEditorValue(id){
+    const t = this;
+    let param = {};
+    if(t.org_editor.id){
+      param = {
+        id:t.org_editor.id,
+        [t.org_editor.key]:t.org_editor.value
+      }
+    }else{
+      param = {
+        [t.org_editor.key]:t.org_editor.value
+      }
+      t.org_detail = Object.assign(t.org_editor_form,param);
+      if(t.org_editor.type != "photo"){
+        setTimeout(()=>{
+          t.getOrganizationDetail();
+          wx.navigateBack()
+        },100);
+      }
+      return;
+    }
+    request("/config/commerce__commerce_api_tb_organization_update_47950",{
+      method:"post",
+      data:param
+      // header: {
+      //   'content-type': 'application/json'
+      // }
+    }).then((res) => {
+      if(!res.data.ok){
+        // wx.showToast({
+        //   title: "修改失败",
+        //   icon: 'none'
+        // })
+        setTimeout(()=>{
+          t.getOrganizationDetail();
+          wx.navigateBack();
+        },1000)
+      }else{
+        wx.showToast({
+          title: "修改成功！",
+          icon: 'none'
+        });
+        setTimeout(()=>{
+          t.getOrganizationDetail();
+          wx.navigateBack()
+        },1000)
+      }
+    });
+  },
+  submitCreateOrg(){
+    const t = this;
+    debugger
+    request("/config/commerce__commerce_api_tb_organization_add_47950",{
+      method:"post",
+      data:t.org_detail
+      // header: {
+      //   'content-type': 'application/json'
+      // }
+    }).then((res) => {
+      debugger
+      if(!res.data.ok){
+        wx.showToast({
+          title: res.data.message,
+          icon: 'none'
+        })
+        setTimeout(()=>{
+          t.getOrganizationDetail();
+          wx.navigateBack();
+        },1000)
+      }else{
+        wx.showToast({
+          title: "创建成功！",
+          icon: 'none'
+        });
+        setTimeout(()=>{
+          t.getOrganizationDetail();
+          wx.navigateBack()
+        },1000)
+      }
+    });
+  },
+  setActivitysEditor(params){
+    const pages = getCurrentPages();
+    const page = pages[pages.length - 1]
+    this.activity_editor = params;
+    this.activity_editor.formPage = page.route;
+  },
+  submitActivitysEditorValue(id){
+    const t = this;
+    let param = {};
+    debugger
+    if(id){
+      param = {
+        id:id,
+        [t.activity_editor.key]:t.activity_editor.value
+      }
+    }else{
+      param = {
+        [t.activity_editor.key]:t.activity_editor.value
+      }
+      t.activityDetail = Object.assign(t.activityDetail,param);
+      if(t.activity_editor.type != "photo"){
+        setTimeout(()=>{
+          t.getActivityDetail();
+          wx.navigateBack()
+        },100);
+      }
+      return;
+    }
+    request("/config/commerce__commerce_api_tb_organization_update_47950",{
+      method:"post",
+      data:param
+      // header: {
+      //   'content-type': 'application/json'
+      // }
+    }).then((res) => {
+      if(!res.data.ok){
+        // wx.showToast({
+        //   title: "修改失败",
+        //   icon: 'none'
+        // })
+        setTimeout(()=>{
+          t.getActivityDetail(id);
+          wx.navigateBack();
+        },1000)
+      }else{
+        wx.showToast({
+          title: "修改成功！",
+          icon: 'none'
+        });
+        setTimeout(()=>{
+          t.getActivityDetail(id);
+          wx.navigateBack()
+        },1000)
+      }
+    });
+  },
+  submitCreateActivitys(){
+    const t = this;
+    request("/config/commerce__commerce_api_tb_activity_add_03117",{
+      method:"post",
+      data:t.activityDetail
+      // header: {
+      //   'content-type': 'application/json'
+      // }
+    }).then((res) => {
+      if(!res.data.ok){
+        wx.showToast({
+          title: res.data.message,
+          icon: 'none'
+        })
+        setTimeout(()=>{
+          t.getActivityDetail();
+          wx.navigateBack();
+        },1000)
+      }else{
+        wx.showToast({
+          title: "创建成功！",
+          icon: 'none'
+        });
+        setTimeout(()=>{
+          t.getActivityDetail();
+          wx.navigateBack()
+        },1000)
+      }
+    });
+  }
 
 
 })

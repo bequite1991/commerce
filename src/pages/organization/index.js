@@ -35,7 +35,7 @@ class Index extends Component {
     };
   }
 
-  componentWillMount () { }
+  componentWillMount () {}
 
   componentWillReact () {
     console.log('componentWillReact')
@@ -70,6 +70,12 @@ class Index extends Component {
       url: `/pages/${url}/index`
     })
   }
+  goCreatePage(url){
+    Taro.navigateTo({
+      // url: '/pages/joinUs/index'
+      url: `/pages/organization/createOrEdit`
+    })
+  }
 
 
   render () {
@@ -102,7 +108,10 @@ class Index extends Component {
           {/*</AtTabsPane>*/}
         {/*</AtTabs>*/}
         <List type=""/>
-        <AtFab style="display:none;" onClick={this.goPage.bind(this,'organizationRegister')}>
+        {/*<AtFab style="display:inline-block;" onClick={this.goPage.bind(this,'organizationRegister')}>
+          <Text className='at-fab__icon at-icon at-icon-add'></Text>
+        </AtFab>*/}
+        <AtFab style="display:inline-block;" onClick={this.goCreatePage.bind(this,'create')}>
           <Text className='at-fab__icon at-icon at-icon-add'></Text>
         </AtFab>
         {/*<BottomBar active={1} />*/}

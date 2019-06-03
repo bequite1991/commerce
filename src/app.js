@@ -33,6 +33,12 @@ class App extends Component {
       'pages/largeProjects/index',
       'pages/registerCompany/index',
       'pages/activityInformation/index',
+
+      'pages/activityInformation/createOrEdit',
+      'pages/activityInformation/editor',
+      'pages/activityInformation/mineActivitys',
+
+
       'pages/directTrain/index',
       'pages/directTrainDetail/index',
       
@@ -84,9 +90,13 @@ class App extends Component {
       'pages/activityInformationDetail/index',
       'pages/activityInformationDetail/message',
       'pages/wisdomMemberDetail/index',
-      'pages/organizationRegister/index',
       'pages/organizationRegister/submitSuccess',
       'pages/organization/index',
+      'pages/organization/createOrEdit',
+      'pages/organization/editor',
+      'pages/organization/mineOrg',
+
+
       'pages/organizationDetail/index',
       'pages/connection/index',
       'pages/wisdom/index',
@@ -96,6 +106,8 @@ class App extends Component {
       'pages/governmentDocking/index',
       'pages/joinUs/index',
       'pages/commerceIntroduce/index',
+
+
 
       'pages/error/building',
 
@@ -118,7 +130,7 @@ class App extends Component {
         iconPath: './public/images/tabsIcon/index0.png',
         text: '首页'
       },{
-        pagePath: 'pages/organizationRegister/index',
+        pagePath: 'pages/organization/index',
         selectedIconPath: './public/images/tabsIcon/zuzhi1.png',
         iconPath: './public/images/tabsIcon/zuzhi0.png',
         text: '组织'

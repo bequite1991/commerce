@@ -36,7 +36,7 @@ class Index extends Component {
     const pages = getCurrentPages();
     const activityId = pages[pages.length - 1].options.id;
     const { defaultStore} = this.props;
-    defaultStore.getActivityDetail();
+    defaultStore.getActivityDetail(this.$router.params.id);
     defaultStore.getMessageList();
     this.state.activityId = activityId;
     wx.showShareMenu();

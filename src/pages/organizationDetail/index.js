@@ -53,6 +53,12 @@ class Index extends Component {
       url: `/pages/organizationRegister/index?id=${t.$router.params.id}`
     });
   }
+  goActivityCreate(){
+    const t = this;
+    Taro.navigateTo({
+      url: `/pages/activityInformation/createOrEdit`
+    });
+  }
   handleClick (value) {
     this.setState({
       current: value
@@ -62,9 +68,8 @@ class Index extends Component {
   render () {
     const { defaultStore } = this.props;
     const organizationDetail = defaultStore.org_detail;
-
-    console.log('organizationDetail:', organizationDetail);
-
+    //判断是否是是改组织的管理员
+    const owner = true;
     const tabList = [{ title: '成员' }, { title: '活动' }];
     return (
       <View className='detail'>
@@ -79,6 +84,9 @@ class Index extends Component {
         </AtTabs>
         {
           !organizationDetail.hasJoin && <AtButton className="apply" type='primary' onClick={this.goPage}>申请</AtButton>
+        }
+        {
+          owner && <AtButton className="apply" type='primary' onClick={this.goActivityCreate}>发起活动</AtButton>
         }
       </View>
     )
