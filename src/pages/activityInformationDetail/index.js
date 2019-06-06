@@ -3,7 +3,7 @@ import { View, Button, Text,Swiper, SwiperItem} from '@tarojs/components'
 import { observer, inject } from '@tarojs/mobx'
 import Banner from "./banner.js";
 import Card from "../../components/card/index.js";
-import { AtButton,  AtActionSheet, AtActionSheetItem  } from 'taro-ui';
+import { AtButton,  AtActionSheet, AtActionSheetItem, AtModal, AtModalHeader, AtModalContent, AtModalAction ,AtTextarea  } from 'taro-ui';
 
 import './index.scss';
 import login from "../../utils/authLogin";
@@ -22,7 +22,9 @@ class Index extends Component {
     super(props);
     this.state = {
       activityId: null,
-      authOpened: false
+      authOpened: false,
+      isOpened:false,
+      rejectSource:""
     }
   }
 
@@ -76,6 +78,22 @@ class Index extends Component {
     Taro.navigateTo({
       url: path
     });
+  }
+  taggleReject(value){
+    this.setState({
+      isOpened:value
+    });
+  }
+  rejectChange(e){
+    this.state.rejectSource = e.detail.value;
+  }
+  submitAuditReject(){
+    const { defaultStore } = this.props;
+    defaultStore.submitActivityAudit(this.$router.params.id,0,this.state.rejectSource);
+  }
+  submitAuditPass(){
+    const { defaultStore } = this.props;
+    defaultStore.submitActivityAudit(this.$router.params.id,1);
   }
 
   render () {
@@ -133,7 +151,7 @@ class Index extends Component {
         <Card title="活动详情">
           <View className="content">
             <rich-text nodes="{{activityDetail.content}}"></rich-text>
-            <AtButton className="apply" type='primary' onClick={this.goPage.bind(this,`/pages/activityInformationDetail/appliedConfirm?id=${this.state.activityId}`)}>确认报名</AtButton>
+            <AtButton className={this.$router.params.isAudit?"displayNone":"apply"} type='primary' onClick={this.goPage.bind(this,`/pages/activityInformationDetail/appliedConfirm?id=${this.state.activityId}`)}>确认报名</AtButton>
           </View>
         </Card>
 
@@ -144,6 +162,22 @@ class Index extends Component {
             </Button>
           </AtActionSheetItem>
         </AtActionSheet>
+
+        <View className={this.$router.params.isAudit?"button-group":"displayNone"}>
+          <AtButton type='secondary' size='small' onClick={this.taggleReject.bind(this,true)}>拒绝</AtButton>
+          <AtButton type='primary' size='small' onClick={this.submitAuditPass.bind(this)}>同意</AtButton>
+        </View>
+        <AtModal isOpened={this.state.isOpened}>
+            <AtModalHeader>拒绝理由</AtModalHeader>
+              <AtModalContent>
+                <AtTextarea
+                  onChange={this.rejectChange.bind(this)}
+                  maxLength={200}
+                  placeholder='请填写拒绝理由'
+                />
+              </AtModalContent>
+            <AtModalAction> <Button onClick={this.taggleReject.bind(this,false)}>取消</Button> <Button onClick={this.submitAuditReject.bind(this,1)}>确定</Button> </AtModalAction>
+          </AtModal>
 
       </View>
     )

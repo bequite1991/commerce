@@ -74,7 +74,7 @@ class Index extends Component {
               })}
             </View>
         </Card>
-        <AtButton className={isJoined?"displayNone":"apply"} type='primary' onClick={this.goPage}>申请</AtButton>
+        <AtButton className={isJoined && !isJoined?"displayNone":"apply"} type='primary' onClick={this.goPage}>申请加入</AtButton>
       </View>
     )
   }

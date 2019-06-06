@@ -10,9 +10,8 @@ page {
 		display: flex;
 		padding: 40rpx;
 		.photo{
-			width:190rpx;
-			height:190rpx;
-			border-radius: 50%;
+			width:146rpx;
+			height:208rpx;
 			overflow:hidden;
 			margin-right: 70rpx;
 			image{
@@ -26,6 +25,7 @@ page {
 			font-weight:400;
 			color:rgba(0,0,0,1);
 			line-height:64rpx;
+			padding-top: 14rpx;
 			.name{
 				min-width:100rpx;
 				height:44rpx;

@@ -46,7 +46,7 @@ class Index extends Component {
       <View className='enterpriseData'>
         <AtList className="customList">
           {list.map((item,index)=>{
-            return (<AtListItem
+            return (item.editorType == "rich"?<View onClick={this.emmitEvent.bind(this,item)}><rich-text class="rich" nodes="{{item.value}}" ></rich-text></View>:<AtListItem
               key={index}
               title={item.label}
               note={item.text || item.value + ""}

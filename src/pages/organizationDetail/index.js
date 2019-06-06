@@ -56,7 +56,7 @@ class Index extends Component {
   goActivityCreate(){
     const t = this;
     Taro.navigateTo({
-      url: `/pages/activityInformation/createOrEdit`
+      url: `/pages/activityInformation/createOrEdit?org_id=${t.$router.params.id}`
     });
   }
   handleClick (value) {

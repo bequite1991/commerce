@@ -35,8 +35,9 @@ class Index extends Component {
   componentDidMount () {
     const {defaultStore,defaultStore:{activityDetail}} = this.props;
     const id = this.$router.params.id;
+    const org_id = this.$router.params.org_id;
     const user = wx.getStorageSync("_TY_U");
-    defaultStore.getActivityDetail(id);
+    defaultStore.getActivityDetail(id,org_id);
     wx.showShareMenu();
     this.setState({
       userPhoto:activityDetail.logo
@@ -73,8 +74,14 @@ class Index extends Component {
   }
   eventClick(item){
     const t = this;
+    if(item.disabled){
+      wx.showToast({
+        title: `${item.label}不支持修改`,
+        icon: 'none'
+      });
+      return;
+    }
     const {defaultStore} = this.props;
-
     const param = {
       id:t.$router.params.id,
       url:"/config/commerce_update_userinfo",
@@ -110,7 +117,7 @@ class Index extends Component {
         const param = {
           type:"photo",
           url:"/config/commerce_update_userinfo",
-          key:"logo",
+          key:"picture",
           value:JSON.parse(res.data).data.file_url,
           editorType:"textarea",
           options:{}
@@ -156,11 +163,11 @@ class Index extends Component {
         <View className="photo">
           <View className="label">活动主图</View>
           <View className="value" onClick={this.chooseImage.bind(this)}>
-            <Image src={this.state.userPhoto} />
+            <Image src={this.state.userPhoto || activityDetail.logo} />
           </View>
         </View>
         <CustomList list={orgData} onClick={this.eventClick.bind(this)} />
-         <View className={this.$router.params.id == undefined?"submitButton":"displayNone"}><AtButton onClick={this.submit.bind(this)} className="button" type='primary'>确认提交</AtButton></View>
+         <View className={this.$router.params.id == undefined?"submitButton":"submitButton"}><AtButton onClick={this.submit.bind(this)} className="button" type='primary'>确认提交</AtButton></View>
       </View>
     )
   }

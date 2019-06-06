@@ -1,0 +1,27 @@
+.contact{
+	.contactList{
+		.item{
+			border-bottom:2rpx solid rgba(236,236,236,1);
+			margin:0 60rpx;
+			padding: 30rpx 0;
+		}
+		.icon{
+			display: inline-block;
+			margin-right: 50rpx;
+		}
+		.text{
+			display: inline-block;
+			font-size:28rpx;
+			font-family:PingFangSC-Medium;
+			font-weight:500;
+			color:rgba(0,0,0,1);
+			line-height:40rpx;
+		}
+	}
+	.submit{
+		width: 80%;
+		margin:auto;
+		background:#003A80;
+		margin-top:240rpx;
+	}
+}

@@ -1,0 +1,37 @@
+.assistantData{
+	.photo{
+		background-color: #fff;
+		border-bottom:1px solid rgba(236,236,236,0.6);
+		padding-left: 20rpx;
+		display: flex;
+		justify-content: space-between;
+		.label{
+			font-size:36rpx;
+			font-family:PingFangSC-Regular;
+			font-weight:400;
+			color:rgba(56,56,56,1);
+			line-height:50rpx;
+		}
+		.value{
+			position:relative;
+			width: 150rpx;
+			height: 130rpx;
+			text-align: center;
+		}
+		at-image-picker{
+			position: absolute;
+			top: 0;
+			right: 20rpx;
+			width: 130rpx;
+			height: 130rpx;
+			border-radius: 50%;
+			opacity: 0;
+		}
+		image{
+			width: 130rpx;
+			height: 130rpx;
+			border-radius: 50%;
+
+		}
+	}
+}

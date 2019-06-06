@@ -47,21 +47,20 @@ class Index extends Component {
     });
   }
   handleChange(e){
-    const { defaultStore:{activity_editor} } = this.props;
-    // const params = Object.assign(activity_editor,{value:e});
-    if(e == "true" || e == "false"){
-      activity_editor.value = e
+    const { defaultStore:{secretary_activity_editor} } = this.props;
+    // const params = Object.assign(secretary_activity_editor,{value:e});
+    if(e == "true" || e == "false" || secretary_activity_editor.editorType == "radio"){
+      secretary_activity_editor.value = e
       this.setState({
         value:e
       });
-      activity_editor.value = e;
-    }else{
-      activity_editor.value = e.detail.value;
+    }else {
+      secretary_activity_editor.value = e.detail.value;
     }
   }
   submit(){
-    const { defaultStore,defaultStore:{activity_editor} } = this.props;
-    defaultStore.submitActivitysEditorValue(activity_editor.id);
+    const { defaultStore,defaultStore:{secretary_activity_editor} } = this.props;
+    defaultStore.submitSecretaryActivitysEditorValue(secretary_activity_editor.id);
   }
   readOnlyChange() {
     this.setData({
@@ -69,7 +68,6 @@ class Index extends Component {
     })
   }
   onEditorReady(valueBase) {
-    debugger
     const that = this
     wx.createSelectorQuery().select('#editor').context(valueBase).exec()
   }
@@ -81,10 +79,10 @@ class Index extends Component {
   }
 
   render () {
-    const { defaultStore:{activity_editor} } = this.props;
-    const valueBase = activity_editor?activity_editor.value+"":"";
+    const { defaultStore:{secretary_activity_editor} } = this.props;
+    const valueBase = secretary_activity_editor?secretary_activity_editor.value+"":"";
 
-    if(activity_editor && activity_editor.editorType == "telphone"){
+    if(secretary_activity_editor && secretary_activity_editor.editorType == "telphone"){
       Taro.navigateTo({
         // url: '/pages/joinUs/index'
         url: `/pages/mineShare/settingPhone`
@@ -93,7 +91,7 @@ class Index extends Component {
     return (
       <View className="minEditor">
         <AtInput
-          className={activity_editor.editorType=="input"?"":"displayNone"}
+          className={secretary_activity_editor.editorType=="input"?"":"displayNone"}
           name='valueBase'
           type='text'
           value={valueBase}
@@ -101,7 +99,7 @@ class Index extends Component {
         />
         <editor
           id="editor"
-          class={activity_editor.editorType=="rich"?"ql-container":"displayNone"}
+          class={secretary_activity_editor.editorType=="rich"?"ql-container":"displayNone"}
           placeholder="富文本编辑器"
           showImgSize
           showImgToolbar
@@ -110,15 +108,15 @@ class Index extends Component {
           bindready="onEditorReady(valueBase)">
         </editor>
         <AtTextarea
-          className={activity_editor.editorType=="textarea"?"":"displayNone"}
+          className={secretary_activity_editor.editorType=="textarea"?"":"displayNone"}
           value={valueBase}
           onChange={this.handleChange.bind(this)}
           maxLength={500}
         />
         <AtRadio
-          className={activity_editor.editorType=="radio"?"":"displayNone"}
-          options={activity_editor.options}
-          value={activity_editor.value}
+          className={secretary_activity_editor.editorType=="radio"?"":"displayNone"}
+          options={secretary_activity_editor.options}
+          value={secretary_activity_editor.value}
           onClick={this.handleChange.bind(this)}
         />
         <AtButton className="apply" type='primary' onClick={this.submit.bind(this,'appliedSuccess')}>确定</AtButton>

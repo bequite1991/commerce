@@ -58,17 +58,17 @@ class Index extends Component {
     return (
       <View className="message">
         <View className="header">
-          <View className='entrance' onClick={this.goPage.bind(this,'commerceIntroduce')} key="商道智慧">
+          <View className='entrance' onClick={this.goPage.bind(this,'messageSystem')} key="商道智慧">
             <View className='tips'></View>
             <View><text class="icon iconfont iconxitongxiaoxi"></text></View>
             <text>系统消息</text>
           </View>
-          <View className='entrance' onClick={this.goPage.bind(this,'activityInformation')}>
+          <View className='entrance' onClick={this.goPage.bind(this,'messageReply')}>
             <View className='tips'></View>
             <View><text class="icon iconfont iconxinzenghuifu"></text></View>
             <text>新增回复</text>
           </View>
-          <View className='entrance' onClick={this.goPage.bind(this,'directTrain')}>
+          <View className='entrance' onClick={this.goPage.bind(this,'messageComment')}>
             <View className='tips'></View>
             <View><text class="icon iconfont iconxinzengliuyan"></text></View>
             <text>新增留言</text>

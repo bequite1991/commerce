@@ -199,3 +199,10 @@ function pxTransform(size) {
     return taro_1["default"].pxTransform(size);
 }
 exports.pxTransform = pxTransform;
+
+export default {
+    delayQuerySelector,
+    uuid, 
+    initTestEnv, 
+    isTest
+}

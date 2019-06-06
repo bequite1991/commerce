@@ -97,6 +97,16 @@ class App extends Component {
       'pages/organization/mineOrg',
 
 
+      'pages/secretary/index',
+      'pages/secretary/createOrEdit',
+      'pages/secretary/auditActivitys',
+      'pages/secretary/auditOrgs',
+      'pages/secretary/editor',
+      'pages/secretary/auditDetail',
+
+
+
+
       'pages/organizationDetail/index',
       'pages/connection/index',
       'pages/wisdom/index',

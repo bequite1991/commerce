@@ -2,7 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text,Swiper, SwiperItem} from '@tarojs/components'
 import { observer, inject } from '@tarojs/mobx'
 
-import { AtFab,AtButton,AtTextarea } from 'taro-ui';
+import { AtFab,AtButton,AtTextarea,Picker } from 'taro-ui';
 
 import './index.scss';
 
@@ -20,7 +20,9 @@ class Index extends Component {
     super (props);
     this.state = {
       current: 0,
-      value:""
+      value:"",
+      selector:['名誉会长', '会长', '副会长', '理事','会员'],
+      selectorChecked:"会员"
     };
   }
 
@@ -55,6 +57,9 @@ class Index extends Component {
       url: `/pages/${url}/index`
     })
   }
+  onPickerChange(params){
+
+  }
 
   submit(){
     const reason = this.state.value;
@@ -84,6 +89,11 @@ class Index extends Component {
   render () {
     return (
       <View className='register'>
+        <Picker mode='selector' range={this.state.selector} onChange={this.onPickerChange.bind(this)}>
+          <View className='picker'>
+            成员类型：{this.state.selectorChecked}
+          </View>
+        </Picker>
         <AtTextarea
           className="textarea"
           value={this.state.value}
@@ -91,7 +101,7 @@ class Index extends Component {
           maxLength={100}
           placeholder='请填写您想加入该组织的理由！'
         />
-        <AtButton onClick={this.submit.bind(this)} className="submit" type='primary' size='normal'>按钮文案</AtButton>
+        <AtButton onClick={this.submit.bind(this)} className="submit" type='primary' size='normal'>提交申请</AtButton>
       </View>
     )
   }

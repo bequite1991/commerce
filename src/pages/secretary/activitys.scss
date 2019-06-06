@@ -10,8 +10,9 @@ page {
 		display: flex;
 		padding: 40rpx;
 		.photo{
-			width:162rpx;
-			height:230rpx;
+			width:190rpx;
+			height:190rpx;
+			border-radius: 50%;
 			overflow:hidden;
 			margin-right: 70rpx;
 			image{
@@ -25,7 +26,6 @@ page {
 			font-weight:400;
 			color:rgba(0,0,0,1);
 			line-height:64rpx;
-			padding-top:22rpx;
 			.name{
 				width:120rpx;
 				height:44rpx;
@@ -46,5 +46,8 @@ page {
 		font-weight:400;
 		color:rgba(0,0,0,1);
 		line-height:64rpx;
+	}
+	.list{
+		margin-top: 20rpx;
 	}
 }

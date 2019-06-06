@@ -1,0 +1,47 @@
+page {
+  background-color: rgba(236,236,236,1);
+} 
+.auditActivitys{
+	background-color: rgba(236,236,236,1);
+	padding-bottom: 40rpx;
+	margin-top: 4rpx;
+	.activitysItem{
+		background:rgba(255,255,255,1);
+		margin-top:20rpx;
+		padding:20rpx 40rpx;
+		display: flex;
+		align-items: center;
+		Image{
+			height: 96rpx;
+			width: 96rpx;
+		}
+		.itemLeft{
+			margin-right: 40rpx;
+		}
+		.title{
+			font-size:32rpx;
+			font-family:PingFangSC-Medium;
+			font-weight:500;
+			color:rgba(0,0,0,1);
+			line-height:44rpx;
+			margin-bottom: 12rpx;
+		}
+		.button{
+			font-size:28rpx;
+			font-family:PingFangSC-Regular;
+			font-weight:400;
+			color:rgba(0,58,128,1);
+			line-height:40rpx;
+			position:absolute;
+			right:40rpx;
+
+		}
+		.apply{
+			font-size:28rpx;
+			font-family:PingFangSC-Regular;
+			font-weight:400;
+			color:rgba(153,153,153,1);
+			line-height:40rpx;
+		}
+	}
+}

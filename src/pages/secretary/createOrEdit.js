@@ -13,7 +13,7 @@ import './createOrEdit.scss';
 class Index extends Component {
 
   config = {
-    navigationBarTitleText: '创建修改组织',
+    navigationBarTitleText: '创建编辑活动',
     navigationBarTextStyle: "black",
   }
 
@@ -33,13 +33,13 @@ class Index extends Component {
   }
 
   componentDidMount () {
-    const {defaultStore,defaultStore:{org_detail}} = this.props;
+    const {defaultStore,defaultStore:{secretary_activitys_detail}} = this.props;
     const id = this.$router.params.id;
     const user = wx.getStorageSync("_TY_U");
-    defaultStore.getOrganizationDetailMineCreate(id, user);
+    defaultStore.getSecretaryActivityDetail(id);
     wx.showShareMenu();
     this.setState({
-      userPhoto:org_detail.logo
+      userPhoto:secretary_activitys_detail.logo
     })
   }
 
@@ -74,13 +74,7 @@ class Index extends Component {
   eventClick(item){
     const t = this;
     const {defaultStore} = this.props;
-    if(item.disabled){
-      wx.showToast({
-        title: `${item.label}不支持修改`,
-        icon: 'none'
-      });
-      return;
-    }
+
     const param = {
       id:t.$router.params.id,
       url:"/config/commerce_update_userinfo",
@@ -89,9 +83,9 @@ class Index extends Component {
       editorType:item.editorType || "textarea",
       options:item.options
     };
-    defaultStore.setOrgEditor(param);
+    defaultStore.setSecretaryActivitysEditor(param);
     setTimeout(()=>{
-      t.goPage("/pages/organization/editor");
+      t.goPage("/pages/secretary/editor");
     },500);
   }
   upload(t, path){
@@ -116,12 +110,12 @@ class Index extends Component {
         const param = {
           type:"photo",
           url:"/config/commerce_update_userinfo",
-          key:"logo",
+          key:"picture",
           value:JSON.parse(res.data).data.file_url,
           editorType:"textarea",
           options:{}
         };
-        defaultStore.setOrgEditor(param,false);
+        defaultStore.setSecretaryActivitysEditor(param,false);
         if (res.statusCode != 200) {
           wx.showModal({
             title: '提示',
@@ -148,25 +142,25 @@ class Index extends Component {
   submit(){
     const t = this;
     const {defaultStore} = this.props;
-    defaultStore.submitCreateOrg();
+    defaultStore.submitSecretaryCreateActivitys();
   }
 
 
   render () {
-    const {defaultStore,defaultStore:{org_detail,org_info_array}} = this.props;
+    const {defaultStore,defaultStore:{secretary_activitys_detail,secretary_activitys_detail_array}} = this.props;
     // const userPhoto = [{url:""}];
     // const userPhoto = [{url:mine_userinfo.photo}];
-    const orgData = org_info_array.$mobx.values;
+    const orgData = secretary_activitys_detail_array.$mobx.values;
     return (
       <View className='create'>
         <View className="photo">
-          <View className="label">头像</View>
+          <View className="label">活动主图</View>
           <View className="value" onClick={this.chooseImage.bind(this)}>
-            <Image src={this.state.userPhoto || org_detail.logo} />
+            <Image src={this.state.userPhoto} />
           </View>
         </View>
         <CustomList list={orgData} onClick={this.eventClick.bind(this)} />
-         <View className={this.$router.params.id == undefined?"submitButton":"submitButton"}><AtButton onClick={this.submit.bind(this)} className="button" type='primary'>确认提交</AtButton></View>
+         <View className={this.$router.params.id == undefined?"submitButton":"displayNone"}><AtButton onClick={this.submit.bind(this)} className="button" type='primary'>确认提交</AtButton></View>
       </View>
     )
   }

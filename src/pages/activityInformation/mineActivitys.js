@@ -61,7 +61,7 @@ class Index extends Component {
 
   render () {
     const { defaultStore: { counter } } = this.props
-    const tabList = [{ title: '管理我的组织' }, { title: '我参加的组织' }];
+    const tabList = [{ title: '管理我的活动' }, { title: '我参加的活动' }];
     return (
       <View className='internationalRelations'>
         <View className={this.state.current == 0?"tabButton activity":"tabButton"} onClick={this.handleClick.bind(this,0)}>管理我的组织</View>
