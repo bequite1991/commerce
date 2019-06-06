@@ -32,7 +32,7 @@ class Index extends Component {
   }
 
   componentDidMount () {
-    wx.showShareMenu();
+    // wx.showShareMenu();
   }
 
   componentWillUnmount () { }

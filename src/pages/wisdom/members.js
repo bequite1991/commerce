@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Button, Text,Swiper, SwiperItem} from '@tarojs/components'
+import { View, Button, Text,Swiper, SwiperItem, ScrollView} from '@tarojs/components'
 import { AtLoadMore } from 'taro-ui'
 import { observer, inject } from '@tarojs/mobx'
 

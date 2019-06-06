@@ -9,7 +9,7 @@ export default function request(url, options) {
     url = API_HOST + url;
   }
   // 获取存储的sessionId
-  const cookie = wx.getStorageSync("_TY_S");
+  const cookie = Taro.getStorageSync("_TY_S");
   let newOptions = { ...options };
   newOptions.header = {
     "Content-Type": "application/x-www-form-urlencoded",

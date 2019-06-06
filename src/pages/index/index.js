@@ -1,5 +1,5 @@
 import Taro, {Component} from '@tarojs/taro';
-import {View, Button, Text, Swiper, SwiperItem} from '@tarojs/components';
+import {View, Button, Text, Swiper, SwiperItem,Image} from '@tarojs/components';
 import { AtActionSheet, AtActionSheetItem,AtIcon } from "taro-ui"
 import {observer, inject} from '@tarojs/mobx';
 import Banner from './banner.js';
@@ -30,8 +30,8 @@ class Index extends Component {
   }
 
   componentWillMount () {
-    wx.showShareMenu();
-    wx.showTabBar();
+    // wx.showShareMenu();
+    // wx.showTabBar();
   }
 
   componentWillReact () {
@@ -77,6 +77,17 @@ class Index extends Component {
       // url: '/pages/joinUs/index'
       url: `/pages/${url}/index`
     })
+  }
+
+  onShareAppMessage (res) {
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+    }
+    return {
+      title: '自定义转发标题',
+      path: '/page/user?id=123'
+    }
   }
 
   render () {
