@@ -59,15 +59,15 @@ class Index extends Component {
     return (
       <View className='introdeuce'>
         <Banner />
-        <Card title="商会介绍" subTitle="更多" href="pages/joinUs/index">
+        <Card title="商会介绍" subTitle="更多" href="introduce">
             {introduce.introduce}
         </Card>
-        <Card title="合作伙伴" subTitle="全部" href="pages/joinUs/index">
+        <Card title="合作伙伴" subTitle="全部" href="partner">
             {parntersData.map((item,index)=>{
             return <Image key={item.title} src={item.logo}  className="logo"/>
           })}
         </Card>
-        <Card title="活动品牌" subTitle="更多" href="pages/joinUs/index">
+        <Card title="活动品牌" subTitle="更多" href="activitys">
             <View className="brands">
               {brandsData.map((item,index)=>{
                 return <View className="brand" key={item.name}><Image src={item.picture} className="brandImg"/><Text className="subTitle">{item.title}</Text></View>

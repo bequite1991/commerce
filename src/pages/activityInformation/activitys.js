@@ -28,10 +28,13 @@ class Index extends Component {
 
   componentDidHide () { }
 
-  goPage(id){
+  goPage(item){
+    if(item.tags == "已结束"){
+      return;
+    }
     Taro.navigateTo({
       // url: '/pages/joinUs/index'
-      url: `/pages/activityInformationDetail/index?id=${id}`
+      url: `/pages/activityInformationDetail/index?id=${item.id}`
     })
   }
   handleClick(){
@@ -47,7 +50,7 @@ class Index extends Component {
         <View className='title'>全部活动</View>
         <View className="activitysList">
           {activitysList.map((item,index)=>{
-            return <View key={index} className='activitysItem' onClick={this.goPage.bind(this,item.id)}><View className='itemLeft'><View className="name">{item.name}</View><View className="descript">{item.descript}</View><View className="status">{item.status}</View><View className="tags">{item.tags}</View></View><View className="itemRight"><Image src={item.photo} /></View></View>
+            return <View key={index} className='activitysItem' onClick={this.goPage.bind(this,item)}><View className='itemLeft'><View className="name">{item.name}</View><View className="descript">{item.descript}</View><View className="status">{item.status}</View><View className="tags">{item.tags}</View></View><View className="itemRight"><Image src={item.photo} /></View></View>
           })}
         </View>
         <AtLoadMore

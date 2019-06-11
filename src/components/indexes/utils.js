@@ -200,9 +200,3 @@ function pxTransform(size) {
 }
 exports.pxTransform = pxTransform;
 
-export default {
-    delayQuerySelector,
-    uuid, 
-    initTestEnv, 
-    isTest
-}

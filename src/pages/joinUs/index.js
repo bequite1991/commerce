@@ -105,7 +105,7 @@ class Index extends Component {
   }
   submit(){
     const { defaultStore, defaultStore:{mine_userInfo} } = this.props;
-    this.state.formData.weixin_id = wx._TY_opendid;
+    this.state.formData.weixin_id = Taro.getStorageSync("_TY_S");
     defaultStore.submitJoinUs(this.state.formData);
   }
   //填写表单
@@ -130,7 +130,7 @@ class Index extends Component {
         <Card title="入会须知" subTitle="更多" href="pages/joinUs/index">
             一、 会员入会程序： 1. 认真阅读本会章程，填写入会申请表（需加盖公司公章）； 2. 提供贵企业资料（公司和企业家个人简介、公司和个人电子 照片、公司LOGO、营业执照扫描件（加盖公章）、个人身份证复印件、最近一期财务年报）； 3. 联合会秘书处初审； 4. 提交会长会议审议通过； 5. 缴纳会费并注册； 6. 秘书处颁发会员证。
         </Card>
-        <Card title="资料填写" subTitle="下载电子版" href='http://ty-storage.oss-cn-hangzhou.aliyuncs.com/8aa6af8768df9544a16bf1961ec1b164.pptx'>
+        <Card title="资料填写" subTitle="下载电子版" download='http://ty-storage.oss-cn-hangzhou.aliyuncs.com/8aa6af8768df9544a16bf1961ec1b164.pptx'>
             <AtForm className="form">
               <AtInput
                 name='name'

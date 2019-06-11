@@ -79,10 +79,10 @@ class Index extends Component {
     const tabList = [{ title: '会员' }, { title: '专家委员会' }];
 
     let isJoined = true;
-    if(!wx.getStorageSync("_TY_U")){
+    if(!Taro.getStorageSync("_TY_U")){
       isJoined = false
     }
-    if(wx.getStorageSync("_TY_U") && wx.getStorageSync("_TY_U") == "user"){
+    if(Taro.getStorageSync("_TY_U") && Taro.getStorageSync("_TY_U").commerce_job == "user"){
       isJoined = false
     }
     return (

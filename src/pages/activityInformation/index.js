@@ -57,7 +57,7 @@ class Index extends Component {
           onChange={(val)=> this.setState({searchKey: val})}
           onActionClick={this.search.bind(this)}
         />
-        {/*<Entrance />*/}
+        <Entrance />
         <Activitys />
         <BottomBar />
       </View>

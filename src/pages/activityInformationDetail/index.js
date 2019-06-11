@@ -167,10 +167,11 @@ class Index extends Component {
           <AtButton type='secondary' size='small' onClick={this.taggleReject.bind(this,true)}>拒绝</AtButton>
           <AtButton type='primary' size='small' onClick={this.submitAuditPass.bind(this)}>同意</AtButton>
         </View>
-        <AtModal isOpened={this.state.isOpened}>
+        <AtModal isOpened={this.state.isOpened} className={this.$router.params.isAudit?"button-group":"displayNone"}>
             <AtModalHeader>拒绝理由</AtModalHeader>
               <AtModalContent>
                 <AtTextarea
+                  className={this.$router.params.isAudit?"button-group":"displayNone"}
                   onChange={this.rejectChange.bind(this)}
                   maxLength={200}
                   placeholder='请填写拒绝理由'

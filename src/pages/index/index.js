@@ -32,6 +32,10 @@ class Index extends Component {
   componentWillMount () {
     wx.showShareMenu();
     wx.showTabBar();
+    const {defaultStore:{dot_tabbar_show}} = this.props;
+    if(dot_tabbar_show){
+      Taro.showTabBarRedDot({index:3})
+    }
   }
 
   componentWillReact () {

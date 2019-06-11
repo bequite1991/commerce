@@ -139,8 +139,18 @@ const defaultStore = observable({
   secretary_activitys_detail:{},
   //秘书处 自组织活动详情
   secretary_activitys_detail_array:{},
-
-
+  //小红点 我 系统消息
+  dot_mine_message_system:null,
+  //小红点 我 系统回复
+  dot_mine_message_reply:null,
+  //小红点 我 系统留言
+  dot_mine_message_comment:null,
+  //小红点 我 活动
+  dot_mine_activitys:null,
+  //小红点 待办
+  dot_mine_todo:null,
+  //导航栏是否显示小红点
+  dot_tabbar_show:false,
 
 
 
@@ -216,6 +226,10 @@ const defaultStore = observable({
       }
       if(data.currentRecords.length){
         data.currentRecords.forEach((item,key)=>{
+            const timestamp = Date.parse(new Date());
+            if(timestamp > item.start_time){
+              item.tag = "已结束";
+            }
             item.descript = item.description;
             item.tags = item.tag;
             item.name = item.title;
@@ -281,6 +295,10 @@ const defaultStore = observable({
       const data = res.data.data.data;
       if(data.currentRecords.length){
         data.currentRecords.forEach((item,key)=>{
+            const timestamp = Date.parse(new Date());
+            if(timestamp > item.start_time){
+              item.tag = "已结束";
+            }
             item.descript = item.description;
             item.tags = item.tag;
             item.name = item.title;
@@ -994,12 +1012,16 @@ const defaultStore = observable({
     //type 列表请求参数
     // const list = [{photo:"https://taro-ui.aotu.io/img/logo-taro.png",title:"红酒会俱乐部",subtitle:"一份静谧的高贵，一种脱俗的气质",members:"12",activitys:[{photo:"https://taro-ui.aotu.io/img/logo-taro.png",title:"红酒品鉴大会",time:"04-02",address:"某某酒店"},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",title:"红酒品鉴大会",time:"04-02",address:"某某酒店"}]}];
     // return list;
+    let data = {
+      type: type,
+      keywords: (keywords || ''),
+    }
+    if(!type || keywords){
+      data = null
+    }
     const t = this;
     request('/config/commerce_org_list',{
-      data: {
-        type: type,
-        keywords: (keywords || ''),
-      }
+      data: data
     }).then(res => {
       const { data, activity_list } = res.data.data;
       const list = data.list;
@@ -1030,7 +1052,9 @@ const defaultStore = observable({
       });
 
       const tmpObj = t.org_type_list;
-      tmpObj[type] = result;
+      result.forEach((item,key)=>{
+        tmpObj[item.id] = item;
+      })
       t.org_type_list = Object.assign({},tmpObj);
 
     });
@@ -2008,7 +2032,7 @@ const defaultStore = observable({
         [t.secretary_activity_editor.key]:t.secretary_activity_editor.value
       }
       t.secretary_activitys_detail = Object.assign(t.secretary_activitys_detail,param);
-      if(t.secretary_activitys_detail.type != "photo"){
+      if(t.secretary_activity_editor.type != "photo"){
         setTimeout(()=>{
           t.getSecretaryActivityDetail();
           wx.navigateBack()
@@ -2174,6 +2198,28 @@ const defaultStore = observable({
       }
     });
   },
+  getMailCount(){
+    const t = this;
+    request('/config/commerce_mail_count').then(res => {
+      if(res.data.code == 200){
+        const data = res.data.data;
+        //小红点 我 系统消息
+        t.dot_mine_message_system=data.system_count;
+        //小红点 我 系统回复
+        t.dot_mine_message_reply=data.reply_count;
+        //小红点 我 系统留言
+        t.dot_mine_message_comment = data.comment_count;
+        //小红点 我 活动
+        t.dot_mine_activitys = data.activity_count;
+        //小红点 待办
+        t.dot_mine_todo = data.todo_org_partner_list;
+        t.dot_tabbar_show = data.system_count ||  data.reply_count ||  data.comment_count || data.activity_count || data.todo_org_partner_list.length;
+      }else{
+
+      }
+    });
+
+  }
 
 })
 export default defaultStore

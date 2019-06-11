@@ -25,15 +25,23 @@ class Index extends Component {
   componentDidHide () { }
 
   goPage(){
-    const { href } = this.props;
-    Taro.downloadFile({url:href}).then((res)=>{
-      console.log('下载成功');
-      Taro.saveFile({tempFilePath:res.tempFilePath}).then((resp2)=>{
-        Taro.openDocument({filePath:resp2.savedFilePath,success: function (res) {
-          console.log('打开文档成功')
-        }})
-      })
-    });
+    const { href,download } = this.props;
+    if(download){
+      Taro.downloadFile({url:href}).then((res)=>{
+        console.log('下载成功');
+        Taro.saveFile({tempFilePath:res.tempFilePath}).then((resp2)=>{
+          Taro.openDocument({filePath:resp2.savedFilePath,success: function (res) {
+            console.log('打开文档成功')
+          }})
+        })
+      });
+    }else{
+      Taro.redirectTo({
+        // url: '/pages/joinUs/index'
+        url: href
+      });
+    }
+
   }
 
   render () {
