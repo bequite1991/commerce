@@ -14,10 +14,21 @@
 	}
 	.presidiumList{
 		white-space: nowrap;
-		overflow-x: auto;
-		padding:10rpx;
-		line-height: 360rpx;
+		//padding:10rpx;
+		//line-height: 360rpx;
 	}
+
+  .clearfix:after{
+    display: block;
+    clear: both;
+    content: "";
+    visibility: hidden;
+    height: 0;
+  }
+  .clearfix{
+    zoom:1;
+  }
+
 	.presidiumItem{
 		display: inline-block;
 		text-align: center;
@@ -29,7 +40,7 @@
 		margin-right: 34rpx;
 		padding-top: 20rpx;
 		float: left;
-		
+
 	}
 	.photo{
 		width:114rpx;
@@ -69,8 +80,8 @@
 		font-weight:400;
 		color:rgba(46,46,53,1);
 		line-height:26rpx;
-		word-break:normal; 
-		display:block; 
+		word-break:normal;
+		display:block;
 		white-space:pre-wrap;
 		word-wrap: break-word;
 		padding: 0 28rpx;

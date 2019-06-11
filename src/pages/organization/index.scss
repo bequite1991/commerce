@@ -1,6 +1,10 @@
 .internationalRelations{
 	.search{
 		margin-bottom: 15rpx;
+    .at-search-bar__input{
+      padding: 0 74rpx !important;
+      line-height: 60rpx;
+    }
 	}
 	.at-fab{
 		position:fixed;

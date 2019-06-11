@@ -55,7 +55,7 @@ class Presidium extends Component {
       <View className='presidium'>
         <View className='title' onClick={this.goPage.bind(this,'wisdom')}>主席团成员</View>
         <View className="presidiumContent">
-          <View className="presidiumList" style={'width:' + this.state.width}>
+          <View className="presidiumList clearfix" style={'width:' + this.state.width}>
             {list.map((item,index)=>{
               return <View key={index} className='presidiumItem' onClick={this.goWisdomMemberDetail.bind(this,item.user_id)}>
                     <View className="photo"><Image src={item.photo} lazyLoad={true}/></View>
