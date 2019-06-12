@@ -55,7 +55,8 @@ class Index extends Component {
           descript:"走进会员企业，带您从内部了解 企业家成功的内因，为您的发展 提供借鉴与帮助！",
           img:zj
         }
-      }
+      },
+      showMore:false
     };
   }
 
@@ -82,6 +83,11 @@ class Index extends Component {
     const { defaultStore } = this.props;
     defaultStore.getActivityInformList();
   }
+  showMore(){
+    this.setState({
+      showMore:true
+    })
+  }
 
   render () {
     const { defaultStore:{activitys_by_brand,brand_info,activitys_by_brand_status}} = this.props;
@@ -90,7 +96,7 @@ class Index extends Component {
       <View className='activitysInformation'>
         <View className="header">
           <Image src={brand_info.logo} />
-          <View className="descript">{brand_info.description}</View>
+          <View className={this.state.showMore?"descript":"descript hideMore"} onClick={this.showMore.bind(this)}>{brand_info.description}</View>
         </View>
         <View className='activitys'>
           <View className='title'>全部活动</View>

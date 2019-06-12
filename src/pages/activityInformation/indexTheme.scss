@@ -11,7 +11,7 @@
 	.header{
 		border-bottom: 10rpx solid #F4F4F4;
 		padding: 50rpx;
-		
+		display:flex;
 	}
 	.descript{
 		font-size:28rpx;
@@ -20,13 +20,24 @@
 		color:rgba(0,0,0,1);
 		line-height:40rpx;
 		display: inline-block;
-		width: calc(100vw - 380rpx);
+		width: calc(100vw - 300rpx);
 		margin-left: 60rpx;
+	}
+
+	.hideMore{
 		vertical-align:top;
+		white-space: normal;
+        word-wrap: break-word;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 5;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        min-height: 60rpx;
 	}
 	Image{
-		width:198rpx;
-		height:164rpx;
+		width:140rpx;
+		height:140rpx;
 	}
 	.activitys{
 	padding: 30rpx;
@@ -64,6 +75,8 @@
 		line-height:40rpx;
 		margin-bottom: 24rpx;
 		margin-top: 4rpx;
+
+        
 	}
 	.status{
 		width:100%;
@@ -95,6 +108,7 @@
 		height:152rpx;
 		vertical-align:top;
 		margin-left: 32rpx;
+
 		// background:rgba(239,239,239,1);
 		image{
 			width: 100%;

@@ -77,14 +77,14 @@ class Index extends Component {
   render () {
     const { defaultStore: { counter } } = this.props
     const tabList = [{ title: '会员' }, { title: '专家委员会' }];
-
     let isJoined = true;
     if(!Taro.getStorageSync("_TY_U")){
-      isJoined = false
+      isJoined = false;
     }
     if(Taro.getStorageSync("_TY_U") && Taro.getStorageSync("_TY_U").commerce_job == "user"){
-      isJoined = false
+      isJoined = false;
     }
+    
     return (
       <View className='internationalRelations'>
         <AtSearchBar
@@ -96,14 +96,14 @@ class Index extends Component {
         />
         <View className={this.state.current == 0?"tabButton activity":"tabButton"} onClick={this.handleClick.bind(this,0)}>会员</View>
         
-        <View className={this.state.current == 0 && isJoined ?"":"displayNone"}>
+        <View className={this.state.current == 0 && isJoined ?"":"displayNone1"}>
           <Member ref="member" id="member" keywords={this.state.searchKey}/>
         </View>
-        <View className={this.state.current == 1 && isJoined ?"":"displayNone"}>
+        <View className={this.state.current == 1 && isJoined ?"":"displayNone1"}>
           <Facc ref="facc" keywords={this.state.searchKey}/>
         </View>
 
-        <AtButton type='primary' className={isJoined?"displayNone":"apply"} onClick={this.goPage.bind(this,'commerceIntroduce')}>申请加入会员后可查看</AtButton>
+        <AtButton type='primary' className={true?"displayNone":"apply"} onClick={this.goPage.bind(this,'commerceIntroduce')}>申请加入会员后可查看</AtButton>
 
 
       </View>

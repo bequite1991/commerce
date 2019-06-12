@@ -137,7 +137,8 @@ class AtIndexes extends AtComponent {
       customStyle,
       animation,
       topKey,
-      list
+      list,
+      isJoined
     } = this.props
     const {
       _scrollTop,
@@ -199,7 +200,7 @@ class AtIndexes extends AtComponent {
                 <View className="name">{item.name}</View>
                 <View className="position">{item.position}</View>
                 <View className="company">{item.company}</View>
-                <View className="phone">联系电话：{item.phone}</View>
+                <View className="phone">联系电话：{isJoined?item.phone:"仅会员可见"}</View>
               </View>
             </View>)
           })}

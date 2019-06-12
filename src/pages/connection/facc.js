@@ -67,12 +67,20 @@ class Index extends Component {
     const { defaultStore} = this.props;
     const faccPage = defaultStore.faccPage.$mobx.values;
     const faccPageStatus = defaultStore.faccPageStatus;
+    let isJoined = true;
+    if(!Taro.getStorageSync("_TY_U")){
+      isJoined = false;
+    }
+    if(Taro.getStorageSync("_TY_U") && Taro.getStorageSync("_TY_U").commerce_job == "user"){
+      isJoined = false;
+    }
 
     return (
       <View style='height:100vh'>
         <CustomAtIndexes
           list={faccPage}
           onClick={this.onClick.bind(this)}
+          isJoined={isJoined}
         >
         </CustomAtIndexes>
       </View>

@@ -164,6 +164,14 @@ class Index extends Component {
                 value={formData.job}
                 onChange={this.handleChange.bind(this,"job")}
               />
+              <AtInput
+                name='honner'
+                title='荣誉'
+                type='text'
+                placeholder='请填写荣誉'
+                value={formData.job}
+                onChange={this.handleChange.bind(this,"honner")}
+              />
               <Picker className="formItem" mode='date' onChange={this.onDateChange.bind(this)}>
                 <View className='title'>
                   生 日
@@ -205,12 +213,44 @@ class Index extends Component {
                 onChange={this.handleChange.bind(this,"social_creit_code")}
               />
               <AtInput
+                name='yye'
+                title='营业额'
+                type='text'
+                placeholder='请填写行营业额'
+                value={formData.yye}
+                onChange={this.handleChange.bind(this,"yye")}
+              />
+              <AtInput
+                name='nse'
+                title='纳税额'
+                type='text'
+                placeholder='请填写纳税额' 
+                value={formData.nse}
+                onChange={this.handleChange.bind(this,"nse")}
+              />
+              <AtInput
+                name='zgrs'
+                title='职工人数'
+                type='text'
+                placeholder='请填写职工人数'
+                value={formData.zgrs}
+                onChange={this.handleChange.bind(this,"zgrs")}
+              />
+              <AtInput
                 name='industry'
                 title='行业领域'
                 type='text'
                 placeholder='请填写行业领域'
                 value={formData.industry}
                 onChange={this.handleChange.bind(this,"industry")}
+              />
+              <AtInput
+                name='zyyw'
+                title='主营业务'
+                type='text'
+                placeholder='请填写主营业务'
+                value={formData.industry}
+                onChange={this.handleChange.bind(this,"zyyw")}
               />
             </AtForm>
         </Card>
