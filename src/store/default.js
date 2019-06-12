@@ -51,6 +51,18 @@ const defaultStore = observable({
   activity_editor:{},
   //活动 编辑器内容
   activity_editor_form:{},
+  //活动咨询 活动品牌
+  activity_brands:[],
+  //品牌活动
+  activitys_by_brand:[],
+  //活动品牌 活动分页
+  activitys_by_brand_page:1,
+  //品牌信息
+  rand_info:{},
+  //下拉状态
+  activitys_by_brand_status:"loading",
+  //当前查询的品牌id
+  activitys_by_brand_id:null,
 
 
 
@@ -151,6 +163,8 @@ const defaultStore = observable({
   dot_mine_todo:null,
   //导航栏是否显示小红点
   dot_tabbar_show:false,
+  //活动咨询
+
 
 
 
@@ -1012,16 +1026,12 @@ const defaultStore = observable({
     //type 列表请求参数
     // const list = [{photo:"https://taro-ui.aotu.io/img/logo-taro.png",title:"红酒会俱乐部",subtitle:"一份静谧的高贵，一种脱俗的气质",members:"12",activitys:[{photo:"https://taro-ui.aotu.io/img/logo-taro.png",title:"红酒品鉴大会",time:"04-02",address:"某某酒店"},{photo:"https://taro-ui.aotu.io/img/logo-taro.png",title:"红酒品鉴大会",time:"04-02",address:"某某酒店"}]}];
     // return list;
-    let data = {
-      type: type,
-      keywords: (keywords || ''),
-    }
-    if(!type || keywords){
-      data = null
-    }
     const t = this;
     request('/config/commerce_org_list',{
-      data: data
+      data: {
+        type: type,
+        keywords: (keywords || ''),
+      }
     }).then(res => {
       const { data, activity_list } = res.data.data;
       const list = data.list;
@@ -1052,9 +1062,7 @@ const defaultStore = observable({
       });
 
       const tmpObj = t.org_type_list;
-      result.forEach((item,key)=>{
-        tmpObj[item.id] = item;
-      })
+      tmpObj[type] = result;
       t.org_type_list = Object.assign({},tmpObj);
 
     });
@@ -2218,8 +2226,70 @@ const defaultStore = observable({
 
       }
     });
+  },
+  //获取品牌
+  getActivityBrands(){
+    const t = this;
+    request('/config/commerce_page_activity_group').then(res => {
+      if(res.data.code == 200){
+        t.activity_brands = res.data.data.page_data.currentRecords;
+      }else{
 
-  }
+      }
+    });
+  },
+  //获取品牌下的活动列表
+  getActivitysByBrand(id){
+    const t = this;
+    if(t.activitys_by_brand_id != null && t.activitys_by_brand_id != id){
+      t.activitys_by_brand_page = 1;
+    }
+
+
+    request('/config/commerce_page_group_activiry',{
+      method:"get",
+      data:{
+        id:id || 1,
+        page:t.activitys_by_brand_page,
+        pageSize:10
+      }
+    }).then(res => {
+      if(res.data.code == 200){
+        t.activitys_by_brand_id = id;
+        t.brand_info = res.data.data.data;
+        const records = res.data.data.page_data.currentRecords;
+
+        if(t.activitys_by_brand_page == 1){
+          t.activitys_by_brand = [];
+        }
+        if(records.length){
+          records.forEach((item,key)=>{
+            const timestamp = Date.parse(new Date());
+            if(timestamp > item.start_time){
+              item.tag = "已结束";
+            }
+            item.descript = item.description;
+            item.tags = item.tag;
+            item.name = item.title;
+            item.photo = item.picture;
+            item.status = item.num + "人参与";
+            if(key == records.length -1){
+              t.activitys_by_brand = t.home_activitysList.concat(records);
+            }
+          });
+
+          if(res.data.data.page_data.totalPages > t.activitys_by_brand_page){
+            t.activitys_by_brand_page ++ ;
+            t.activitys_by_brand_status="more";
+          }else{
+            t.activity_activitysListStatus = "noMore";
+          }
+        }
+      }else{
+
+      }
+    });
+  },
 
 })
 export default defaultStore

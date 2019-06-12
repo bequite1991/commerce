@@ -59,7 +59,10 @@ class Index extends Component {
     };
   }
 
-  componentWillMount () { }
+  componentWillMount () { 
+    const { defaultStore} = this.props;
+    defaultStore.getActivitysByBrand(this.$router.params.type);
+  }
 
   componentWillReact () {
     console.log('componentWillReact')
@@ -75,24 +78,19 @@ class Index extends Component {
 
   componentDidHide () { }
 
-  search(keys){
-    const { defaultStore:{org_type_list}} = this.props;
-    defaultStore.getActivityInformList(this.state.searchKey);
+  handleClick(){
+    const { defaultStore } = this.props;
+    defaultStore.getActivityInformList();
   }
 
-
   render () {
-    const { defaultStore:{org_type_list}} = this.props;
-
-    const type = this.$router.params.type || "zdsy";
-    const data = org_type_list[this.$router.params.type || 1];
-    const activitys = data.activitys.$mobx.values;
-    debugger
+    const { defaultStore:{activitys_by_brand,brand_info,activitys_by_brand_status}} = this.props;
+    const activitys = activitys_by_brand.$mobx.values;
     return (
       <View className='activitysInformation'>
         <View className="header">
-          <Image src={data.photo} />
-          <View className="descript">{data.subtitle}</View>
+          <Image src={brand_info.logo} />
+          <View className="descript">{brand_info.description}</View>
         </View>
         <View className='activitys'>
           <View className='title'>全部活动</View>
@@ -101,6 +99,10 @@ class Index extends Component {
               return <View key={index} className='activitysItem' onClick={this.goPage.bind(this,item.id)}><View className='itemLeft'><View className="name">{item.name}</View><View className="descript">{item.descript}</View><View className="status">{item.status}</View><View className="tags">{item.tags}</View></View><View className="itemRight"><Image src={item.photo} /></View></View>
             })}
           </View>
+          <AtLoadMore
+            onClick={this.handleClick.bind(this)}
+            status={activitys_by_brand_status}
+          />
         </View>
       </View>
     )

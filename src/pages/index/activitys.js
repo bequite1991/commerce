@@ -33,7 +33,17 @@ class Activitys extends Component {
 
   componentDidHide () {}
 
-  goPage(url){
+  goPage(item){
+    if(item.tags == "已结束"){
+      return;
+    }
+    Taro.navigateTo({
+      // url: '/pages/joinUs/index'
+      url: `/pages/activityInformationDetail/index?id=${item.id}`
+    })
+  }
+
+  goActivitylist(url){
     Taro.navigateTo({
       // url: '/pages/joinUs/index'
       url: url
@@ -57,10 +67,10 @@ class Activitys extends Component {
     const list = home_activitysList.$mobx.values;
     return (
       <View className='activitys'>
-        <View className='titleTop' onClick={this.goPage.bind(this,`/pages/activityInformation/index`)}>全部活动</View>
+        <View className='titleTop' onClick={this.goActivitylist.bind(this,`/pages/activityInformation/index`)}>全部活动</View>
         <View className="activitysList">
           {list.map((item,index)=>{
-            return <View key={index} className='activitysItem' onClick={this.goPage.bind(this,`/pages/activityInformationDetail/index?id=${item.id}`,item.id)}><View className='itemLeft'><View className="name">{item.name}</View><View className="descript">{item.descript}</View><View className="status">{item.status}</View><View className="tags">{item.tags}</View></View><View className="itemRight"><Image src={item.photo} lazyLoad={true}/></View></View>
+            return <View key={index} className='activitysItem' onClick={this.goPage.bind(this,item)}><View className='itemLeft'><View className="name">{item.name}</View><View className="descript">{item.descript}</View><View className="status">{item.status}</View><View className="tags">{item.tags}</View></View><View className="itemRight"><Image src={item.photo} lazyLoad={true}/></View></View>
           })}
         </View>
       </View>

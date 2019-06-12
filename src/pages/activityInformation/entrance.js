@@ -28,7 +28,7 @@ class Index extends Component {
 
   componentWillMount () {
     const { defaultStore} = this.props;
-    defaultStore.getOrganizationList(null,null);
+    defaultStore.getActivityBrands();
   }
 
   componentWillReact () {
@@ -51,10 +51,9 @@ class Index extends Component {
   }
 
   render () {
-    const { defaultStore:{org_type_list} } = this.props;
-    org_type_list.length = 6;
-    const list = org_type_list;
-
+    const { defaultStore:{activity_brands} } = this.props;
+    const list = activity_brands.$mobx.values;
+    list.length = 6;
     // <View className='entrance' onClick={this.goPage.bind(this,'indexTheme?type=zdsy')} key="商道智慧">
     //       <View className='tips'></View>
     //       <View><Image className="png" src={zdsy}/></View>
@@ -82,9 +81,9 @@ class Index extends Component {
     return (
       <View className="entranceList">
         {list.map((item,index)=>{
-            return <View className='entrance' onClick={this.goPage.bind(this,`indexTheme?type=${item.id}`)} key={item.title}>
+            return <View className='entrance' onClick={this.goPage.bind(this,`indexTheme?type=${item.id}`)} key={item.name}>
               <View className='tips'></View>
-              <View><Image className="png" src={item.photo}/></View>
+              <View><Image className="png" src={item.logo}/></View>
             </View>
           })}
       </View>
