@@ -35,7 +35,8 @@ class Index extends Component {
   render () {
     return (
       <View className='partner'>
-        <Partner />
+        <Image className="partnerLogos" src="http://ty-storage.oss-cn-hangzhou.aliyuncs.com/c283499078f837d91a98f20690b8621e.png" />
+        {/*<Partner />*/}
       </View>
     )
   }

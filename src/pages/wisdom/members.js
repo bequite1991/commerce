@@ -116,7 +116,7 @@ class Memebers extends Component {
               </View>
             })}
           </View>
-          <View className="title displayNone" id="committeeExperts">专家委员会</View>
+          {/*<View className="title displayNone" id="committeeExperts">专家委员会</View>
           <View className="wisdomMembers displayNone">
             {committeeExperts.map((item,index)=>{
               return <View key={index} className='member' onClick={()=>this.goPage(item.id)}>
@@ -124,7 +124,7 @@ class Memebers extends Component {
                 <View className="name">{item.name}</View><View className="descript">{item.company_name || item.company_info ||''} <Text className="p10">{item.job_title||''}</Text></View>
               </View>
             })}
-          </View>
+          </View>*/}
         </ScrollView>
         {/*<AtLoadMore*/}
           {/*onClick={this.handleClick.bind(this)}*/}

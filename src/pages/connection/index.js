@@ -96,10 +96,10 @@ class Index extends Component {
         />
         <View className={this.state.current == 0?"tabButton activity":"tabButton"} onClick={this.handleClick.bind(this,0)}>会员</View>
         
-        <View className={this.state.current == 0 && isJoined ?"":"displayNone1"}>
+        <View className={this.state.current == 0 ?"":"displayNone"}>
           <Member ref="member" id="member" keywords={this.state.searchKey}/>
         </View>
-        <View className={this.state.current == 1 && isJoined ?"":"displayNone1"}>
+        <View className={this.state.current == 1 ?"":"displayNone"}>
           <Facc ref="facc" keywords={this.state.searchKey}/>
         </View>
 

@@ -60,7 +60,16 @@ class Index extends Component {
   }
   
   onClick(item){ 
-    this.goPage(item.id);
+    let isJoined = true;
+    if(!Taro.getStorageSync("_TY_U")){
+      isJoined = false;
+    }
+    if(Taro.getStorageSync("_TY_U") && Taro.getStorageSync("_TY_U").commerce_job == "user"){
+      isJoined = false;
+    }
+    if(isJoined){
+      this.goPage(item.id);
+    }
   }
 
   render () {

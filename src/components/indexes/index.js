@@ -131,6 +131,10 @@ class AtIndexes extends AtComponent {
     })
   }
 
+  showPhoto(url){
+    Taro.previewImage({urls:[url]})
+  }
+
   render () {
     const {
       className,
@@ -194,9 +198,9 @@ class AtIndexes extends AtComponent {
             return (<View className="connectionMemberBase" key={index} onClick={this.handleClick.bind(this, item)}>
               <View className="border"></View>
               <View className="photo">
-                <Image src={item.photo} lazyLoad={true}/>
+                <Image src={item.photo} lazyLoad={true} onClick={this.showPhoto.bind(this,item.photo)}/>
               </View>
-              <View className="info">
+              <View className="info" >
                 <View className="name">{item.name}</View>
                 <View className="position">{item.position}</View>
                 <View className="company">{item.company}</View>

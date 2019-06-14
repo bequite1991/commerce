@@ -76,6 +76,9 @@ class Index extends Component {
       isChange:isChange + 1
     });
   }
+  showPhoto(url){
+    Taro.previewImage({urls:[url]})
+  }
 
   render () {
     const { defaultStore } = this.props;
@@ -87,7 +90,7 @@ class Index extends Component {
       <View className='memberDetail'>
         <View className="memberBase">
           <View className="photo">
-            <Image src={introduce.photo} />
+            <Image src={introduce.photo} onClick={this.showPhoto.bind(this,introduce.photo)}/>
           </View>
           <View className="info">
             <View className="name">{introduce.name}</View>

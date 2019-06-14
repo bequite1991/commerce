@@ -36,7 +36,7 @@ class Index extends Component {
         })
       });
     }else{
-      Taro.redirectTo({
+      Taro.navigateTo({
         // url: '/pages/joinUs/index'
         url: href
       });

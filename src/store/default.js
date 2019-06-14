@@ -214,7 +214,7 @@ const defaultStore = observable({
         },2000)
       }else{
         wx.showToast({
-          title: "修改成功！",
+          title: "申请已提交！",
           icon: 'none'
         });
         setTimeout(()=>{

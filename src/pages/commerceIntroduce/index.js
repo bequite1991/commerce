@@ -63,9 +63,10 @@ class Index extends Component {
             {introduce.introduce}
         </Card>
         <Card title="合作伙伴" subTitle="全部" href="partner">
-            {parntersData.map((item,index)=>{
+          <Image className="partnerLogos" src="http://ty-storage.oss-cn-hangzhou.aliyuncs.com/c283499078f837d91a98f20690b8621e.png" />
+            {/*{parntersData.map((item,index)=>{
             return <Image key={item.title} src={item.logo}  className="logo"/>
-          })}
+          })}*/}
         </Card>
         <Card title="活动品牌" subTitle="更多" href="activitys">
             <View className="brands">
