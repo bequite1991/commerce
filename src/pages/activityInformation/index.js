@@ -53,6 +53,7 @@ class Index extends Component {
     return (
       <View className='activitysInformation'>
         <AtSearchBar
+          className="search"
           value={this.state.searchKey}
           onChange={(val)=> this.setState({searchKey: val})}
           onActionClick={this.search.bind(this)}
