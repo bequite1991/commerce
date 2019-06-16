@@ -2,10 +2,10 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text,Swiper, SwiperItem,Picker} from '@tarojs/components'
 import { observer, inject } from '@tarojs/mobx'
 import Card from "../../components/card/index.js";
-import { AtList, AtListItem, AtBadge  } from 'taro-ui';
+import { AtList, AtListItem, AtBadge,AtCard  } from 'taro-ui';
 import Tags from "../../components/tags/index.js";
 
-import './message.scss';
+import './messageAuditJoinOrg.scss';
 
 
 @inject('defaultStore')
@@ -13,7 +13,7 @@ import './message.scss';
 class Index extends Component {
 
   config = {
-    navigationBarTitleText: '消息',
+    navigationBarTitleText: '成员审核',
     navigationBarTextStyle: "black",
   }
 
@@ -82,15 +82,18 @@ class Index extends Component {
         </View>
         <View className="messageList">
           {messageData.map((item,index)=>{
-            return <View key={index} className='message' onClick={this.goPage.bind(this,'activityInformationDetail')}>
-              <View className="photo"><AtBadge dot={false}><Image src={item.photo} /></AtBadge></View>
-              <View className="messageInfo">
-                <View className="title">{item.title}</View>
-                <View className="subtitle">{item.subtitle}</View>
-              </View>
-              <View className="time">{item.time}</View>
+            return
+            <AtCard> 
+              <View key={index} className='message' onClick={this.goPage.bind(this,'activityInformationDetail')}>
+                <View className="photo"><AtBadge value={3}><Image src={item.photo} /></AtBadge></View>
+                <View className="messageInfo">
+                  <View className="title">{item.title}</View>
+                  <View className="subtitle">{item.subtitle}</View>
+                </View>
+                <View className="time">{item.time}</View>
 
-            </View>
+              </View>
+            </AtCard>
           })}
         </View>
 

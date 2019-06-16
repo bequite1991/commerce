@@ -62,18 +62,18 @@ class Index extends Component {
         <Card title="商会介绍" subTitle="更多" href="introduce">
             {introduce.introduce}
         </Card>
-        <Card title="合作伙伴" subTitle="全部" href="partner">
+        <Card title="商会成员" subTitle="更多" href="activitys">
           <Image className="partnerLogos" src="http://ty-storage.oss-cn-hangzhou.aliyuncs.com/c283499078f837d91a98f20690b8621e.png" />
-            {/*{parntersData.map((item,index)=>{
-            return <Image key={item.title} src={item.logo}  className="logo"/>
-          })}*/}
-        </Card>
-        <Card title="活动品牌" subTitle="更多" href="activitys">
-            <View className="brands">
+             {/*<View className="brands">
               {brandsData.map((item,index)=>{
                 return <View className="brand" key={item.name}><Image src={item.picture} className="brandImg"/><Text className="subTitle">{item.title}</Text></View>
               })}
-            </View>
+            </View>*/}
+        </Card>
+        <Card title="合作伙伴" subTitle="全部" href="partner">
+          {parntersData.map((item,index)=>{
+            return <Image key={item.title} src={item.logo}  className="logo"/>
+          })}
         </Card>
         <AtButton className={isJoined && !isJoined?"displayNone":"apply"} type='primary' onClick={this.goPage}>申请加入</AtButton>
       </View>

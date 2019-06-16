@@ -51,7 +51,6 @@ class Index extends Component {
 
   }
   taggleInput(param){
-    debugger
     this.setState({
       showInput:param
     });

@@ -83,7 +83,7 @@ class Index extends Component {
         <View className="messageList">
           {messageData.map((item,index)=>{
             return <View key={index} className='message' onClick={this.goPage.bind(this,'activityInformationDetail')}>
-              <View className="photo"><AtBadge dot={false}><Image src={item.photo} /></AtBadge></View>
+              <View className="photo"><AtBadge value={3}><Image src={item.photo} /></AtBadge></View>
               <View className="messageInfo">
                 <View className="title">{item.title}</View>
                 <View className="subtitle">{item.subtitle}</View>

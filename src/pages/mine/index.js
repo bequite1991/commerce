@@ -2,7 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text,Swiper, SwiperItem,Picker} from '@tarojs/components'
 import { observer, inject } from '@tarojs/mobx'
 import Card from "../../components/card/index.js";
-import { AtList, AtListItem,  AtActionSheet, AtActionSheetItem,AtIcon   } from 'taro-ui';
+import { AtList, AtListItem, AtActionSheet, AtActionSheetItem,AtIcon ,AtBadge  } from 'taro-ui';
 import Tags from "../../components/tags/index.js";
 import BottomBar from '../../components/bottomBar/index.js';
 import login from '../../utils/authLogin';
@@ -142,7 +142,7 @@ class Index extends Component {
   }
 
   render () {
-    const { defaultStore:{mine_userinfo} } = this.props;
+    const { defaultStore:{mine_userinfo,dot_tabbar_show} } = this.props;
     let {formData,sexOpen,positionsArr,update} = this.state;
     return (
       <View className='memberDetail'>
@@ -171,12 +171,14 @@ class Index extends Component {
             {/*thumb='http://img10.360buyimg.com/jdphoto/s72x72_jfs/t5872/209/5240187906/2872/8fa98cd/595c3b2aN4155b931.png'*/}
             {/*onClick={this.goPage.bind(this,"assistant")}*/}
           {/*/>*/}
-          <AtListItem
-            title='我的消息'
-            arrow='right'
-            thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
-            onClick={this.goPage.bind(this,"message")}
-          />
+          <AtBadge dot={dot_tabbar_show}>
+            <AtListItem
+              title='我的消息'
+              arrow='right'
+              thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
+              onClick={this.goPage.bind(this,"message")}
+            />
+          </AtBadge>
           <AtListItem
             title='我的积分'
             arrow='right'

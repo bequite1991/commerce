@@ -43,8 +43,22 @@ class Index extends Component {
 
   componentDidHide () { }
 
-  search(keys){
+  onChange(val) {
+    this.setState({
+      searchKey: val
+    })
+  }
 
+  search(keys){
+    const {defaultStore} = this.props;
+    if(this.state.current == 0){
+      debugger
+      defaultStore.getConsulateList(this.state.searchKey);
+    }else{
+      debugger
+      defaultStore.getCommerceList(this.state.searchKey);
+    }
+    
   }
 
   handleClick (value) {
@@ -64,6 +78,7 @@ class Index extends Component {
           placeholder="搜索组织、俱乐部"
           value={this.state.searchKey}
           onActionClick={this.search.bind(this)}
+          onChange={this.onChange.bind(this)}
         />
         <AtTabs className="tabs" current={this.state.current} tabList={tabList} onClick={this.handleClick.bind(this)}>
           <AtTabsPane current={this.state.current} index={0} >

@@ -10,7 +10,7 @@ import './activitys.scss';
 @observer
 class Activitys extends Component {
    config = {
-    navigationBarTitleText: '品牌活动',
+    navigationBarTitleText: '商会成员',
     navigationBarTextStyle: "black",
   }
   constructor (props) {
@@ -60,11 +60,12 @@ class Activitys extends Component {
     const list = home_activitysList.$mobx.values;
     return (
       <View className='activitys'>
-        <View className="activitysList">
+        <Image className="partnerLogos" src="http://ty-storage.oss-cn-hangzhou.aliyuncs.com/ebae1de7d5774aac63ddaa5b85851507.png"/>
+        {/*<View className="activitysList">
           {list.map((item,index)=>{
             return <View key={index} className='activitysItem' onClick={this.goPage.bind(this,`/pages/activityInformationDetail/index?id=${item.id}`,item.id)}><View className='itemLeft'><View className="name">{item.name}</View><View className="descript">{item.descript}</View><View className="status">{item.status}</View><View className="tags">{item.tags}</View></View><View className="itemRight"><Image src={item.photo} lazyLoad={true}/></View></View>
           })}
-        </View>
+        </View>*/}
       </View>
     );
   }

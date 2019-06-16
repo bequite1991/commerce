@@ -801,24 +801,32 @@ const defaultStore = observable({
     });
   },
   //领馆列表
-  getConsulateList(){
+  getConsulateList(keywords){
     const t=this;
+    const params = {
+      type: 'consulate',
+    }
+    if(keywords != undefined && keywords != null){
+      params.keywords = keywords;
+    }
     request('/config/commerce_global_list', {
-      data:{
-        type: 'consulate',// global
-      }
+      data:params
     }).then((res) => {
       const list = res.data.data.data_list;
       t.internation_consulate = list.list;
     });
   },
   //商户列表
-  getCommerceList(){
+  getCommerceList(keywords){
     const t=this;
+    const params = {
+      type: 'global',
+    }
+    if(keywords != undefined && keywords != null){
+      params.keywords = keywords;
+    }
     request('/config/commerce_global_list', {
-      data:{
-        type: 'global',// global
-      }
+      data:params
     }).then((res) => {
       const list = res.data.data.data_list;
       t.internation_commerce = list.list;
