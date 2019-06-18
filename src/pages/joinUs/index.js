@@ -106,7 +106,51 @@ class Index extends Component {
   submit(){
     const { defaultStore, defaultStore:{mine_userInfo} } = this.props;
     this.state.formData.weixin_id = Taro.getStorageSync("_TY_S");
+
+
+    const keys = Object.keys(this.state.formData);
+    keys.forEach((val,key)=>{
+      if(!this.state.formData[val]){
+
+      }
+    })
     defaultStore.submitJoinUs(this.state.formData);
+  }
+
+  //校验并 提交表单
+  submit(){
+    const { defaultStore, defaultStore:{mine_userInfo} } = this.props;
+    this.state.formData.weixin_id = Taro.getStorageSync("_TY_S");
+    const t = this;
+    let warring = false;
+    const formName = {
+      name:"姓名",
+      gender:"性别",
+      job:"职务",
+      honner:"荣誉",
+      birth_day:"生日",
+      telphone:"联系电话",
+      company_name:"企业名称",
+      register_capital:"注册资本",
+      social_creit_code:'统一社会信用代码',
+      yye:'营业额',
+      nse:'纳税额',
+      zgrs:'职工人数',
+      industry:'行业领域',
+      zyyw:'主营业务'
+    }
+    Object.keys(formName).forEach((item,key)=>{
+      if(!t.state.formData[item] && !warring && formName[item]){
+        warring = true;
+        Taro.showToast({
+          'title': "请填写" + formName[item] + "!",
+          'icon':"none",
+        })
+      }
+      if(key ==  Object.keys(formName).length - 1 && !warring){
+        defaultStore.submitJoinUs(this.state.formData);
+      }
+    });
   }
   //填写表单
   handleChange(param,words){
@@ -169,7 +213,7 @@ class Index extends Component {
                 title='荣誉'
                 type='text'
                 placeholder='请填写荣誉'
-                value={formData.job}
+                value={formData.honner}
                 onChange={this.handleChange.bind(this,"honner")}
               />
               <Picker className="formItem" mode='date' onChange={this.onDateChange.bind(this)}>

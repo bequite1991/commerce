@@ -158,12 +158,13 @@ class Index extends Component {
     // const userPhoto = [{url:""}];
     // const userPhoto = [{url:mine_userinfo.photo}];
     const orgData = activity_info_array.$mobx.values;
+    debugger
     return (
       <View className='create'>
         <View className="photo">
           <View className="label">活动主图</View>
           <View className="value" onClick={this.chooseImage.bind(this)}>
-            <Image src={this.state.userPhoto || activityDetail.logo} />
+            <Image src={this.state.userPhoto || activityDetail.photo} />
           </View>
         </View>
         <CustomList list={orgData} onClick={this.eventClick.bind(this)} />

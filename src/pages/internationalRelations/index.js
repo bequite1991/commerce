@@ -52,19 +52,20 @@ class Index extends Component {
   search(keys){
     const {defaultStore} = this.props;
     if(this.state.current == 0){
-      debugger
       defaultStore.getConsulateList(this.state.searchKey);
     }else{
-      debugger
       defaultStore.getCommerceList(this.state.searchKey);
     }
-    
   }
 
   handleClick (value) {
     this.setState({
       current: value
     })
+  }
+  onClear(){
+    this.state.searchKey = null
+    this.search();
   }
 
 
@@ -79,6 +80,7 @@ class Index extends Component {
           value={this.state.searchKey}
           onActionClick={this.search.bind(this)}
           onChange={this.onChange.bind(this)}
+          onClear={this.onClear.bind(this)}
         />
         <AtTabs className="tabs" current={this.state.current} tabList={tabList} onClick={this.handleClick.bind(this)}>
           <AtTabsPane current={this.state.current} index={0} >

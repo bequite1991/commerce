@@ -44,9 +44,13 @@ class Index extends Component {
     })
   }
 
-  refresh() {
+  refresh(type) {
     const { defaultStore} = this.props;
-    defaultStore.getConnectionMemberList(true, this.props.keywords || '');
+    if(type == "clear"){
+      defaultStore.getConnectionMemberList(true, '');
+    }else{
+      defaultStore.getConnectionMemberList(true, this.props.keywords || '');
+    }
   }
 
   handleClick() {

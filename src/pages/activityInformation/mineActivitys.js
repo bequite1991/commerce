@@ -64,8 +64,8 @@ class Index extends Component {
     const tabList = [{ title: '管理我的活动' }, { title: '我参加的活动' }];
     return (
       <View className='internationalRelations'>
-        <View className={this.state.current == 0?"tabButton activity":"tabButton"} onClick={this.handleClick.bind(this,0)}>管理我的组织</View>
-        <View className={this.state.current == 1?"tabButton activity":"tabButton"} onClick={this.handleClick.bind(this,1)}>我参加的组织</View>
+        <View className={this.state.current == 0?"tabButton activity":"tabButton"} onClick={this.handleClick.bind(this,0)}>管理我的活动</View>
+        <View className={this.state.current == 1?"tabButton activity":"tabButton"} onClick={this.handleClick.bind(this,1)}>我参加的活动</View>
         
         <View className={this.state.current == 0 ?"":"displayNone"}>
           <Manage ref="Manage" id="Manage" />

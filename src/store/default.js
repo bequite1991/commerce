@@ -410,7 +410,7 @@ const defaultStore = observable({
         {key:"amount",label:"积分",value:t.activityDetail.amount || "请填写所需积分"},
         {key:"create_id",label:"发起人",text:wx.getStorageSync("_TY_U").name,value:wx.getStorageSync("_TY_S")},
         {key:"phone",label:"联系方式",value:t.activityDetail.phone || "请填写联系人电话"},
-        {key:"content",label:"活动详情",value:t.activityDetail.content || "请填写活动详情"},
+        {key:"content",label:"活动详情",value:t.activityDetail.content || "请填写活动详情",editorType:"rich"},
       ];
     if(id == undefined){
       return;
@@ -446,7 +446,7 @@ const defaultStore = observable({
         
         {key:"master_id",label:"发起人",text:wx.getStorageSync("_TY_U").name,value:wx.getStorageSync("_TY_S")},
         {key:"phone",label:"联系方式",value:t.activityDetail.phone || "请填写联系人电话"},
-        {key:"content",label:"活动详情",value:t.activityDetail.content || "请填写活动详情"},
+        {key:"content",label:"活动详情",value:t.activityDetail.content || "请填写活动详情",editorType:"rich"},
       ];
 
       commentList.forEach((ele,key)=>{

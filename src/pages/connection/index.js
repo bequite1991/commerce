@@ -71,6 +71,18 @@ class Index extends Component {
       url: `/pages/${url}/index`
     })
   }
+  onClear(){
+    this.setState({
+      searchKey: null
+    });
+    const query = Taro.createSelectorQuery().select('#member');
+    // 刷新页面
+    if(this.state.current === 0){
+      query._selectorQuery._defaultComponent.$component.$$refs[0].target.refresh("clear");
+    }else{
+      query._selectorQuery._defaultComponent.$component.$$refs[1].target.refresh("clear");
+    }
+  }
 
   // <View className={this.state.current == 1?"tabButton activity":"tabButton"} onClick={this.handleClick.bind(this,1)}>专家委员会</View>
 
@@ -91,6 +103,7 @@ class Index extends Component {
           className="search"
           placeholder="搜索组织、俱乐部"
           value={this.state.searchKey}
+          onClear={this.onClear.bind(this)}
           onChange={this.onChange.bind(this)}
           onActionClick={this.search.bind(this)}
         />
