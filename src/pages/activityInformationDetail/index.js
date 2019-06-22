@@ -79,6 +79,21 @@ class Index extends Component {
       url: path
     });
   }
+  goJoin(path){
+    const { defaultStore:{activityDetail} } = this.props;
+    const timestamp = Date.parse(new Date());
+    const start_time = Date.parse(new Date(activityDetail.time));
+    if(timestamp > start_time){
+      Taro.showToast({
+        title: "活动已结束！",
+        icon: 'none'
+      });
+      return;
+    }
+    Taro.navigateTo({
+      url: path
+    });
+  }
   taggleReject(value){
     this.setState({
       isOpened:value
@@ -151,7 +166,7 @@ class Index extends Component {
         <Card title="活动详情">
           <View className="content">
             <rich-text nodes="{{activityDetail.content}}"></rich-text>
-            <AtButton className={this.$router.params.isAudit?"displayNone":"apply"} type='primary' onClick={this.goPage.bind(this,`/pages/activityInformationDetail/appliedConfirm?id=${this.state.activityId}`)}>确认报名</AtButton>
+            <AtButton className={this.$router.params.isAudit?"displayNone":"apply"} type='primary' onClick={this.goJoin.bind(this,`/pages/activityInformationDetail/appliedConfirm?id=${this.state.activityId}`)}>确认报名</AtButton>
           </View>
         </Card>
 

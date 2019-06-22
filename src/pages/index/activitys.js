@@ -34,9 +34,13 @@ class Activitys extends Component {
   componentDidHide () {}
 
   goPage(item){
-    if(item.tags == "已结束"){
-      return;
-    }
+    // if(item.tags == "已结束"){
+    //   Taro.showToast({
+    //     title: "活动已结束！",
+    //     icon: 'none'
+    //   });
+    //   return;
+    // }
     Taro.navigateTo({
       // url: '/pages/joinUs/index'
       url: `/pages/activityInformationDetail/index?id=${item.id}`
