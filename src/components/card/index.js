@@ -38,7 +38,12 @@ class Index extends Component {
     }else{
       Taro.navigateTo({
         // url: '/pages/joinUs/index'
-        url: href
+        url: href,
+        fail:()=>{
+          Taro.switchTab({
+            url: href
+          });
+        }
       });
     }
 

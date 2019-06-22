@@ -186,6 +186,7 @@ const defaultStore = observable({
       const data = res.data.data.data_list;
       if(data.list.length){
         data.list.forEach((item,key)=>{
+            item.commerce_job_name = Job[item.commerce_job]
             item.post = item.job_title;
             item.company = item.company_name || item.company_info;
             item.name = item.user_name;

@@ -127,7 +127,6 @@ class Index extends Component {
       name:"姓名",
       gender:"性别",
       job:"职务",
-      honner:"荣誉",
       birth_day:"生日",
       telphone:"联系电话",
       company_name:"企业名称",

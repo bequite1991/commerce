@@ -3,6 +3,8 @@ import { View, Button, Text,Swiper, SwiperItem} from '@tarojs/components'
 import { observer, inject } from '@tarojs/mobx'
 import Banner from "./banner.js";
 import Card from "../../components/card/index.js";
+import Presidium from "../index/presidium.js"
+
 import { AtButton } from 'taro-ui'
 
 import './index.scss';
@@ -62,18 +64,20 @@ class Index extends Component {
         <Card title="商会介绍" subTitle="更多" href="introduce">
             {introduce.introduce}
         </Card>
-        <Card title="商会成员" subTitle="更多" href="activitys">
-          <Image className="partnerLogos" src="http://ty-storage.oss-cn-hangzhou.aliyuncs.com/c283499078f837d91a98f20690b8621e.png" />
-             {/*<View className="brands">
+        <Card title="商会主席团成员" subTitle="更多" href="/pages/connection/index">
+          <Presidium hideTitle={true}/>
+          {/*<Image className="partnerLogos" src="http://ty-storage.oss-cn-hangzhou.aliyuncs.com/c283499078f837d91a98f20690b8621e.png" />
+             <View className="brands">
               {brandsData.map((item,index)=>{
                 return <View className="brand" key={item.name}><Image src={item.picture} className="brandImg"/><Text className="subTitle">{item.title}</Text></View>
               })}
             </View>*/}
         </Card>
         <Card title="合作伙伴" subTitle="全部" href="partner">
-          {parntersData.map((item,index)=>{
+          <Image style="height:280rpx;width:100%;" src="http://ty-storage.oss-cn-hangzhou.aliyuncs.com/b4aa50a03d38098aa217666e29eb1758.png" />
+          {/*{parntersData.map((item,index)=>{
             return <Image key={item.title} src={item.logo}  className="logo"/>
-          })}
+          })}*/}
         </Card>
         <AtButton className={isJoined && !isJoined?"displayNone":"apply"} type='primary' onClick={this.goPage}>申请加入</AtButton>
       </View>
