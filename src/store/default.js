@@ -2252,6 +2252,7 @@ const defaultStore = observable({
     const t = this;
     if(t.activitys_by_brand_id != null && t.activitys_by_brand_id != id){
       t.activitys_by_brand_page = 1;
+      t.activitys_by_brand = [];
     }
 
 
@@ -2283,7 +2284,7 @@ const defaultStore = observable({
             item.photo = item.picture;
             item.status = item.num + "人参与";
             if(key == records.length -1){
-              t.activitys_by_brand = t.home_activitysList.concat(records);
+              t.activitys_by_brand = t.activitys_by_brand.concat(records);
             }
           });
 
