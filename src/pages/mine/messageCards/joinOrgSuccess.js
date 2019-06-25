@@ -52,34 +52,8 @@ class Index extends Component {
     });
   }
 
-  goAuditList(org_id){
-    Taro.navigateTo({
-      // url: '/pages/joinUs/index'
-      url: `/pages/mine/messageAuditJoinOrg?org_id=${org_id}`
-    });
-  }
-
-  formatDateTime(inputTime) {
-    if(!inputTime){
-      return;
-    }
-    var date = new Date(inputTime);
-    var y = date.getFullYear();
-    var m = date.getMonth() + 1;
-    m = m < 10 ? ('0' + m) : m;
-    var d = date.getDate();
-    d = d < 10 ? ('0' + d) : d;
-    var h = date.getHours();
-    h = h < 10 ? ('0' + h) : h;
-    var minute = date.getMinutes();
-    var second = date.getSeconds();
-    minute = minute < 10 ? ('0' + minute) : minute;
-    second = second < 10 ? ('0' + second) : second;
-    return y + '-' + m + '-' + d+' '+h+':'+minute+':'+second;
-  }
   render () {
-    const { defaultStore,defaultStore:{dot_mine_message_system,dot_mine_message_reply,dot_mine_message_comment,dot_mine_todo} } = this.props;
-    const todo = dot_mine_todo && dot_mine_todo.list?dot_mine_todo.list.$mobx.values : [];
+    const { defaultStore,defaultStore:{dot_mine_message_system,dot_mine_message_reply,dot_mine_message_comment} } = this.props;
     const messageData = defaultStore.getMessageData();
     return (
       <View className="message">
@@ -107,14 +81,14 @@ class Index extends Component {
           </View>
         </View>
         <View className="messageList">
-          {todo.map((item,index)=>{
-            return <View key={index} className='message' onClick={this.goAuditList.bind(this,item.id)}>
-              <View className="photo"><AtBadge value={item.todo_count}><Image src={item.logo} /></AtBadge></View>
+          {messageData.map((item,index)=>{
+            return <View key={index} className='message' onClick={this.goPage.bind(this,'activityInformationDetail')}>
+              <View className="photo"><AtBadge value={3}><Image src={item.photo} /></AtBadge></View>
               <View className="messageInfo">
-                <View className="title">{item.name}</View>
-                <View className="subtitle">有新的成员请求加入组织</View>
+                <View className="title">{item.title}</View>
+                <View className="subtitle">{item.subtitle}</View>
               </View>
-              <View className="time">{this.formatDateTime(item.audit_time)}</View>
+              <View className="time">{item.time}</View>
 
             </View>
           })}

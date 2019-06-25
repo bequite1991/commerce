@@ -82,6 +82,7 @@ class App extends Component {
       'pages/mine/assistant',
       'pages/mine/enterpriseData',
       'pages/mine/activitys',
+      'pages/mine/messageAuditJoinOrg',
 
       'pages/activityInformation/indexTheme',
       'pages/activityInformationDetail/appliedFail',
@@ -91,6 +92,7 @@ class App extends Component {
       'pages/activityInformationDetail/index',
       'pages/activityInformationDetail/message',
       'pages/wisdomMemberDetail/index',
+      'pages/organizationRegister/index',
       'pages/organizationRegister/submitSuccess',
       'pages/organization/index',
       'pages/organization/createOrEdit',
@@ -116,6 +118,7 @@ class App extends Component {
       'pages/governmentCounsel/index',
       'pages/governmentDocking/index',
       'pages/joinUs/index',
+      'pages/joinUs/ruler',
 
       'pages/commerceIntroduce/index',
       'pages/commerceIntroduce/activitys',
@@ -164,7 +167,7 @@ class App extends Component {
   }
 
   componentDidMount () {
-    store.defaultStore.getMailCount();
+    // store.defaultStore.getMailCount();
   }
 
   componentDidShow () {}

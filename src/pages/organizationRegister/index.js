@@ -1,8 +1,8 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Button, Text,Swiper, SwiperItem} from '@tarojs/components'
+import { View, Button, Text,Swiper, SwiperItem,Picker} from '@tarojs/components'
 import { observer, inject } from '@tarojs/mobx'
 
-import { AtFab,AtButton,AtTextarea,Picker } from 'taro-ui';
+import { AtFab,AtButton,AtTextarea} from 'taro-ui';
 
 import './index.scss';
 
@@ -58,7 +58,11 @@ class Index extends Component {
     })
   }
   onPickerChange(params){
+    const t = this;
 
+    this.setState({
+      selectorChecked:t.state.selector[Number(params.detail.value)]
+    })
   }
 
   submit(){

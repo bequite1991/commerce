@@ -66,7 +66,7 @@ class Index extends Component {
 
           <View className="item"><View className="at-icon at-icon-phone icon"></View><View className="text">公司电话：021-32013610</View></View>
 
-          <View className="item"><View className="at-icon at-icon-mail icon"></View><View className="text">公司邮箱：xxxxxxxx@163.com</View></View>
+          <View className="item"><View className="at-icon at-icon-mail icon"></View><View className="text">公司邮箱：jrlsea@163.com</View></View>
 
           <View className="item"><View className="at-icon at-icon-message icon"></View><View className="text">微信公众号：xhslhhfw</View></View>
         </View>

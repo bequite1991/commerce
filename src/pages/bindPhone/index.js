@@ -167,9 +167,7 @@ class Index extends Component {
             }).then((res) => {
               const data = res.data;
               if(data.ok){
-                debugger
                 if(t.back){
-                  debugger
                   Taro.navigateTo({
                     url: decodeURIComponent(t.back)
                   })

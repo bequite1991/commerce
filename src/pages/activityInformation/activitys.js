@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text,Swiper, SwiperItem} from '@tarojs/components'
 import { observer, inject } from '@tarojs/mobx'
-
+import { AtLoadMore } from 'taro-ui';
 
 import Logo from '../../public/images/logo@3x.png';
 

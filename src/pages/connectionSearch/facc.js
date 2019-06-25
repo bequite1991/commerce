@@ -34,7 +34,6 @@ class Index extends Component {
 
   onClick (item) {
     console.log(item)
-    debugger
     this.setState({
       currentItem:item,
       isOpened1:true

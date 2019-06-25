@@ -56,7 +56,6 @@ class Index extends Component {
   }
 
   submit(){
-    debugger
   }
 
 

@@ -1,0 +1,78 @@
+page {
+  background-color: rgba(236,236,236,1);
+} 
+.message{
+	.header{
+		display:flex;
+		justify-content: space-around;
+		padding: 40rpx 0;
+		padding-top: 0;
+		background-color: #fff;
+	}
+	.entrance{
+		display: inline-block;
+		text-align: center;
+		margin-top: 70rpx;
+		text{
+			font-size:28rpx;
+			font-family:PingFangSC-Regular;
+			font-weight:400;
+			color:rgba(0,0,0,1);
+			line-height:40rpx;
+			display: inline-block;
+			margin-top:10rpx;
+		}
+		.iconxitongxiaoxi{
+			color:#FF5267;
+			font-size:80rpx;
+		}
+		.iconxinzenghuifu{
+			color:#FFC641;
+			font-size:80rpx;
+		}
+		.iconxinzengliuyan{
+			color:#289FFF;
+			font-size:80rpx;
+		}
+		
+	}
+	.messageList{
+		margin-top: 20rpx;
+		background-color: #fff;
+		.message{
+			padding: 30rpx;
+			display: flex;
+			border-bottom:2rpx solid rgba(238,238,238,1);
+		}
+		.title{
+			font-size:28rpx;
+			font-family:PingFangSC-Regular;
+			font-weight:400;
+			color:rgba(0,0,0,1);
+			line-height:40rpx;
+		}
+		.subtitle{
+			font-size:24rpx;
+			font-family:PingFangSC-Regular;
+			font-weight:400;
+			color:rgba(127,127,127,1);
+			line-height:34rpx;
+		}
+		image{
+			width:84rpx;
+			height:84rpx;
+			border-radius: 50%;
+			margin-right: 40rpx;
+		}
+		.time{
+			font-size:24rpx;
+			font-family:PingFangSC-Regular;
+			font-weight:400;
+			color:rgba(127,127,127,1);
+			line-height:34rpx;
+		}
+		.at-badge__num{
+			right: 20rpx;
+		}
+	}
+}

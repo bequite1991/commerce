@@ -30,12 +30,13 @@ class Index extends Component {
   }
 
   componentWillMount () {
+    const {defaultStore} = this.props;
+    defaultStore.getMailCount();
+  }
+
+  componentDidMount () {
     wx.showShareMenu();
-    wx.showTabBar();
-    const {defaultStore:{dot_tabbar_show}} = this.props;
-    if(dot_tabbar_show){
-      Taro.showTabBarRedDot({index:3})
-    }
+    wx.showTabBar();    
   }
 
   componentWillReact () {
@@ -84,7 +85,6 @@ class Index extends Component {
   }
 
   render () {
-    console.log('this.$router:', this.$router.path);
     return (
       <View className="homePage">
         <Image src={Logo} className="logo" />

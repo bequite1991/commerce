@@ -1,9 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text,Swiper, SwiperItem,Picker} from '@tarojs/components'
 import { observer, inject } from '@tarojs/mobx'
-import Card from "../../components/card/index.js";
-import { AtList, AtListItem, AtBadge,AtCard  } from 'taro-ui';
-import Tags from "../../components/tags/index.js";
+import { AtImagePicker,AtButton ,AtLoadMore} from 'taro-ui';
 
 import './messageAuditJoinOrg.scss';
 
@@ -13,31 +11,29 @@ import './messageAuditJoinOrg.scss';
 class Index extends Component {
 
   config = {
-    navigationBarTitleText: '成员审核',
+    navigationBarTitleText: '审核申请',
     navigationBarTextStyle: "black",
   }
 
   constructor (props) {
     super (props);
     this.state = {
-      formData: {
-        birthday:"1950-01-01"
-      },
-      sexOpen:false,
-      selectorChecked:"男性",
-      isChange:0,
-      position:"会员",
-      positionsArr:["名誉会长","会长","轮值主席","常务副会长","副会长","理事","会员"]
     };
   }
 
-  componentWillMount () { }
+  componentWillMount () {
+  }
 
   componentWillReact () {
     console.log('componentWillReact')
   }
 
-  componentDidMount () { }
+  componentDidMount () {
+    const {defaultStore} = this.props;
+    const org_id = this.$router.params.org_id;
+    defaultStore.getOrgMembers(org_id);
+    wx.showShareMenu();
+  }
 
   componentWillUnmount () { }
 
@@ -47,56 +43,81 @@ class Index extends Component {
 
   goPage(url){
     Taro.navigateTo({
-      // url: '/pages/joinUs/index'
-      url: `/pages/mine/${url}`
+      url: url
+    });
+  }
+
+  handleClick(){
+    const { defaultStore } = this.props;
+    const org_id = this.$router.params.org_id;
+    defaultStore.getOrgMembers(org_id);
+  }
+  audit(item,status){
+    const { defaultStore } = this.props;
+    const id = item.id;
+    Taro.showModal({
+      title: '提示',
+      content: '确认执行该操作？',
+      success: function(res) {
+        if (res.confirm) {
+          console.log('用户点击确定');
+          defaultStore.auditApply(id,status);
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
     });
   }
 
   render () {
-    const { defaultStore,defaultStore:{dot_mine_message_system,dot_mine_message_reply,dot_mine_message_comment} } = this.props;
-    const messageData = defaultStore.getMessageData();
+    const {defaultStore,defaultStore:{org_members,org_members_page,org_members_status}} = this.props;
+    // const userPhoto = [{url:""}];
+    // const userPhoto = [{url:mine_userinfo.photo}];
+    const orgData = org_members.$mobx.values;
     return (
-      <View className="message">
-        <View className="header">
-          <View className='entrance' onClick={this.goPage.bind(this,'messageSystem')} key="商道智慧">
-            <AtBadge dot={dot_mine_message_system}>
-              <View className='tips'></View>
-              <View><text class="icon iconfont iconxitongxiaoxi"></text></View>
-              <text>系统消息</text>
-            </AtBadge>
-          </View>
-          <View className='entrance' onClick={this.goPage.bind(this,'messageReply')}>
-            <AtBadge dot={dot_mine_message_reply}>
-              <View className='tips'></View>
-              <View><text class="icon iconfont iconxinzenghuifu"></text></View>
-              <text>新增回复</text>
-            </AtBadge>
-          </View>
-          <View className='entrance' onClick={this.goPage.bind(this,'messageComment')}>
-            <AtBadge dot={dot_mine_message_comment}>
-              <View className='tips'></View>
-              <View><text class="icon iconfont iconxinzengliuyan"></text></View>
-              <text>新增留言</text>
-            </AtBadge>
-          </View>
-        </View>
-        <View className="messageList">
-          {messageData.map((item,index)=>{
-            return
-            <AtCard> 
-              <View key={index} className='message' onClick={this.goPage.bind(this,'activityInformationDetail')}>
-                <View className="photo"><AtBadge value={3}><Image src={item.photo} /></AtBadge></View>
-                <View className="messageInfo">
-                  <View className="title">{item.title}</View>
-                  <View className="subtitle">{item.subtitle}</View>
+      <View className='auditJoinOrg'>
+        <View className="applys">
+          {orgData.map((item,index)=>{
+            return <View key={index} className='applyItem'>
+                <View className="header">
+                  <View className="connectionMemberBase" key={index} onClick={this.handleClick.bind(this, item)}>
+                    <View className="border"></View>
+                    <View className="photo">
+                      <Image src={item.photo} lazyLoad={true} onClick={this.showPhoto.bind(this,item.photo)}/>
+                    </View>
+                    <View className="info" >
+                      <View className="name">{item.user_name}</View>
+                      <View className="position">{item.job_title}</View>
+                      <View className="company">{item.company_name}</View>
+                    </View>
+                  </View>
                 </View>
-                <View className="time">{item.time}</View>
-
-              </View>
-            </AtCard>
+                <View className="content">
+                  <View className="item">
+                    <View className="label">时间</View>
+                    <View className="value">{item.time}</View>
+                  </View>
+                  <View className="item">
+                    <View className="label">职务</View>
+                    <View className="value">{item.job}</View>
+                  </View>
+                  <View className="item">
+                    <View className="label">理由</View>
+                    <View className="value">{item.reason}</View>
+                  </View>
+                </View>
+                <View className="footer">
+                  <AtButton className="button" type='secondary' onClick={this.audit.bind(this,item,0)}>拒绝</AtButton>
+                  <AtButton className="button" type='primary' onClick={this.audit.bind(this,item,1)}>同意</AtButton>
+                </View>
+            </View>
           })}
         </View>
-
+        <AtButton className="button" type='primary' onClick={this.audit.bind(this,item,1)}>同意</AtButton>
+        <AtLoadMore
+          onClick={this.handleClick.bind(this)}
+          status={org_members_status}
+        />
       </View>
     )
   }

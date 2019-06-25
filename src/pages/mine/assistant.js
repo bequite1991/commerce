@@ -45,7 +45,6 @@ class Index extends Component {
     });
   }
   imageChange(value){
-    debugger
     this.setState({
       userPhoto:value[0].url
     })
@@ -60,7 +59,6 @@ class Index extends Component {
       value:item.value,
       editorType:item.editorType || "textarea"
     }
-    debugger
     defaultStore.setMineEditor(param);
     setTimeout(()=>{
       t.goPage("/pages/mine/editor")

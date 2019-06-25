@@ -32,7 +32,6 @@ class Index extends Component {
     const user = wx.getStorageSync("_TY_U");
     defaultStore.getOrganizationDetail(id, user);
     wx.showShareMenu();
-
   }
 
   componentWillReact () {
@@ -55,7 +54,7 @@ class Index extends Component {
   }
   goActivityCreate(){
     const t = this;
-    Taro.navigateTo({
+    Taro.redirectTo({
       url: `/pages/activityInformation/createOrEdit?org_id=${t.$router.params.id}`
     });
   }
@@ -68,6 +67,7 @@ class Index extends Component {
   render () {
     const { defaultStore } = this.props;
     const organizationDetail = defaultStore.org_detail;
+    const user = wx.getStorageSync("_TY_U");
     //判断是否是是改组织的管理员
     const owner = true;
     const tabList = [{ title: '成员' }, { title: '活动' }];
@@ -76,17 +76,17 @@ class Index extends Component {
         <Banner header={organizationDetail.header} />
         <AtTabs className="tabs" current={this.state.current} tabList={tabList} onClick={this.handleClick.bind(this)}>
           <AtTabsPane current={this.state.current} index={0} >
-            <View style='background-color: #ffffff;' ><Members members={organizationDetail.members} /></View>
+            <View style='background-color: #ffffff;' ><Members members={organizationDetail.members || []} /></View>
           </AtTabsPane>
           <AtTabsPane current={this.state.current} index={1}>
-            <View style='background-color: #ffffff;'><Activitys activitys={organizationDetail.activitys} /></View>
+            <View style='background-color: #ffffff;'><Activitys activitys={organizationDetail.activitys || []} /></View>
           </AtTabsPane>
         </AtTabs>
         {
           !organizationDetail.hasJoin && <AtButton className="apply" type='primary' onClick={this.goPage}>申请</AtButton>
         }
         {
-          owner && <AtButton className="apply" type='primary' onClick={this.goActivityCreate}>发起活动</AtButton>
+          organizationDetail.job && <AtButton className="apply" type='primary' onClick={this.goActivityCreate}>发起活动</AtButton>
         }
       </View>
     )

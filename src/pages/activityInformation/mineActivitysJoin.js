@@ -39,7 +39,6 @@ class Index extends Component {
   render () {
     const { defaultStore:{activity_mine_join}} = this.props;
     const list = activity_mine_join.$mobx.values || [];
-    debugger
     return (
       <View className='commerce'>
         <View className="activitysList">

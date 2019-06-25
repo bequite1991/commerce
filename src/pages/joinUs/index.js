@@ -23,13 +23,16 @@ class Index extends Component {
     super (props);
     this.state = {
       formData: {
-        birth_day:"1950-01-01"
+        birth_day:"1950-01-01",
+        gender:"男性",
+        commerce_job:"会员"
       },
       sexOpen:false,
       selectorChecked:"男性",
       isChange:0,
       commerce_job:"会员",
       positionsArr:["名誉会长","会长","轮值主席","常务副会长","副会长","理事","会员"],
+      sexSelector:["男性","女性"],
       authOpened: false
     };
   }
@@ -85,9 +88,9 @@ class Index extends Component {
       sexOpen:true
     })
   }
-  selectSex(sex){
+  selectSex(e){
     let {formData} = this.state;
-    formData.gender = sex;
+    formData.gender = this.state.sexSelector[e.detail.value];
     this.setState({
       sexOpen:false
     })
@@ -131,12 +134,12 @@ class Index extends Component {
       telphone:"联系电话",
       company_name:"企业名称",
       register_capital:"注册资本",
-      social_creit_code:'统一社会信用代码',
+      // social_creit_code:'统一社会信用代码',
       yye:'营业额',
       nse:'纳税额',
-      zgrs:'职工人数',
-      industry:'行业领域',
-      zyyw:'主营业务'
+      // zgrs:'职工人数',
+      // industry:'行业领域',
+      // zyyw:'主营业务'
     }
     Object.keys(formName).forEach((item,key)=>{
       if(!t.state.formData[item] && !warring && formName[item]){
@@ -168,9 +171,9 @@ class Index extends Component {
     const brandsData = introduce.brands;
     return (
       <View className='joinUs'>
-        <View className="position"><Tags tags={positionsArr} onChange={this.onTagChange.bind(this)}/></View>
+        <View className="position"><Tags defaultActive={4} tags={positionsArr} onChange={this.onTagChange.bind(this)}/></View>
 
-        <Card title="入会须知" subTitle="更多" href="pages/joinUs/index">
+        <Card title="入会须知" subTitle="查看标准" href="/pages/joinUs/ruler">
             一、 会员入会程序： 1. 认真阅读本会章程，填写入会申请表（需加盖公司公章）； 2. 提供贵企业资料（公司和企业家个人简介、公司和个人电子 照片、公司LOGO、营业执照扫描件（加盖公章）、个人身份证复印件、最近一期财务年报）； 3. 联合会秘书处初审； 4. 提交会长会议审议通过； 5. 缴纳会费并注册； 6. 秘书处颁发会员证。
         </Card>
         <Card title="资料填写" subTitle="" download='http://ty-storage.oss-cn-hangzhou.aliyuncs.com/8aa6af8768df9544a16bf1961ec1b164.pptx'>
@@ -183,22 +186,14 @@ class Index extends Component {
                 value={formData.name}
                 onChange={this.handleChange.bind(this,"name")}
               />
-              <AtInput
-                name='gender'
-                title='性 别'
-                type='number'
-                placeholder='请选择性别'
-                value={formData.gender}
-                onFocus={this.showSexAction.bind(this)}
-              />
-              <AtActionSheet isOpened = {sexOpen} cancelText='取消' title='头部标题可以用通过转义字符换行'>
-                <AtActionSheetItem onClick={this.selectSex.bind(this,"女性")}>
-                  女性
-                </AtActionSheetItem>
-                <AtActionSheetItem onClick={this.selectSex.bind(this,"男性")}>
-                  男性
-                </AtActionSheetItem>
-              </AtActionSheet>
+              <Picker className="formItem" mode='selector' range={this.state.sexSelector} onChange={this.selectSex.bind(this)}>
+                <View className='title'>
+                  性别
+                </View>
+                <View className="content">
+                  {formData.gender}
+                </View>
+              </Picker>
               <AtInput
                 name='job'
                 title='职 务'
@@ -241,7 +236,7 @@ class Index extends Component {
               />
               <AtInput
                 name='register_capital'
-                title='注册资本'
+                title='注册资本(万元)'
                 type='digit'
                 placeholder='请填写注册资本'
                 value={formData.register_capital}
@@ -257,7 +252,7 @@ class Index extends Component {
               />
               <AtInput
                 name='yye'
-                title='营业额'
+                title='营业额(万元)'
                 type='text'
                 placeholder='请填写行营业额'
                 value={formData.yye}
@@ -265,7 +260,7 @@ class Index extends Component {
               />
               <AtInput
                 name='nse'
-                title='纳税额'
+                title='纳税额(万元)'
                 type='text'
                 placeholder='请填写纳税额' 
                 value={formData.nse}

@@ -149,7 +149,8 @@ class Index extends Component {
   submit(){
     const t = this;
     const {defaultStore} = this.props;
-    defaultStore.submitCreateActivitys();
+    const org_id = this.$router.params.org_id;
+    defaultStore.submitCreateActivitys(org_id);
   }
 
 
@@ -158,7 +159,6 @@ class Index extends Component {
     // const userPhoto = [{url:""}];
     // const userPhoto = [{url:mine_userinfo.photo}];
     const orgData = activity_info_array.$mobx.values;
-    debugger
     return (
       <View className='create'>
         <View className="photo">

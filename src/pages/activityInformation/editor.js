@@ -69,7 +69,6 @@ class Index extends Component {
     })
   }
   onEditorReady(valueBase) {
-    debugger
     const that = this
     wx.createSelectorQuery().select('#editor').context(valueBase).exec()
   }
@@ -98,6 +97,7 @@ class Index extends Component {
           type='text'
           value={valueBase}
           onChange={this.handleChange.bind(this)}
+          maxLength={245}
         />
         <editor
           id="editor"
@@ -113,7 +113,7 @@ class Index extends Component {
           className={activity_editor.editorType=="textarea"?"":"displayNone"}
           value={valueBase}
           onChange={this.handleChange.bind(this)}
-          maxLength={500}
+          maxLength={245}
         />
         <AtRadio
           className={activity_editor.editorType=="radio"?"":"displayNone"}

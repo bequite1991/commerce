@@ -144,6 +144,13 @@ class Index extends Component {
   render () {
     const { defaultStore:{mine_userinfo,dot_tabbar_show} } = this.props;
     let {formData,sexOpen,positionsArr,update} = this.state;
+    let secretariat = false
+    if(wx.getStorageSync("_TY_U") && wx.getStorageSync("_TY_U").commerce_job == "secretariat"){
+      secretariat = true
+    }
+
+
+
     return (
       <View className='memberDetail'>
         <View className="memberBase" onClick={this.goPage.bind(this,"personalDetails")}>
@@ -192,6 +199,12 @@ class Index extends Component {
             onClick={this.goMineActivitys.bind(this,"myActivitys")}
           />
           <AtListItem
+            title='我的组织'
+            arrow='right'
+            thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
+            onClick={this.goMineOrg.bind(this)}
+          />
+          <AtListItem
             title='联系我们'
             arrow='right'
             thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
@@ -204,12 +217,12 @@ class Index extends Component {
             onClick={this.goPage.bind(this,"setting")}
           />
 
-          <AtListItem
+         {/*<AtListItem
             title='我的分享'
             arrow='right'
             thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
             onClick={this.goMineShare.bind(this)}
-          />
+          />*/}
 
           <AtListItem
             title='加入我们'
@@ -217,18 +230,12 @@ class Index extends Component {
             thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
             onClick={this.goPageJoinUs.bind(this)}
           />
-          <AtListItem
-            title='我的组织'
-            arrow='right'
-            thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
-            onClick={this.goMineOrg.bind(this)}
-          />
-          <AtListItem
+          {secretariat && <AtListItem
             title='秘书处'
             arrow='right'
             thumb='http://img12.360buyimg.com/jdphoto/s72x72_jfs/t10660/330/203667368/1672/801735d7/59c85643N31e68303.png'
             onClick={this.goUrl.bind(this,"/pages/secretary/index")}
-          />
+          />}
         </AtList>
 
         <AtActionSheet isOpened={this.state.authOpened} cancelText='取消' title='获取你的昵称、头像、地区及性别'>

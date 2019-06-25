@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Button, Text,Swiper, SwiperItem} from '@tarojs/components'
+import { View, Button, Text,Swiper, SwiperItem,RichText} from '@tarojs/components'
 import { observer, inject } from '@tarojs/mobx'
 import Banner from "./banner.js";
 import Card from "../../components/card/index.js";
@@ -139,11 +139,11 @@ class Index extends Component {
             <View className="label">联系方式</View>
             <View className="value main">{activityDetail.phone}</View>
           </View>
-          <View className="formItem">
+          {/*<View className="formItem">
             <View className="label">已报名</View>
             <View className="value">{activityDetail.status}</View>
             <View className="button" onClick={this.goPage.bind(this,`/pages/activityInformationDetail/applied`)}><View className='at-icon at-icon-eye icon'></View><View className="text">查看</View></View>
-          </View>
+          </View>*/}
         </View>
         <Card title="留言" subTitle="查看全部" href="message">
           <View className="messageList">
@@ -165,7 +165,7 @@ class Index extends Component {
         </Card>
         <Card title="活动详情">
           <View className="content">
-            <rich-text nodes="{{activityDetail.content}}"></rich-text>
+            <RichText nodes={activityDetail.content} />
             <AtButton className={this.$router.params.isAudit?"displayNone":"apply"} type='primary' onClick={this.goJoin.bind(this,`/pages/activityInformationDetail/appliedConfirm?id=${this.state.activityId}`)}>确认报名</AtButton>
           </View>
         </Card>

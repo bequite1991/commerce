@@ -43,15 +43,17 @@ class Index extends Component {
     this.setState({
       active:index
     });
+    this.props.defaultActive = index
     this.props.onChange(tags[index])
   }
 
   render () {
     const { tags } = this.props;
+    // const active = this.props.defaultActive || this.state.
     return (
       <View className={this.props.type || "tags"}>
         {tags.map((item,index)=>{
-          return <View className="tag" className={active == index?"tag active":"tag default"} key={index} onClick={this.onChange.bind(this,index)}><View className="words">{item}<View className="border"></View></View></View>
+          return <View className="tag" className={this.props.defaultActive == index?"tag active":"tag default"} key={index} onClick={this.onChange.bind(this,index)}><View className="words">{item}<View className="border"></View></View></View>
         })}
       </View>
     )

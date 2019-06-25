@@ -31,7 +31,10 @@ class Activitys extends Component {
   }
 
   render () {
-    const {activitys} = this.props;
+    // const {activitys} = this.props;
+    const { defaultStore:{org_detail} } = this.props;
+    const activitys = org_detail.activitys?org_detail.activitys.$mobx.values : [];
+    console.log("activitys:",activitys);
     return (
         <View className="activitys">
           {activitys.map((item,index)=>{

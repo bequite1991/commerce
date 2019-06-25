@@ -42,7 +42,6 @@ class Index extends Component {
       // url: '/pages/joinUs/index'
       url: `/pages/${url}/index`
     }).then((resp)=>{
-      debugger
     })
     // Taro.navigateTo({
     //   // url: '/pages/joinUs/index'

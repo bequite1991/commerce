@@ -60,7 +60,6 @@ class Index extends Component {
         />
         <Entrance />
         <Activitys />
-        <BottomBar />
       </View>
     )
   }

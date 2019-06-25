@@ -50,7 +50,6 @@ class Index extends Component {
   //提交回复
   onActionClick(){
     
-    debugger
     const { defaultStore } = this.props;
     const { item,content } = this.state;
 
@@ -67,7 +66,6 @@ class Index extends Component {
   }
   //展示 输入框
   showInput(item){
-    debugger
     this.setState({
       item:item,
       showInput:true
