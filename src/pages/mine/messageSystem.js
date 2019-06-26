@@ -4,6 +4,7 @@ import { observer, inject } from '@tarojs/mobx'
 import Card from "../../components/card/index.js";
 import { AtList, AtListItem, AtSearchBar  } from 'taro-ui';
 import Tags from "../../components/tags/index.js";
+import MessageCards from "./messageCards/jifenUp.js"
 
 import './messageSystem.scss';
 
@@ -61,6 +62,7 @@ class Index extends Component {
     const list = mine_messageSystem.$mobx.values;
     return (
       <View className="messageSystem">
+        <MessageCards />
         <View className="messageList">
           {list.map((item,index)=>{
             return <View key={index} className='message'>

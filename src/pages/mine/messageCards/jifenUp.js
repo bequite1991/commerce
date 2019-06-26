@@ -1,11 +1,11 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Button, Text,Swiper, SwiperItem,Picker} from '@tarojs/components'
+import { View, Button, Text,Swiper, SwiperItem,Picker,Image} from '@tarojs/components'
 import { observer, inject } from '@tarojs/mobx'
 import Card from "../../components/card/index.js";
 import { AtList, AtListItem, AtBadge  } from 'taro-ui';
 import Tags from "../../components/tags/index.js";
 
-import './message.scss';
+import './jifenUp.scss';
 
 
 @inject('defaultStore')
@@ -56,43 +56,93 @@ class Index extends Component {
     const { defaultStore,defaultStore:{dot_mine_message_system,dot_mine_message_reply,dot_mine_message_comment} } = this.props;
     const messageData = defaultStore.getMessageData();
     return (
-      <View className="message">
-        <View className="header">
-          <View className='entrance' onClick={this.goPage.bind(this,'messageSystem')} key="商道智慧">
-            <AtBadge dot={dot_mine_message_system}>
-              <View className='tips'></View>
-              <View><text class="icon iconfont iconxitongxiaoxi"></text></View>
-              <text>系统消息</text>
-            </AtBadge>
-          </View>
-          <View className='entrance' onClick={this.goPage.bind(this,'messageReply')}>
-            <AtBadge dot={dot_mine_message_reply}>
-              <View className='tips'></View>
-              <View><text class="icon iconfont iconxinzenghuifu"></text></View>
-              <text>新增回复</text>
-            </AtBadge>
-          </View>
-          <View className='entrance' onClick={this.goPage.bind(this,'messageComment')}>
-            <AtBadge dot={dot_mine_message_comment}>
-              <View className='tips'></View>
-              <View><text class="icon iconfont iconxinzengliuyan"></text></View>
-              <text>新增留言</text>
-            </AtBadge>
-          </View>
-        </View>
-        <View className="messageList">
-          {messageData.map((item,index)=>{
-            return <View key={index} className='message' onClick={this.goPage.bind(this,'activityInformationDetail')}>
-              <View className="photo"><AtBadge value={3}><Image src={item.photo} /></AtBadge></View>
-              <View className="messageInfo">
-                <View className="title">{item.title}</View>
-                <View className="subtitle">{item.subtitle}</View>
-              </View>
-              <View className="time">{item.time}</View>
+      <View className="messageCardList">
 
+        <View className="messageCard jifenUp">
+          <View className="time">2019年4月2日 09:06</View>
+          <View className="card">
+            <View className="head">
+              <View className="title">积分收入</View>
+              <View className="date">5月12日</View>
             </View>
-          })}
+            <View className="content">10000积分</View>
+            <View className="footer">
+                <View className="datetime"><View className="label">时间</View><View className="value">2019-05-12 20:12</View></View>
+                <View className="desc"><View className="label">说明</View><View className="value">充值会费赠送</View></View>
+            </View>
+          </View>
         </View>
+
+        <View className="messageCard jifenDown">
+          <View className="time">2019年4月2日 09:06</View>
+          <View className="card">
+            <View className="head">
+              <View className="title">积分支出</View>
+              <View className="date">5月12日</View>
+            </View>
+            <View className="content">10000积分</View>
+            <View className="footer">
+                <View className="datetime"><View className="label">时间</View><View className="value">2019-05-12 20:12</View></View>
+                <View className="desc"><View className="label">说明</View><View className="value">参加“走进河姆渡”扣取</View></View>
+            </View>
+          </View>
+        </View>
+
+        <View className="messageCard joinOrgFail">
+          <View className="time">2019年4月2日 09:06</View>
+          <View className="card">
+            <View className="head2">
+              <View className="logo"><Image lazyLoad={true} src="http://ty-storage.oss-cn-hangzhou.aliyuncs.com/00fd5d21b8a88b8e20de168396b27821.jpg" /></View>
+              <View className="title">红酒会俱乐部</View>
+            </View>
+            <View className="content2">很抱歉管理员拒绝了您的申请</View>
+            <View className="footer">
+                <View className="datetime"><View className="label">拒绝理由：</View><View className="value">很抱歉，您暂时不符合我们组织的申 请要求，对您造成的不便我们深感遗 憾！</View></View>
+            </View>
+          </View>
+        </View>
+
+        <View className="messageCard joinOrgSuccess">
+          <View className="time">2019年4月2日 09:06</View>
+          <View className="card">
+            <View className="head2">
+              <View className="logo"><Image lazyLoad={true} src="http://ty-storage.oss-cn-hangzhou.aliyuncs.com/00fd5d21b8a88b8e20de168396b27821.jpg" /></View>
+              <View className="title">红酒会俱乐部</View>
+            </View>
+            <View className="content2">欢迎您加入本组织</View>
+          </View>
+        </View>
+
+        <View className="messageCard joinActivityFail">
+          <View className="time">2019年4月2日 09:06</View>
+          <View className="card">
+            <View className="head">
+              <View className="title">积分支出</View>
+              <View className="date">5月12日</View>
+            </View>
+            <View className="content">10000积分</View>
+            <View className="footer">
+                <View className="datetime"><View className="label">时间</View><View className="value">2019-05-12 20:12</View></View>
+                <View className="desc"><View className="label">说明</View><View className="value">参加“走进河姆渡”扣取</View></View>
+            </View>
+          </View>
+        </View>
+
+        <View className="messageCard joinActivitySuccess">
+          <View className="time">2019年4月2日 09:06</View>
+          <View className="card">
+            <View className="head">
+              <View className="title">积分支出</View>
+              <View className="date">5月12日</View>
+            </View>
+            <View className="content">10000积分</View>
+            <View className="footer">
+                <View className="datetime"><View className="label">时间</View><View className="value">2019-05-12 20:12</View></View>
+                <View className="desc"><View className="label">说明</View><View className="value">参加“走进河姆渡”扣取</View></View>
+            </View>
+          </View>
+        </View>
+
 
       </View>
     )
